@@ -361,6 +361,31 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = Sums.sumDigitsFromString(bPower.ToString());
             return View();
         }
+        public ActionResult Problem17() {
+            string[] ones = new string[] { "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
+            string[] tens = new string[] { "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
+            int[] names = new int[1000];
+            int one, ten, hun, r, iSum = 0;
+            for (var x = 0; x < 20; x++) {
+                names[x] = ones[x].Length;
+            }
+            for (var x = 20; x < 100; x++) {
+                one = x % 10;
+                ten = (x - one) / 10;
+                names[x] = tens[ten].Length + ones[one].Length;
+            }
+            names[0] = -3; //compensate for the "and"
+            for (var x = 100; x < 1000; x++) {
+                r = x % 100;
+                hun = (x - r) / 100;
+                names[x] = ones[hun].Length + "hundredand".Length + names[r];
+            }
+            for (var x = 1; x < 1000; x++) {
+                iSum += names[x];
+            }
+            ViewBag.Answer = iSum + "onethousand".Length;
+            return View();
+        }
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
             return View();
