@@ -190,6 +190,32 @@ namespace ProjectEuler.Controllers {
             return View();
         }
 
+        public ActionResult Problem12() {
+            PrimeGenerator pg = new SieveOfAtkin();
+            long lTri = 1;
+            List<int> liFactors;
+            int iLastFactor = 0;
+            int iCurrDivCount;
+            int iLastDivCount;
+            for (int i = 2; i < 1000000; i++) {
+                lTri += i;
+                liFactors = pg.factor(lTri);
+                iCurrDivCount = 1;
+                iLastDivCount = 1;
+                foreach(int iFactor in liFactors){
+                    if (iFactor != iLastFactor) {
+                        iLastDivCount = iCurrDivCount;
+                        iLastFactor = iFactor;
+                    }
+                    iCurrDivCount += iLastDivCount;
+                }
+                if (iCurrDivCount > 500) {
+                    ViewBag.Answer = lTri;
+                    break;
+                }
+            }
+            return View();
+        }
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
             return View();
