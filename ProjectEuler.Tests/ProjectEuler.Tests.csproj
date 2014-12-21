@@ -84,6 +84,8 @@
   <ItemGroup>
     <Compile Include="Classes\BoolMapTest.cs" />
     <Compile Include="Classes\PrimeGeneratorTest.cs" />
+    <Compile Include="Classes\CollatzTest.cs" />
+    <Compile Include="Classes\SumsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

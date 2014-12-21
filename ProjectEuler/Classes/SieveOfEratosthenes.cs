@@ -9,8 +9,9 @@ namespace ProjectEuler.Classes {
         public const int INSTANT = 100000;
         public const int FIVE = 1200000;
         public const int FORTY = 5000000;
-        public SieveOfEratosthenes() { }
-
+        public SieveOfEratosthenes()
+            : this(SieveOfEratosthenes.INSTANT) {
+        }
         public SieveOfEratosthenes(int iCount) {
             _iaPrimes = generatePrimes(iCount);
         }

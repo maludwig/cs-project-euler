@@ -342,6 +342,25 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = iMaxNum;
             return View();
         }
+        public ActionResult Problem15() {
+            long[,] iaaPaths = new long[21, 21];
+            for(int i=0;i<21;i++){
+                iaaPaths[0,i] = 1;
+                iaaPaths[i,0] = 1;
+            }
+            for(int x=1;x<21;x++){
+                for(int y=1;y<21;y++) {
+                    iaaPaths[x,y] = iaaPaths[x-1,y] + iaaPaths[x,y-1];
+                }
+            }
+            ViewBag.Answer = iaaPaths[20,20];
+            return View();
+        }
+        public ActionResult Problem16() {
+            BigInteger bPower = BigInteger.Pow(new BigInteger(2), 1000);
+            ViewBag.Answer = Sums.sumDigitsFromString(bPower.ToString());
+            return View();
+        }
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
             return View();
