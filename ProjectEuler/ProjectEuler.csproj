@@ -111,9 +111,12 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\BoolMap.cs" />
     <Compile Include="Classes\Extensions.cs" />
+    <Compile Include="Classes\Numbers.cs" />
     <Compile Include="Classes\Palindromes.cs" />
     <Compile Include="Classes\PrimeGenerator.cs" />
+    <Compile Include="Classes\SieveOfAtkin.cs" />
     <Compile Include="Classes\SieveOfEratosthenes.cs" />
     <Compile Include="Classes\Sums.cs" />
     <Compile Include="Controllers\HomeController.cs" />

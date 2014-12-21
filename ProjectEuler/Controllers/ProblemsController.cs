@@ -115,6 +115,89 @@ namespace ProjectEuler.Controllers {
             return View();
         }
 
+        public ActionResult Problem9() {
+            int c;
+            for (int a = 1; a < 998; a++) {
+                for (int b = a; a + b < 1000; b++) {
+                    c = 1000 - a - b;
+                    if (a * a + b * b == c * c) {
+                        ViewBag.Answer = a * b * c;
+                        return View();
+                    }
+                }
+            }
+            ViewBag.Answer = 0;
+            return View();
+        }
+
+        public ActionResult Problem10() {
+            PrimeGenerator pg = new SieveOfAtkin(20);
+            //pg = new SieveOfAtkin(17389);
+            //pg = new SieveOfAtkin(224737);
+            //pg = new SieveOfAtkin(2750159);
+            //pg = new SieveOfAtkin(373587883);
+            ViewBag.Answer = "1 & 1: " + (byte)(1 & 1) + "\r\n";
+            ViewBag.Answer += "2 & 1: " + (byte)(2 & 1) + "\r\n";
+            ViewBag.Answer += "3 & 1: " + (byte)(3 & 1) + "\r\n";
+            ViewBag.Answer += "255 & 1: " + (byte)(255 & 1) + "\r\n";
+            ViewBag.Answer += "254 & 1: " + (byte)(254 & 1) + "\r\n";
+            ViewBag.Answer += "253 & 1: " + (byte)(253 & 1) + "\r\n";
+            ViewBag.Answer += "\r\n" + "\r\n";
+            ViewBag.Answer += "1 << 1: " + (byte)(1 << 1) + "\r\n";
+            ViewBag.Answer += "1 << 2: " + (byte)(1 << 2) + "\r\n";
+            ViewBag.Answer += "1 << 3: " + (byte)(1 << 3) + "\r\n";
+            ViewBag.Answer += "1 << 4: " + (byte)(1 << 4) + "\r\n";
+            ViewBag.Answer += "1 << 5: " + (byte)(1 << 5) + "\r\n";
+            ViewBag.Answer += "1 << 6: " + (byte)(1 << 6) + "\r\n";
+            ViewBag.Answer += "1 << 7: " + (byte)(1 << 7) + "\r\n";
+            ViewBag.Answer += "\r\n" + "\r\n";
+            BoolMap m = new BoolMap(9);
+            ViewBag.Answer += m.ToString() + "\r\n";
+            m.Flip(0);
+            ViewBag.Answer += "Flipped 0: " + m.ToString() + "\r\n";
+            m.Flip(1);
+            ViewBag.Answer += "Flipped 1: " + m.ToString() + "\r\n";
+            m.Flip(1);
+            ViewBag.Answer += "Flipped 1: " + m.ToString() + "\r\n";
+            m.Flip(2);
+            ViewBag.Answer += "Flipped 2: " + m.ToString() + "\r\n";
+            m.Flip(3);
+            ViewBag.Answer += "Flipped 3: " + m.ToString() + "\r\n";
+            m.Flip(4);
+            ViewBag.Answer += "Flipped 4: " + m.ToString() + "\r\n";
+            m.Flip(5);
+            ViewBag.Answer += "Flipped 5: " + m.ToString() + "\r\n";
+            m.Flip(6);
+            ViewBag.Answer += "Flipped 6: " + m.ToString() + "\r\n";
+            m.Flip(7);
+            ViewBag.Answer += "Flipped 7: " + m.ToString() + "\r\n";
+            m.Flip(5);
+            ViewBag.Answer += "Flipped 5: " + m.ToString() + "\r\n";
+            ViewBag.Answer += "\r\n\r\n";
+            m.Set(0, false);
+            m.Set(1, false);
+            m.Set(2, false);
+            ViewBag.Answer += "Disabled 0,1,2: " + m.ToString() + "\r\n";
+            m.Set(2, true);
+            ViewBag.Answer += "Enabled 2: " + m.ToString() + "\r\n";
+            m.Set(5, true);
+            ViewBag.Answer += "Enabled 5: " + m.ToString() + "\r\n";
+            m.Set(0, true);
+            ViewBag.Answer += "Enabled 0: " + m.ToString() + "\r\n";
+            m.Enable(10);
+            ViewBag.Answer += "Enabled 10: " + m.ToString() + "\r\n";
+            m.Enable(12);
+            ViewBag.Answer += "Enabled 12: " + m.ToString() + "\r\n";
+            m.Disable(10);
+            ViewBag.Answer += "Disabled 10: " + m.ToString() + "\r\n";
+            m.Disable(11);
+            ViewBag.Answer += "Disabled 11: " + m.ToString() + "\r\n";
+            m.Disable(12);
+            ViewBag.Answer += "Disabled 12: " + m.ToString() + "\r\n";
+
+            return View();
+        }
+
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
             return View();

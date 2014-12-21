@@ -8,7 +8,9 @@ namespace ProjectEuler.Classes
 {
     public class SieveOfEratosthenes : PrimeGenerator
     {
-        private int[] _iaPrimes;
+        protected int[] _iaPrimes;
+        public SieveOfEratosthenes() {}
+
         public SieveOfEratosthenes(int iCount) {
             _iaPrimes = generatePrimes(iCount);
         }
@@ -44,7 +46,7 @@ namespace ProjectEuler.Classes
             stopWatch.Stop();
             ts = stopWatch.Elapsed;
             elapsedTime = String.Format("{0:00}h{1:00}m{2:00}.{3:00}s", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-            System.Diagnostics.Debug.WriteLine(iCount + " primes up to " + iaPrimes[iCount - 1] + " generated in " + elapsedTime);
+            System.Diagnostics.Debug.WriteLine("Eratosthenes: " + iCount + " primes up to " + iaPrimes[iCount - 1] + " generated in " + elapsedTime);
             return iaPrimes;
         }
         public int getPrime(int iIndex) {
