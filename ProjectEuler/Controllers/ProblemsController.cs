@@ -131,70 +131,62 @@ namespace ProjectEuler.Controllers {
         }
 
         public ActionResult Problem10() {
-            PrimeGenerator pg = new SieveOfAtkin(20);
-            //pg = new SieveOfAtkin(17389);
-            //pg = new SieveOfAtkin(224737);
-            //pg = new SieveOfAtkin(2750159);
-            //pg = new SieveOfAtkin(373587883);
-            ViewBag.Answer = "1 & 1: " + (byte)(1 & 1) + "\r\n";
-            ViewBag.Answer += "2 & 1: " + (byte)(2 & 1) + "\r\n";
-            ViewBag.Answer += "3 & 1: " + (byte)(3 & 1) + "\r\n";
-            ViewBag.Answer += "255 & 1: " + (byte)(255 & 1) + "\r\n";
-            ViewBag.Answer += "254 & 1: " + (byte)(254 & 1) + "\r\n";
-            ViewBag.Answer += "253 & 1: " + (byte)(253 & 1) + "\r\n";
-            ViewBag.Answer += "\r\n" + "\r\n";
-            ViewBag.Answer += "1 << 1: " + (byte)(1 << 1) + "\r\n";
-            ViewBag.Answer += "1 << 2: " + (byte)(1 << 2) + "\r\n";
-            ViewBag.Answer += "1 << 3: " + (byte)(1 << 3) + "\r\n";
-            ViewBag.Answer += "1 << 4: " + (byte)(1 << 4) + "\r\n";
-            ViewBag.Answer += "1 << 5: " + (byte)(1 << 5) + "\r\n";
-            ViewBag.Answer += "1 << 6: " + (byte)(1 << 6) + "\r\n";
-            ViewBag.Answer += "1 << 7: " + (byte)(1 << 7) + "\r\n";
-            ViewBag.Answer += "\r\n" + "\r\n";
-            BoolMap m = new BoolMap(9);
-            ViewBag.Answer += m.ToString() + "\r\n";
-            m.Flip(0);
-            ViewBag.Answer += "Flipped 0: " + m.ToString() + "\r\n";
-            m.Flip(1);
-            ViewBag.Answer += "Flipped 1: " + m.ToString() + "\r\n";
-            m.Flip(1);
-            ViewBag.Answer += "Flipped 1: " + m.ToString() + "\r\n";
-            m.Flip(2);
-            ViewBag.Answer += "Flipped 2: " + m.ToString() + "\r\n";
-            m.Flip(3);
-            ViewBag.Answer += "Flipped 3: " + m.ToString() + "\r\n";
-            m.Flip(4);
-            ViewBag.Answer += "Flipped 4: " + m.ToString() + "\r\n";
-            m.Flip(5);
-            ViewBag.Answer += "Flipped 5: " + m.ToString() + "\r\n";
-            m.Flip(6);
-            ViewBag.Answer += "Flipped 6: " + m.ToString() + "\r\n";
-            m.Flip(7);
-            ViewBag.Answer += "Flipped 7: " + m.ToString() + "\r\n";
-            m.Flip(5);
-            ViewBag.Answer += "Flipped 5: " + m.ToString() + "\r\n";
-            ViewBag.Answer += "\r\n\r\n";
-            m.Set(0, false);
-            m.Set(1, false);
-            m.Set(2, false);
-            ViewBag.Answer += "Disabled 0,1,2: " + m.ToString() + "\r\n";
-            m.Set(2, true);
-            ViewBag.Answer += "Enabled 2: " + m.ToString() + "\r\n";
-            m.Set(5, true);
-            ViewBag.Answer += "Enabled 5: " + m.ToString() + "\r\n";
-            m.Set(0, true);
-            ViewBag.Answer += "Enabled 0: " + m.ToString() + "\r\n";
-            m.Enable(10);
-            ViewBag.Answer += "Enabled 10: " + m.ToString() + "\r\n";
-            m.Enable(12);
-            ViewBag.Answer += "Enabled 12: " + m.ToString() + "\r\n";
-            m.Disable(10);
-            ViewBag.Answer += "Disabled 10: " + m.ToString() + "\r\n";
-            m.Disable(11);
-            ViewBag.Answer += "Disabled 11: " + m.ToString() + "\r\n";
-            m.Disable(12);
-            ViewBag.Answer += "Disabled 12: " + m.ToString() + "\r\n";
+            PrimeGenerator pg = new SieveOfAtkin(2000000);
+            long lSum = 0;
+            for (int i = 0; i < pg.Count(); i++) lSum += pg.getPrime(i);
+            ViewBag.Answer = lSum;
+            return View();
+        }
 
+        public ActionResult Problem11() {
+            int[][] iaaNums = {
+                new int[] {08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08},
+                new int[] {49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 8 , 43, 69, 48, 04, 56, 62, 00},
+                new int[] {81, 49, 31, 73, 55, 79, 14, 29, 93, 71, 40, 67, 53, 88, 30, 03, 49, 13, 36, 65},
+                new int[] {52, 70, 95, 23, 04, 60, 11, 42, 69, 24, 68, 56, 01, 32, 56, 71, 37, 02, 36, 91},
+                new int[] {22, 31, 16, 71, 51, 67, 63, 89, 41, 92, 36, 54, 22, 40, 40, 28, 66, 33, 13, 80},
+                new int[] {24, 47, 32, 60, 99, 03, 45, 02, 44, 75, 33, 53, 78, 36, 84, 20, 35, 17, 12, 50},
+                new int[] {32, 98, 81, 28, 64, 23, 67, 10, 26, 38, 40, 67, 59, 54, 70, 66, 18, 38, 64, 70},
+                new int[] {67, 26, 20, 68, 02, 62, 12, 20, 95, 63, 94, 39, 63, 08, 40, 91, 66, 49, 94, 21},
+                new int[] {24, 55, 58, 05, 66, 73, 99, 26, 97, 17, 78, 78, 96, 83, 14, 88, 34, 89, 63, 72},
+                new int[] {21, 36, 23, 09, 75, 00, 76, 44, 20, 45, 35, 14, 00, 61, 33, 97, 34, 31, 33, 95},
+                new int[] {78, 17, 53, 28, 22, 75, 31, 67, 15, 94, 03, 80, 04, 62, 16, 14, 09, 53, 56, 92},
+                new int[] {16, 39, 05, 42, 96, 35, 31, 47, 55, 58, 88, 24, 00, 17, 54, 24, 36, 29, 85, 57},
+                new int[] {86, 56, 00, 48, 35, 71, 89, 07, 05, 44, 44, 37, 44, 60, 21, 58, 51, 54, 17, 58},
+                new int[] {19, 80, 81, 68, 05, 94, 47, 69, 28, 73, 92, 13, 86, 52, 17, 77, 04, 89, 55, 40},
+                new int[] {04, 52, 08, 83, 97, 35, 99, 16, 07, 97, 57, 32, 16, 26, 26, 79, 33, 27, 98, 66},
+                new int[] {88, 36, 68, 87, 57, 62, 20, 72, 03, 46, 33, 67, 46, 55, 12, 32, 63, 93, 53, 69},
+                new int[] {04, 42, 16, 73, 38, 25, 39, 11, 24, 94, 72, 18, 08, 46, 29, 32, 40, 62, 76, 36},
+                new int[] {20, 69, 36, 41, 72, 30, 23, 88, 34, 62, 99, 69, 82, 67, 59, 85, 74, 04, 36, 16},
+                new int[] {20, 73, 35, 29, 78, 31, 90, 01, 74, 31, 49, 71, 48, 86, 81, 16, 23, 57, 05, 54},
+                new int[] {01, 70, 54, 71, 83, 51, 54, 69, 16, 92, 33, 48, 61, 43, 52, 01, 89, 19, 67, 48}
+            };
+            int iMax = 0;
+            //Horizontals
+            for (int y = 0; y < 20; y++) {
+                for (int x = 0; x < 17; x++) {
+                    iMax = Math.Max(iaaNums[y][x] * iaaNums[y][x + 1] * iaaNums[y][x + 2] * iaaNums[y][x + 3],iMax);
+                }
+            }
+            //Verticals
+            for (int y = 0; y < 17; y++) {
+                for (int x = 0; x < 20; x++) {
+                    iMax = Math.Max(iaaNums[y][x] * iaaNums[y + 1][x] * iaaNums[y + 2][x] * iaaNums[y + 3][x], iMax);
+                }
+            }
+            //Down-right
+            for (int y = 0; y < 17; y++) {
+                for (int x = 0; x < 17; x++) {
+                    iMax = Math.Max(iaaNums[y][x] * iaaNums[y + 1][x + 1] * iaaNums[y + 2][x + 2] * iaaNums[y + 3][x + 3], iMax);
+                }
+            }
+            //Up-right
+            for (int y = 0; y < 17; y++) {
+                for (int x = 0; x < 17; x++) {
+                    iMax = Math.Max(iaaNums[y+3][x] * iaaNums[y + 2][x + 1] * iaaNums[y + 1][x + 2] * iaaNums[y][x + 3], iMax);
+                }
+            }
+            ViewBag.Answer = iMax;
             return View();
         }
 
