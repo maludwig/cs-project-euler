@@ -63,6 +63,26 @@ namespace ProjectEuler.Controllers {
             return View();
         }
 
+        public ActionResult Problem5() {
+            PrimeGenerator pg = new SieveOfEratosthenes(1000);
+            int[] iaFactors = new int[21];
+            List<int> liFactors;
+            int iNum = 1;
+            for (int i = 1; i <= 20; i++) {
+                liFactors = pg.factor(i);
+                for (int f = 1; f <= 20; f++) {
+                    iaFactors[f] = Math.Max(iaFactors[f], liFactors.Where(x => x == f).Count());
+                }
+            }
+            for (int i = 1; i <= 20; i++) {
+                for (int k = 0; k < iaFactors[i]; k++) {
+                    iNum *= i;
+                }
+            }
+            ViewBag.Answer = string.Join(",", iNum);
+            return View();
+        }
+
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
             return View();
