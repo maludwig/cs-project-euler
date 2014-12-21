@@ -83,6 +83,17 @@ namespace ProjectEuler.Controllers {
             return View();
         }
 
+        public ActionResult Problem6() {
+            int squareOfSum = Sums.sumNaturalsTo(100);
+            squareOfSum *= squareOfSum;
+            int sumOfSquares = 0;
+            for (int i = 1; i <= 100; i++) {
+                sumOfSquares += i * i;
+            }
+            ViewBag.Answer = squareOfSum - sumOfSquares;
+            return View();
+        }
+
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
             return View();

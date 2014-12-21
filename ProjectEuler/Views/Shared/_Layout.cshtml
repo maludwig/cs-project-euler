@@ -30,6 +30,30 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
+        <div class="row">
+            <div class="col-md-4">
+                <h2>Hello!</h2>
+                <p>
+                    I'm learning C# by solving the problems from projecteuler.net!
+                </p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+            </div>
+            <div class="col-md-4">
+                <h2>Solved</h2>
+                Here are all of the problems I've solved:
+                <ul>
+                    @for (int i = 1; i <= 6; i++) {
+                        <li>@Html.ActionLink("Problem " + i, "Index", "Problems", new { id = i }, null)</li>
+                    }
+                </ul>
+            </div>
+            <div class="col-md-4">
+                <h2>Web Hosting</h2>
+                <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
+                <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+            </div>
+        </div>
+        <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
         </footer>

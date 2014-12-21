@@ -115,6 +115,7 @@
     <Compile Include="Classes\Palindromes.cs" />
     <Compile Include="Classes\PrimeGenerator.cs" />
     <Compile Include="Classes\SieveOfEratosthenes.cs" />
+    <Compile Include="Classes\Sums.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProblemsController.cs">
       <BrowseToURL>~/Problems/Index/3</BrowseToURL>
