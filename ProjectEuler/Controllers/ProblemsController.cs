@@ -358,7 +358,7 @@ namespace ProjectEuler.Controllers {
         }
         public ActionResult Problem16() {
             BigInteger bPower = BigInteger.Pow(new BigInteger(2), 1000);
-            ViewBag.Answer = Sums.sumDigitsFromString(bPower.ToString());
+            ViewBag.Answer = Sums.sumDigits(bPower.ToString());
             return View();
         }
         public ActionResult Problem17() {
@@ -418,6 +418,23 @@ namespace ProjectEuler.Controllers {
             }
             for (int x = 0; x < src.Length; x++) iMax = Math.Max(solve[src.Length - 1, x], iMax);
             ViewBag.Answer = iMax;
+            return View();
+        }
+        public ActionResult Problem19() {
+            DateTime dt = new DateTime(1901, 1, 1);
+            DateTime dtEnd = new DateTime(2000, 12, 31);
+            int iSundayCount = 0;
+            while (dt < dtEnd) {
+                dt = dt.AddMonths(1);
+                if (dt.DayOfWeek == DayOfWeek.Sunday) iSundayCount++;
+            }
+            ViewBag.Answer = iSundayCount;
+            return View();
+        }
+        public ActionResult Problem20() {
+            BigInteger b = BigInteger.One;
+            for (int i = 2; i <= 100; i++) b = BigInteger.Multiply(b, new BigInteger(i));
+            ViewBag.Answer = Sums.sumDigits(b);
             return View();
         }
         public ActionResult ProblemN() {
