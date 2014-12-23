@@ -437,6 +437,37 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = Sums.sumDigits(b);
             return View();
         }
+        public ActionResult Problem21() {
+            PrimeGenerator pg = new SieveOfAtkin();
+            int iDivSum = 0;
+            int iAmicableSum = 0;
+            for (int i = 2; i < 10000; i++) {
+                iDivSum = pg.properDivisors(i).Sum();
+                if (iDivSum != i) {
+                    if (pg.properDivisors(iDivSum).Sum() == i) {
+                        iAmicableSum += i;
+                    }
+                }
+            }
+            ViewBag.Answer = iAmicableSum;
+            return View();
+        }
+        public ActionResult Problem22() {
+            List<string> lsNames = new List<string>(System.IO.File.ReadAllLines(Server.MapPath(@"~/App_Data/names.txt")));
+            long lSum = 0;
+            long lWordSum = 0;
+            lsNames.Sort();
+            for (int i = 0; i < lsNames.Count(); i++) {
+                lWordSum = 0;
+                foreach(char c in lsNames[i]) {
+                    lWordSum += (long)c+1;
+                    lWordSum -= (long)'A';
+                }
+                lSum += (i+1) * lWordSum;
+            }
+            ViewBag.Answer = lSum;
+            return View();
+        }
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
             return View();

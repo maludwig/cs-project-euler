@@ -13,10 +13,6 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual(0, Sums.sumDigits("0"));
             Assert.AreEqual(0, Sums.sumDigits(""));
         }
-        [TestMethod]
-        public void DateTimeTest() {
-            System.Diagnostics.Debug.WriteLine(iSundayCount);
-        }
 
     }
 }

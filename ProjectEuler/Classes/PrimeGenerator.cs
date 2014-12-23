@@ -39,15 +39,7 @@ namespace ProjectEuler.Classes
             return 0;
         }
         public List<int> factor(int iNum) {
-            List<int> liFactors = new List<int>();
-            for (int i = 0; _iaPrimes[i] <= iNum; i++) {
-                if (iNum % _iaPrimes[i] == 0) {
-                    iNum /= _iaPrimes[i];
-                    liFactors.Add(_iaPrimes[i]);
-                    i--;
-                }
-            }
-            return liFactors;
+            return factor((long) iNum);
         }
         public List<int> factor(long lNum) {
             List<int> liFactors = new List<int>();
@@ -59,6 +51,37 @@ namespace ProjectEuler.Classes
                 }
             }
             return liFactors;
+        }
+        public List<int> divisors(int iNum) {
+            return divisors((long)iNum);
+        }
+        public List<int> divisors(long lNum) {
+            List<int> liFactors = factor(lNum);
+            List<int> liLastDivs = new List<int>();
+            List<int> liDivs = new List<int>();
+            int iLastFactor = 0;
+            liLastDivs.Add(1);
+            liDivs.Add(1);
+            foreach (int iFactor in liFactors) {
+                if (iFactor != iLastFactor) {
+                    liLastDivs = new List<int>(liDivs);
+                    iLastFactor = iFactor;
+                }
+                for (int i = 0; i < liLastDivs.Count; i++) {
+                    liLastDivs[i] *= iFactor;
+                    liDivs.Add(liLastDivs[i]);
+                }
+            }
+            liDivs.Sort();
+            return liDivs;
+        }
+        public List<int> properDivisors(int iNum) {
+            return properDivisors((long)iNum);
+        }
+        public List<int> properDivisors(long lNum) {
+            List<int> li = divisors(lNum);
+            li.RemoveAt(li.Count() - 1);
+            return li;
         }
         public bool areCoprime(int iNum1, int iNum2) {
             return false;

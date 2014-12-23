@@ -40,6 +40,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.Web.Extensions" />
@@ -86,6 +87,7 @@
     <Compile Include="Classes\PrimeGeneratorTest.cs" />
     <Compile Include="Classes\CollatzTest.cs" />
     <Compile Include="Classes\SumsTest.cs" />
+    <Compile Include="Classes\ExtensionsTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>
