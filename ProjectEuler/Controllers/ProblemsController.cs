@@ -574,8 +574,26 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = iMaxA + ", " + iMaxB + ": " + iMaxA * iMaxB;
             return View();
         }
+        public ActionResult Problem28() {
+            long lSum = 1;
+            for (int i = 3; i <= 1001; i += 2) {
+                lSum += (4 * i * i) - (6 * i) + 6;
+            }
+            ViewBag.Answer = lSum;
+            return View();
+        }
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
+            return View();
+        }
+        public ActionResult Problem29() {
+            HashSet<BigInteger> hb = new HashSet<BigInteger>();
+            for (int a = 2; a <= 100; a++) {
+                for (int b = 2; b <= 100; b++) {
+                    hb.Add(BigInteger.Pow(a,b));
+                }
+            }
+            ViewBag.Answer = hb.Count();
             return View();
         }
     }
