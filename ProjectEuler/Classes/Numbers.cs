@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Web;
 
 namespace ProjectEuler.Classes {
@@ -23,6 +24,13 @@ namespace ProjectEuler.Classes {
             } else {
                 return CollatzChainLength(CollatzStep(lNum)) + 1;
             } 
+        }
+
+        //Returns n!
+        public static int factorial(int n) {
+            int iResult = 1;
+            for (int i = 2; i <= n; i++) iResult *= i;
+            return iResult;
         }
     }
 }

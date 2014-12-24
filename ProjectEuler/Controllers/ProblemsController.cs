@@ -6,11 +6,17 @@ using System.Reflection;
 using System.Web;
 using System.Web.Mvc;
 using System.Numerics;
+using System.Diagnostics;
 
 namespace ProjectEuler.Controllers {
     public class ProblemsController : Controller {
         // GET: Problems
         public ActionResult Index(int id) {
+            Stopwatch stopWatch = new Stopwatch();
+            string elapsedTime;
+            TimeSpan ts;
+            stopWatch.Start();
+            
             ViewBag.Problem = id;
             try {
                 MethodInfo mi = this.GetType().GetMethod("Problem" + id);
@@ -19,6 +25,10 @@ namespace ProjectEuler.Controllers {
                 ViewBag.Problem = "ERROR";
                 ViewBag.Answer = "Error in switch. Problem ID not found.";
             }
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+            ViewBag.ElapsedTime = String.Format("{0:00}:{1:00}.{2:00}s", ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+
             return View();
         }
 
@@ -466,6 +476,102 @@ namespace ProjectEuler.Controllers {
                 lSum += (i+1) * lWordSum;
             }
             ViewBag.Answer = lSum;
+            return View();
+        }
+        public ActionResult Problem23() {
+            List<int> liAbundants = new List<int>();
+            PrimeGenerator pg = new SieveOfAtkin();
+            bool bCanBeSumOfTwo;
+            int iSum = 0;
+            for (int i = 0; i < 28123; i++) {
+                if (pg.perfection(i) == PerfectionLevel.ABUNDANT) liAbundants.Add(i);
+                bCanBeSumOfTwo = false;
+                foreach (int iAbundant in liAbundants) {
+                    if (liAbundants.BinarySearch(i - iAbundant) >= 0) {
+                        bCanBeSumOfTwo = true;
+                        break;
+                    }
+                }
+                if (!bCanBeSumOfTwo) {
+                    iSum += i;
+                }
+            }
+            ViewBag.Answer = iSum;
+            return View();
+        }
+        public ActionResult Problem24() {
+            string sRemainingDigits = "0123456789";
+            int iPerm = 1000000-1;
+            int iFactorial;
+            string sResult = "";
+            while (sRemainingDigits.Length != 0) {
+                iFactorial = Numbers.factorial(sRemainingDigits.Length - 1);
+                sResult += sRemainingDigits.Substring(iPerm / iFactorial, 1);
+                sRemainingDigits = sRemainingDigits.Substring(0, iPerm / iFactorial) + sRemainingDigits.Substring((iPerm / iFactorial) + 1);
+                iPerm %= iFactorial;
+            }
+            ViewBag.Answer = sResult;
+            return View();
+        }
+        public ActionResult Problem25() {
+            BigInteger b1 = BigInteger.One, b2 = BigInteger.One, bNext;
+            int i;
+            for (i = 1; b1.ToString().Length < 1000; i++) {
+                bNext = BigInteger.Add(b1, b2);
+                b1 = b2;
+                b2 = bNext;
+            }
+            ViewBag.Answer = i;
+            return View();
+        }
+        public ActionResult Problem26() {
+            //1000 decimal digits of precision
+            BigDecimal bd1 = new BigDecimal(1, 0, 1000);
+            BigDecimal bd2 = new BigDecimal(1, 0, 1000);
+            string someChars;
+            string sNum;
+            int iMaxCycle = 0;
+            int iMaxNum = 0;
+            int iCycle = 0;
+            for (int i = 2; i < 1000; i++) {
+                bd2++;
+                sNum = (bd1 / bd2).ToString();
+                if (sNum.Length == 1002) {
+                    someChars = sNum.Substring(980);
+                    iCycle = 980 - sNum.LastIndexOf(someChars, 1000);
+                    if (iCycle != -1) {
+                        if (iMaxCycle < iCycle) {
+                            iMaxCycle = iCycle;
+                            iMaxNum = i;
+                        }
+                    }
+                }
+            }
+            ViewBag.Answer = iMaxNum;
+            return View();
+        }
+        public ActionResult Problem27() {
+            PrimeGenerator pg = new SieveOfAtkin(1000000);
+            int[] iaPrimes = pg.getPrimesTo(1000).ToArray();
+            //b must be positive and prime, in order for n^2+an+b to produce a prime when n=0
+            int b, n;
+            int iMaxA = 0, iMaxB = 0, iMaxN = 0;
+            for (int a = -1000; a < 1000; a++) {
+                for (int i = 0; i < iaPrimes.Length; i++) {
+                    b = iaPrimes[i];
+                    for (n = 1; n < 100; n++) {
+                        if (pg.findPrime(n * n + a * n + b) == -1) {
+                            break;
+                        }
+                    }
+                    if (n > iMaxN) {
+                        iMaxA = a;
+                        iMaxB = b;
+                        iMaxN = n;
+                    }
+                }
+            }
+            ViewBag.Answer = iMaxA + ", " + iMaxB + ": " + iMaxA * iMaxB;
             return View();
         }
         public ActionResult ProblemN() {

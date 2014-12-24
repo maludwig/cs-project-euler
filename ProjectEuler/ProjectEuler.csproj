@@ -122,6 +122,7 @@
     <Compile Include="Classes\Sums.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProblemsController.cs" />
+    <Compile Include="External\BigDecimal.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -164,10 +165,10 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Problems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />
-    <Folder Include="Views\Problems\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

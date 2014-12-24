@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectEuler.Classes;
 using System.Diagnostics;
-
+using System.Numerics;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
@@ -13,6 +13,5 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual(0, Sums.sumDigits("0"));
             Assert.AreEqual(0, Sums.sumDigits(""));
         }
-
     }
 }

@@ -88,6 +88,7 @@
     <Compile Include="Classes\CollatzTest.cs" />
     <Compile Include="Classes\SumsTest.cs" />
     <Compile Include="Classes\ExtensionsTest.cs" />
+    <Compile Include="Classes\BigNumbersTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

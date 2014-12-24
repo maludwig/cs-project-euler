@@ -64,5 +64,22 @@ namespace ProjectEuler.Tests.Classes {
             liDivs = new List<int>(new int[] { 1, 6781 });
             Assert.IsTrue(Extensions.EachItemEqual(liDivs, pg.divisors(6781)));
         }
+        [TestMethod]
+        public void FindPrime() {
+            PrimeGenerator pg = new SieveOfAtkin();
+            Assert.AreEqual(2, pg.findPrime(5));
+            Assert.AreEqual(-1, pg.findPrime(6));
+            Assert.AreEqual(0, pg.findPrime(2));
+            Assert.AreEqual(1, pg.findPrime(3));
+            Assert.AreEqual(999, pg.findPrime(7919));
+            pg = new SieveOfAtkin(20);
+            Assert.AreEqual(1, pg.findClosestPrime(3));
+            Assert.AreEqual(2, pg.findClosestPrime(4));
+            Assert.AreEqual(3, pg.findClosestPrime(8));
+            pg = new SieveOfAtkin();
+            Assert.AreEqual(0, pg.findClosestPrime(0));
+            Assert.AreEqual(999, pg.findClosestPrime(7919));
+            Assert.AreEqual(999, pg.findClosestPrime(7920));
+        }
     }
 }

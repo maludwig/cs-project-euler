@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectEuler.Classes
-{
-    public class PrimeGenerator
-    {
+namespace ProjectEuler.Classes {
+    public enum PerfectionLevel { DEFICIENT = -1, PERFECT, ABUNDANT };
+    public class PrimeGenerator {
         protected int[] _iaPrimes;
         public PrimeGenerator() {
 
@@ -21,25 +20,44 @@ namespace ProjectEuler.Classes
         public int[] getPrimes(int iFrom, int iTo) {
             return Extensions.Slice(_iaPrimes, iFrom, iTo);
         }
-        public int findPrime(int iPrime) {
-            return findPrime(iPrime, 0, _iaPrimes.Length - 1);
-        }
-        public int findPrime(int iPrime, int iStart, int iEnd) {
-            int iMid = (iEnd - iStart) / 2 + iStart;
-            if (iMid >= _iaPrimes.Length) {
-                return 0;
-            } else {
-                if (_iaPrimes[iMid] == iPrime) return iMid;
-                else if (iStart == iEnd) return 0;
-                else if (_iaPrimes[iMid] < iPrime) return findPrime(iPrime, iMid + 1, iEnd);
-                else return findPrime(iPrime, iStart, iMid);
+        public List<int> getPrimesTo(int iCap) {
+            List<int> liPrimes = new List<int>();
+            for (int i = 0; _iaPrimes[i] < iCap; i++) {
+                liPrimes.Add(_iaPrimes[i]);
             }
+            return liPrimes;
+        }
+        public int findPrime(int iPrime) {
+            return findPrime(iPrime, 0, _iaPrimes.Length);
+        }
+        //iEnd should be one after the last element to consider
+        public int findPrime(int iPrime, int iStart, int iEnd) {
+            if (iEnd <= iStart) return -1;
+            int iMid = (iEnd - iStart) / 2 + iStart;
+            if (_iaPrimes[iMid] == iPrime) return iMid;
+            else if (_iaPrimes[iMid] < iPrime) return findPrime(iPrime, iMid + 1, iEnd);
+            else return findPrime(iPrime, iStart, iMid);
         }
         public int findClosestPrime(int iPrime) {
-            return 0;
+            return findClosestPrime(iPrime, 0, _iaPrimes.Length);
+        }
+        public int findClosestPrime(int iNum, int iStart, int iEnd) {
+            if (iEnd == iStart) {
+                if (iStart == 0) return 0;
+                if (iNum - _iaPrimes[iStart-1] < _iaPrimes[iStart] - iNum) {
+                    return iStart-1;
+                } else {
+                    return iStart;
+                }
+            } else {
+                int iMid = (iEnd - iStart) / 2 + iStart;
+                if (_iaPrimes[iMid] == iNum) return iMid;
+                else if (_iaPrimes[iMid] < iNum) return findClosestPrime(iNum, iMid + 1, iEnd);
+                else return findClosestPrime(iNum, iStart, iMid);
+            }
         }
         public List<int> factor(int iNum) {
-            return factor((long) iNum);
+            return factor((long)iNum);
         }
         public List<int> factor(long lNum) {
             List<int> liFactors = new List<int>();
@@ -82,6 +100,15 @@ namespace ProjectEuler.Classes
             List<int> li = divisors(lNum);
             li.RemoveAt(li.Count() - 1);
             return li;
+        }
+        public PerfectionLevel perfection(int iNum) {
+            return perfection((long)iNum);
+        }
+        public PerfectionLevel perfection(long lNum) {
+            long lPerfect = properDivisors(lNum).Sum() - lNum;
+            if (lPerfect < 0) return PerfectionLevel.DEFICIENT;
+            if (lPerfect == 0) return PerfectionLevel.PERFECT;
+            return PerfectionLevel.ABUNDANT;
         }
         public bool areCoprime(int iNum1, int iNum2) {
             return false;
