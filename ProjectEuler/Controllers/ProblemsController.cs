@@ -640,6 +640,33 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = hiProducts.Sum();
             return View();
         }
+        public ActionResult Problem33() {
+            int n1, n2, d1, d2;
+            float f1, f2;
+            int allNume = 1, allDeno = 1;
+            for (int n = 10; n < 100; n++) {
+                n1 = n / 10;
+                n2 = n % 10;
+                if (n2 == 0) continue;
+                for (int d = n+1; d < 100; d++) {
+                    d1 = d / 10;
+                    d2 = d % 10;
+                    if (d2 == 0) continue;
+                    f1 = n;
+                    f1 /= d;
+                    if (d1 == n2) {
+                        f2 = n1;
+                        f2 /= d2;
+                        if (f1 == f2) {
+                            allNume *= n1;
+                            allDeno *= d2;
+                        }
+                    }
+                }
+            }
+            ViewBag.Answer = allDeno / allNume;
+            return View();
+        }
         public ActionResult ProblemN() {
             ViewBag.Answer = 0;
             return View();
