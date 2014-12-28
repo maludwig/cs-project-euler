@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 
 namespace ProjectEuler.Classes {
@@ -23,6 +24,38 @@ namespace ProjectEuler.Classes {
             }
             return res;
         }
+
+        public static string ToBinaryString(this int source) {
+            StringBuilder sb = new StringBuilder();
+            string sRet;
+            int i = source;
+            if (i == 0) return "0";
+            if (i < 0) i *= -1;
+            while (i > 0) {
+                sb.Append((i & 1) == 0 ? "0" : "1");
+                i >>= 1;
+            }
+            sRet = sb.ToString().StrReverse();
+            if (source < 0) {
+                sRet = "-" + sRet;
+            }
+            return sRet;
+        }
+
+        public static string StrReverse(this string source) {
+            char[] ca = source.ToCharArray();
+            Array.Reverse(ca);
+            return new string(ca);
+        }
+
+        public static bool IsPalindrome(this string source) {
+            char[] ca = source.ToCharArray();
+            for (int i = 0; i < source.Length / 2; i++) {
+                if (ca[i] != ca[source.Length - 1 - i]) return false;
+            }
+            return true;
+        }
+
         /// <summary>
         /// Compare two enumerable objects to see if each item is equal
         /// </summary>

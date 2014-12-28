@@ -81,5 +81,24 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual(999, pg.findClosestPrime(7919));
             Assert.AreEqual(999, pg.findClosestPrime(7920));
         }
+        [TestMethod]
+        public void CircularPrimes() {
+            PrimeGenerator pg = new SieveOfAtkin();
+            Assert.IsTrue(pg.IsCircularPrime(197));
+            Assert.IsTrue(pg.IsCircularPrime(719));
+            Assert.IsTrue(pg.IsCircularPrime(971));
+            List<int> liCircs = new List<int>(new int[] { 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, 97 });
+            for (int i = 1; i < 100; i++) {
+                Assert.AreEqual(liCircs.Contains(i),pg.IsCircularPrime(i));
+            }
+        }
+        [TestMethod]
+        public void TruncatablePrimes() {
+            PrimeGenerator pg = new SieveOfAtkin();
+            Assert.IsTrue(pg.IsTruncatablePrime(3797));
+            Assert.IsTrue(pg.IsTruncatablePrime(797));
+            Assert.IsFalse(pg.IsTruncatablePrime(7));
+            Assert.IsFalse(pg.IsTruncatablePrime(5));
+        }
     }
 }

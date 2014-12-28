@@ -12,15 +12,15 @@ using System.Text;
 namespace ProjectEuler.Controllers {
     public class ProblemsController : Controller {
 
-        public ActionResult Problem1() {
+        public void Problem1() {
             int sum = 0;
             for (int i = 1; i < 1000; i++) {
                 if (i % 3 == 0 || i % 5 == 0) sum += i;
             }
             ViewBag.Answer = sum;
-            return View();
+            View();
         }
-        public ActionResult Problem2() {
+        public void Problem2() {
             int iCurr = 1, iNext = 2, iTemp = 0, sum = 0;
             while (iCurr < 4000000) {
                 iTemp = iNext + iCurr;
@@ -29,15 +29,13 @@ namespace ProjectEuler.Controllers {
                 iNext = iTemp;
             }
             ViewBag.Answer = sum;
-            return View();
         }
-        public ActionResult Problem3() {
+        public void Problem3() {
             PrimeGenerator pg = new SieveOfEratosthenes(1000);
 
             ViewBag.Answer = pg.factor(600851475143).Last();
-            return View();
         }
-        public ActionResult Problem4() {
+        public void Problem4() {
             int iMax = 0;
             for (int x = 999; x > 100; x--) {
                 for (int y = 999; y > 100; y--) {
@@ -48,9 +46,8 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = iMax;
 
-            return View();
         }
-        public ActionResult Problem5() {
+        public void Problem5() {
             PrimeGenerator pg = new SieveOfEratosthenes(1000);
             int[] iaFactors = new int[21];
             List<int> liFactors;
@@ -67,9 +64,8 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = string.Join(",", iNum);
-            return View();
         }
-        public ActionResult Problem6() {
+        public void Problem6() {
             int squareOfSum = Sums.sumNaturalsTo(100);
             squareOfSum *= squareOfSum;
             int sumOfSquares = 0;
@@ -77,14 +73,12 @@ namespace ProjectEuler.Controllers {
                 sumOfSquares += i * i;
             }
             ViewBag.Answer = squareOfSum - sumOfSquares;
-            return View();
         }
-        public ActionResult Problem7() {
+        public void Problem7() {
             PrimeGenerator pg = new SieveOfEratosthenes(10001);
             ViewBag.Answer = pg.getPrime(10000);
-            return View();
         }
-        public ActionResult Problem8() {
+        public void Problem8() {
             string sNum = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450";
             long iMax = 0;
             long iCurr = 0;
@@ -96,30 +90,27 @@ namespace ProjectEuler.Controllers {
                 iMax = Math.Max(iCurr, iMax);
             }
             ViewBag.Answer = iMax;
-            return View();
         }
-        public ActionResult Problem9() {
+        public void Problem9() {
             int c;
             for (int a = 1; a < 998; a++) {
                 for (int b = a; a + b < 1000; b++) {
                     c = 1000 - a - b;
                     if (a * a + b * b == c * c) {
                         ViewBag.Answer = a * b * c;
-                        return View();
+                        return;
                     }
                 }
             }
             ViewBag.Answer = 0;
-            return View();
         }
-        public ActionResult Problem10() {
+        public void Problem10() {
             PrimeGenerator pg = new SieveOfAtkin(2000000);
             long lSum = 0;
             for (int i = 0; i < pg.Count(); i++) lSum += pg.getPrime(i);
             ViewBag.Answer = lSum;
-            return View();
         }
-        public ActionResult Problem11() {
+        public void Problem11() {
             int[][] iaaNums = {
                 new int[] {08, 02, 22, 97, 38, 15, 00, 40, 00, 75, 04, 05, 07, 78, 52, 12, 50, 77, 91, 08},
                 new int[] {49, 49, 99, 40, 17, 81, 18, 57, 60, 87, 17, 40, 8 , 43, 69, 48, 04, 56, 62, 00},
@@ -168,9 +159,8 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = iMax;
-            return View();
         }
-        public ActionResult Problem12() {
+        public void Problem12() {
             PrimeGenerator pg = new SieveOfAtkin();
             long lTri = 1;
             List<int> liFactors;
@@ -194,9 +184,8 @@ namespace ProjectEuler.Controllers {
                     break;
                 }
             }
-            return View();
         }
-        public ActionResult Problem13() {
+        public void Problem13() {
             string[] saNums = new string[] {
                 "37107287533902102798797998220837590246510135740250",
                 "46376937677490009712648124896970078050417018260538",
@@ -304,9 +293,8 @@ namespace ProjectEuler.Controllers {
                 bSum = BigInteger.Add(bSum, BigInteger.Parse(saNums[i]));
             }
             ViewBag.Answer = bSum.ToString().Substring(0, 10);
-            return View();
         }
-        public ActionResult Problem14() {
+        public void Problem14() {
             int iMaxChain = 1;
             int iMaxNum = 1;
             int iChain;
@@ -318,9 +306,8 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = iMaxNum;
-            return View();
         }
-        public ActionResult Problem15() {
+        public void Problem15() {
             long[,] iaaPaths = new long[21, 21];
             for (int i = 0; i < 21; i++) {
                 iaaPaths[0, i] = 1;
@@ -332,14 +319,12 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = iaaPaths[20, 20];
-            return View();
         }
-        public ActionResult Problem16() {
+        public void Problem16() {
             BigInteger bPower = BigInteger.Pow(new BigInteger(2), 1000);
             ViewBag.Answer = Sums.sumDigits(bPower.ToString());
-            return View();
         }
-        public ActionResult Problem17() {
+        public void Problem17() {
             string[] ones = new string[] { "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen" };
             string[] tens = new string[] { "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety" };
             int[] names = new int[1000];
@@ -362,9 +347,8 @@ namespace ProjectEuler.Controllers {
                 iSum += names[x];
             }
             ViewBag.Answer = iSum + "onethousand".Length;
-            return View();
         }
-        public ActionResult Problem18() {
+        public void Problem18() {
             int[][] src = {
                 new int[] {75},
                 new int[] {95, 64},
@@ -396,9 +380,8 @@ namespace ProjectEuler.Controllers {
             }
             for (int x = 0; x < src.Length; x++) iMax = Math.Max(solve[src.Length - 1, x], iMax);
             ViewBag.Answer = iMax;
-            return View();
         }
-        public ActionResult Problem19() {
+        public void Problem19() {
             DateTime dt = new DateTime(1901, 1, 1);
             DateTime dtEnd = new DateTime(2000, 12, 31);
             int iSundayCount = 0;
@@ -407,15 +390,13 @@ namespace ProjectEuler.Controllers {
                 if (dt.DayOfWeek == DayOfWeek.Sunday) iSundayCount++;
             }
             ViewBag.Answer = iSundayCount;
-            return View();
         }
-        public ActionResult Problem20() {
+        public void Problem20() {
             BigInteger b = BigInteger.One;
             for (int i = 2; i <= 100; i++) b = BigInteger.Multiply(b, new BigInteger(i));
             ViewBag.Answer = Sums.sumDigits(b);
-            return View();
         }
-        public ActionResult Problem21() {
+        public void Problem21() {
             PrimeGenerator pg = new SieveOfAtkin();
             int iDivSum = 0;
             int iAmicableSum = 0;
@@ -428,9 +409,8 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = iAmicableSum;
-            return View();
         }
-        public ActionResult Problem22() {
+        public void Problem22() {
             List<string> lsNames = new List<string>(System.IO.File.ReadAllLines(Server.MapPath(@"~/App_Data/names.txt")));
             long lSum = 0;
             long lWordSum = 0;
@@ -444,9 +424,8 @@ namespace ProjectEuler.Controllers {
                 lSum += (i + 1) * lWordSum;
             }
             ViewBag.Answer = lSum;
-            return View();
         }
-        public ActionResult Problem23() {
+        public void Problem23() {
             List<int> liAbundants = new List<int>();
             PrimeGenerator pg = new SieveOfAtkin();
             bool bCanBeSumOfTwo;
@@ -465,9 +444,8 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = iSum;
-            return View();
         }
-        public ActionResult Problem24() {
+        public void Problem24() {
             string sRemainingDigits = "0123456789";
             int iPerm = 1000000 - 1;
             int iFactorial;
@@ -479,9 +457,8 @@ namespace ProjectEuler.Controllers {
                 iPerm %= iFactorial;
             }
             ViewBag.Answer = sResult;
-            return View();
         }
-        public ActionResult Problem25() {
+        public void Problem25() {
             BigInteger b1 = BigInteger.One, b2 = BigInteger.One, bNext;
             int i;
             for (i = 1; b1.ToString().Length < 1000; i++) {
@@ -490,9 +467,8 @@ namespace ProjectEuler.Controllers {
                 b2 = bNext;
             }
             ViewBag.Answer = i;
-            return View();
         }
-        public ActionResult Problem26() {
+        public void Problem26() {
             //1000 decimal digits of precision
             BigDecimal bd1 = new BigDecimal(1, 0, 1000);
             BigDecimal bd2 = new BigDecimal(1, 0, 1000);
@@ -516,9 +492,8 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = iMaxNum;
-            return View();
         }
-        public ActionResult Problem27() {
+        public void Problem27() {
             PrimeGenerator pg = new SieveOfAtkin(1000000);
             int[] iaPrimes = pg.getPrimesTo(1000).ToArray();
             //b must be positive and prime, in order for n^2+an+b to produce a prime when n=0
@@ -540,17 +515,15 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = iMaxA + ", " + iMaxB + ": " + iMaxA * iMaxB;
-            return View();
         }
-        public ActionResult Problem28() {
+        public void Problem28() {
             long lSum = 1;
             for (int i = 3; i <= 1001; i += 2) {
                 lSum += (4 * i * i) - (6 * i) + 6;
             }
             ViewBag.Answer = lSum;
-            return View();
         }
-        public ActionResult Problem29() {
+        public void Problem29() {
             HashSet<BigInteger> hb = new HashSet<BigInteger>();
             for (int a = 2; a <= 100; a++) {
                 for (int b = 2; b <= 100; b++) {
@@ -558,9 +531,8 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = hb.Count();
-            return View();
         }
-        public ActionResult Problem30() {
+        public void Problem30() {
             int[] iaPows = new int[10];
             int a, b, c, d, v;
             int iKey;
@@ -577,9 +549,9 @@ namespace ProjectEuler.Controllers {
             for (b = 0; b < 10; b++) {
                 for (c = 0; c < 10; c++) {
                     for (d = 0; d < 10; d++) {
-                        v = b*100+c*10+d;
+                        v = b * 100 + c * 10 + d;
                         iKey = iaPows[b] + iaPows[c] + iaPows[d] - v;
-                        if(diiLookup.ContainsKey(iKey)) {
+                        if (diiLookup.ContainsKey(iKey)) {
                             diiLookup[iKey].Add(v);
                         } else {
                             diiLookup.Add(iKey, new List<int>(new int[] { v }));
@@ -601,35 +573,32 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = iSum - 1; //1^5 is not considered a sum
-            return View();
         }
-
         int[] iaCoins = new int[] { 200, 100, 50, 20, 10, 5, 2, 1 };
-        public ActionResult Problem31() {
+        public void Problem31() {
             ViewBag.Answer = CoinCombs(200, 0);
-            return View();
         }
         //n = number to get combinations for
         //maxCoin = the index of the biggest coin that can be used.
         private int CoinCombs(int n, int maxCoin) {
             if (n <= 1) return 1;
-            if (maxCoin >= iaCoins.Length-1) return 1; //If all pennies
-            
+            if (maxCoin >= iaCoins.Length - 1) return 1; //If all pennies
+
             int iCombSum = 1; //Account for all pennies case
             //For each type of coin
             for (int i = iaCoins.Length - 2; i >= maxCoin && iaCoins[i] <= n; i--) {
                 //For each count of the coin
                 for (int c = 1; iaCoins[i] * c <= n; c++) {
-                    iCombSum += CoinCombs(n - (iaCoins[i] * c), i+1);
+                    iCombSum += CoinCombs(n - (iaCoins[i] * c), i + 1);
                 }
             }
             return iCombSum;
         }
-        public ActionResult Problem32() {
+        public void Problem32() {
             HashSet<int> hiProducts = new HashSet<int>();
             for (int x = 1; x < 2000; x++) {
                 if (Numbers.AllDigitsDifferent(x)) {
-                    for (int y = x+1; y < 2000; y++) {
+                    for (int y = x + 1; y < 2000; y++) {
                         if (Numbers.Pandigital1To9(x, y, x * y)) {
                             System.Diagnostics.Debug.WriteLine(x + "*" + y + "=" + x * y);
                             hiProducts.Add(x * y);
@@ -638,9 +607,8 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = hiProducts.Sum();
-            return View();
         }
-        public ActionResult Problem33() {
+        public void Problem33() {
             int n1, n2, d1, d2;
             float f1, f2;
             int allNume = 1, allDeno = 1;
@@ -648,7 +616,7 @@ namespace ProjectEuler.Controllers {
                 n1 = n / 10;
                 n2 = n % 10;
                 if (n2 == 0) continue;
-                for (int d = n+1; d < 100; d++) {
+                for (int d = n + 1; d < 100; d++) {
                     d1 = d / 10;
                     d2 = d % 10;
                     if (d2 == 0) continue;
@@ -665,11 +633,158 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer = allDeno / allNume;
-            return View();
         }
-        public ActionResult ProblemN() {
+        public void Problem34() {
+            int d;
+            int iCopy;
+            int iFactSum;
+            int iAnswer = 0;
+            for (int i = 3; i < 50000; i++) {
+                iCopy = i;
+                iFactSum = 0;
+                while (iCopy > 0) {
+                    d = iCopy % 10;
+                    iFactSum += Numbers.factorial(d);
+                    iCopy /= 10;
+                }
+                if (iFactSum == i) {
+                    System.Diagnostics.Debug.WriteLine(i);
+                    iAnswer += i;
+                }
+            }
+            ViewBag.Answer = iAnswer;
+        }
+        public void Problem35() {
+            int iCount = 0;
+            PrimeGenerator pg = new SieveOfAtkin();
+            for (int i = 0; pg.getPrime(i) < 1000000; i++) {
+                if (pg.IsCircularPrime(pg.getPrime(i))) {
+                    iCount++;
+                }
+            }
+            ViewBag.Answer = iCount;
+        }
+        public void Problem36() {
+            int iSum = 0;
+            for (int i = 1; i < 1000000; i++) {
+                if (i.ToString().IsPalindrome()) {
+                    if (i.ToBinaryString().IsPalindrome()) {
+                        iSum += i;
+                    }
+                }
+            }
+            ViewBag.Answer = iSum;
+        }
+        public void Problem37() {
+            int iSum = 0;
+            PrimeGenerator pg = new SieveOfAtkin();
+            for (int i = 5; pg.getPrime(i) < 1000000; i++) {
+                if (pg.IsTruncatablePrime(pg.getPrime(i))) {
+                    iSum += pg.getPrime(i);
+                }
+            }
+            ViewBag.Answer = iSum;
+        }
+        public void Problem38() {
+            //We know the largest Pandigital is at least 918273645
+            //Since the first digit of this given pandigital is 9, and the number is of fixed length, as it is 1-9 pandigital
+            //And since the first digit is the first digit of x*1, we know that x must begin with 9, and that x!=9.
+            int x;
+            int iConProd;
+            int iConProdMax = 0;
+            for (int i = 90; i < 100; i++) {
+                iConProd = ConProdPandigital(i);
+                if (iConProd != -1) {
+                    if (iConProdMax < iConProd) {
+                        iConProdMax = iConProd;
+                    }
+                }
+            }
+            for (int i = 900; i < 1000; i++) {
+                iConProd = ConProdPandigital(i);
+                if (iConProd != -1) {
+                    if (iConProdMax < iConProd) {
+                        iConProdMax = iConProd;
+                    }
+                }
+            }
+            for (int i = 9000; i < 10000; i++) {
+                iConProd = ConProdPandigital(i);
+                if (iConProd != -1) {
+                    if (iConProdMax < iConProd) {
+                        iConProdMax = iConProd;
+                    }
+                }
+            }
+            ViewBag.Answer = iConProdMax;
+        }
+        public int ConProdPandigital(int i) {
+            string sNum;
+            int iRet;
+
+            sNum = i.ToString();
+            for (int x = 2; sNum.Length < 9; x++) {
+                sNum = sNum + (x * i);
+            }
+            if (sNum.Length == 9) {
+                iRet = int.Parse(sNum);
+                if (Numbers.Pandigital1To9(iRet)) {
+                    return iRet;
+                }
+            }
+            return -1;
+        }
+        public void Problem39() {
+            int iMaxSols = 0;
+            int[] iaSols = new int[1001];
+            double c;
+            for (int a = 1; a <= 998; a++) {
+                for (int b = a; a + b <= 999; b++) {
+                    c = Math.Sqrt(a * a + b * b);
+                    if (c == Math.Floor(c)) {
+                        if (a + b + c <= 1000) {
+                            iaSols[a + b + (int)c]++;
+                            if (iaSols[a + b + (int)c] > iaSols[iMaxSols]) {
+                                iMaxSols = a + b + (int)c;
+                            }
+                        }
+                    }
+                }
+            }
+            ViewBag.Answer = iMaxSols;
+        }
+        public void Problem40() {
+            int[] iaDigitIndicies = new int[] { 1, 10, 100, 1000, 10000, 100000, 1000000 };
+            int iProduct = 1;
+            foreach(int i in iaDigitIndicies) {
+                iProduct *= GetDigitOfWeirdIrrational(i);
+            }
+            ViewBag.Answer = iProduct;
+        }
+        public int GetDigitOfWeirdIrrational(int iIndex) {
+            int iTotal = 0;
+            int iDigitCount = 0;
+            int iTermSize;
+            int iTerm;
+            int iFirstTerm;
+            string sDigit;
+            if (iIndex < 10) return iIndex;
+            iIndex--;
+            for (iTermSize = 1; iTotal < iIndex; iTermSize++) {
+                iDigitCount = iTermSize * ((int)Math.Pow(10, iTermSize-1) * 9);
+                iTotal += iDigitCount;
+            }
+            iTotal -= iDigitCount;
+            iTermSize--;
+            //iTotal now contains the index of the beginning of the sequence of terms
+            //iTermSize contains the size of sub-terms at the current point
+            iFirstTerm = (int)Math.Pow(10, iTermSize - 1);
+            iTerm = ((iIndex - iTotal) / iTermSize) + iFirstTerm;
+            sDigit = iTerm.ToString().Substring((iIndex - iTotal) % iTermSize, 1);
+            return int.Parse(sDigit);
+        }
+        public void ProblemN() {
             ViewBag.Answer = 0;
-            return View();
         }
 
         // GET: Problems
@@ -693,7 +808,7 @@ namespace ProjectEuler.Controllers {
 
             try {
                 mi = this.GetType().GetMethod("Problem" + id);
-                ActionResult res = (ActionResult)mi.Invoke(this, null);
+                mi.Invoke(this, null);
             } catch {
                 ViewBag.Problem = "ERROR";
                 ViewBag.Answer = "Error in switch. Problem ID not found.";

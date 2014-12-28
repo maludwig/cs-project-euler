@@ -120,6 +120,7 @@
     <Compile Include="Classes\SieveOfAtkin.cs" />
     <Compile Include="Classes\SieveOfEratosthenes.cs" />
     <Compile Include="Classes\Sums.cs" />
+    <Compile Include="Classes\Trigonometry.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProblemsController.cs" />
     <Compile Include="External\BigDecimal.cs" />

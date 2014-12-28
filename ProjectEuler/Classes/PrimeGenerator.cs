@@ -119,8 +119,33 @@ namespace ProjectEuler.Classes {
         public int totient(int iNum) {
             return 0;
         }
-        public bool isPrime(int iNum) {
-            return false;
+        public bool IsPrime(int iNum) {
+            return findPrime(iNum) != -1;
+        }
+        public bool IsCircularPrime(int iNum) {
+            string s = iNum.ToString();
+            for (int i = 0; i < s.Length; i++) {
+                if (!IsPrime(int.Parse(s))) return false;
+                s = s.Substring(1) + s.Substring(0, 1);
+            }
+            return true;
+        }
+        public bool IsTruncatablePrime(int i) {
+            if (!IsPrime(i)) return false;
+            string sNum = i.ToString();
+            if (sNum.Length == 1) return false;
+            sNum = sNum.Substring(1);
+            while (sNum.Length > 0) {
+                if (!IsPrime(int.Parse(sNum))) return false;
+                sNum = sNum.Substring(1);
+            }
+            sNum = i.ToString();
+            sNum = sNum.Substring(0, sNum.Length - 1);
+            while (sNum.Length > 0) {
+                if (!IsPrime(int.Parse(sNum))) return false;
+                sNum = sNum.Substring(0, sNum.Length - 1);
+            }
+            return true;
         }
     }
 }

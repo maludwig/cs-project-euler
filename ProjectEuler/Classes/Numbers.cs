@@ -146,5 +146,20 @@ namespace ProjectEuler.Classes {
             }
             return !b[0];
         }
+        public static bool Pandigital1To9(int v) {
+            bool[] b = new bool[10];
+            int iRem;
+            if (v == 0) return false;
+            while (v > 0) {
+                iRem = v % 10;
+                if (b[iRem]) return false;
+                b[iRem] = true;
+                v = v / 10;
+            }
+            for (iRem = 1; iRem <= 9; iRem++) {
+                if (!b[iRem]) return false;
+            }
+            return !b[0];
+        }
     }
 }
