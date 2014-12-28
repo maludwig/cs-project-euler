@@ -824,6 +824,68 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = iCount;
         }
+        public void Problem43() {
+            List<int> liTails = new List<int>();
+            int iSeed = 10.Pow(6); //10^RequiredDigits
+            int iSecondSeed = 10.Pow(4);
+            long lSum = 0;
+            //Precalculate possible tails
+            for (int i = iSeed / 10; i < iSeed; i++) {
+                if (i.GetDigits(3) % 17 == 0) {
+                    if (i.GetDigits(4, 3) % 13 == 0) {
+                        if (i.GetDigits(5, 3) % 11 == 0) {
+                            if (i.GetDigits(6, 3) % 7 == 0) {
+                                if (i.GetDigit(5) % 5 == 0) {
+                                    if (Numbers.AllDigitsDifferent(i)) {
+                                        for (int k = iSecondSeed / 10; k < iSecondSeed; k += 2) {
+                                            if ((k.GetDigits(2) + i.GetDigit(6)) % 3 == 0) {
+                                                if (Numbers.AllDigitsDifferent(k, i)) {
+                                                    //If all the digits are different, and there are 10 digits, it's Palindromic
+                                                    lSum += long.Parse(k.ToString() + i);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            ViewBag.Answer = lSum;
+        }
+        public void Problem44() {
+            //Heavily optimized
+            //See PentaSpeedTest() in NumbersTest for details
+            long lXPenta, lYPenta;
+            for (int x = 1; true; x++) {
+                lXPenta = Numbers.GetPentagonal(x);
+                for (int y = 1; y < x; y++) {
+                    lYPenta = Numbers.GetPentagonal(y);
+                    if (Numbers.IsPentagonal(lXPenta + lYPenta)) {
+                        if (Numbers.IsPentagonal(lXPenta + (2 * lYPenta))) {
+                            ViewBag.Answer = lXPenta;
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        public void Problem45() {
+            long lHexa;
+            for (int h = 145; true; h++) {
+                lHexa = Numbers.GetHexagonal(h);
+                if (Numbers.IsPentagonal(lHexa)) {
+                    if (Numbers.IsTriangle(lHexa)) {
+                        ViewBag.Answer = lHexa;
+                        return;
+                    }
+                }
+            }
+
+            ViewBag.Answer = 0;
+        }
+
         public void ProblemN() {
             ViewBag.Answer = 0;
         }

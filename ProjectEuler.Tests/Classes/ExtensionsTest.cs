@@ -41,5 +41,36 @@ namespace ProjectEuler.Tests.Classes {
             Assert.IsFalse("122".IsPalindrome());
             Assert.IsFalse("123".IsPalindrome());
         }
+        [TestMethod]
+        public void Pow() {
+            Assert.AreEqual(3, 3.Pow(1));
+            Assert.AreEqual(9, 3.Pow(2));
+            Assert.AreEqual(27, 3.Pow(3));
+            Assert.AreEqual(81, 3.Pow(4));
+            Assert.AreEqual(243, 3.Pow(5));
+            Assert.AreEqual(729, 3.Pow(6));
+            Assert.AreEqual(2187, 3.Pow(7));
+            Assert.AreEqual(6561, 3.Pow(8));
+            Assert.AreEqual(19683, 3.Pow(9));
+            Assert.AreEqual(59049, 3.Pow(10));
+            Assert.AreEqual(177147, 3.Pow(11));
+            Assert.AreEqual(531441, 3.Pow(12));
+            Assert.AreEqual(1594323, 3.Pow(13));
+        }
+        [TestMethod]
+        public void GetDigit() {
+            Assert.AreEqual(3, 321.GetDigit(3));
+            Assert.AreEqual(2, 321.GetDigit(2));
+            Assert.AreEqual(1, 321.GetDigit(1));
+            Assert.AreEqual(6, 7654321.GetDigit(6));
+            Assert.AreEqual(4567, 1234567.GetDigits(4));
+            Assert.AreEqual(456, 1234567.GetDigits(4, 3));
+            Assert.AreEqual(45, 1234567.GetDigits(4, 2));
+            Assert.AreEqual(4, 1234567.GetDigits(4, 1));
+            Assert.AreEqual(5963, 4875963.GetDigits(4));
+            Assert.AreEqual(596, 4875963.GetDigits(4, 3));
+            Assert.AreEqual(59, 4875963.GetDigits(4, 2));
+            Assert.AreEqual(5, 4875963.GetDigits(4, 1));
+        }
     }
 }

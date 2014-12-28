@@ -23,7 +23,7 @@ namespace ProjectEuler.Classes {
                 return _iaColChainLengths[lNum];
             } else {
                 return CollatzChainLength(CollatzStep(lNum)) + 1;
-            } 
+            }
         }
 
         //Returns n!
@@ -160,6 +160,56 @@ namespace ProjectEuler.Classes {
                 if (!b[iRem]) return false;
             }
             return !b[0];
+        }
+
+        //Triangle quadratic is 1n^2+1n-(lTriangle * 2)=0
+        //a = 1, b = 1, c = -lTriangle * 2
+        public static long GetTriangle(int i) {
+            return i * (i + 1) / 2;
+        }
+        public static int GetTriangleIndex(long lTri) {
+            long lTop = 1 + (4 * lTri * 2);       //b^2-4ac
+            lTop = -1 + (long)Math.Sqrt(lTop);    //-b + sqrt(lTop)
+            return (int)(lTop / 2);               //lTop / 2a
+        }
+        public static bool IsTriangle(long lTri) {
+            double lTop = 1 + (4 * lTri * 2);     //b^2-4ac
+            lTop = -1 + Math.Sqrt(lTop);          //-b + sqrt(lTop)
+            lTop /= 2;                            //lTop / 2a
+            return lTop == Math.Floor(lTop);      
+        }
+
+        //Pentagonal quadratic is 3n^2-n-(lPenta * 2)=0
+        //a = 3, b = -1, c = -lPenta * 2
+        public static long GetPentagonal(int i) {
+            return i * (3 * i - 1) / 2;
+        }
+        public static int GetPentagonalIndex(long lPenta) {
+            long lTop = 1 + (4 * 3 * lPenta * 2);     //b^2-4ac
+            lTop = 1 + (long)Math.Sqrt(lTop);         //-b + sqrt(lTop)
+            return (int)(lTop / 6);                   //lTop / 2a
+        }
+        public static bool IsPentagonal(long lPenta) {
+            double lTop = 1 + (4 * 3 * lPenta * 2);   //b^2-4ac
+            lTop = (1 + Math.Sqrt(lTop)) / 6;         //-b + sqrt(lTop)
+            return lTop == Math.Floor(lTop);          //lTop / 2a
+        }
+
+
+        //Hexagonal quadratic is 2n^2-n-lHexa=0
+        //a = 2, b = -1, c = -lHexa
+        public static long GetHexagonal(int i) {
+            return i * (2 * i - 1);
+        }
+        public static int GetHexagonalIndex(long lHexa) {
+            long lTop = 1 + (4 * 2 * lHexa);        //b^2-4ac
+            lTop = 1 + (long)Math.Sqrt(lTop);       //-b + sqrt(lTop)
+            return (int)(lTop / 4);                 //lTop / 2a
+        }
+        public static bool IsHexagonal(long lHexa) {
+            double lTop = 1 + (4 * 2 * lHexa);        //b^2-4ac
+            lTop = (1 + Math.Sqrt(lTop)) / 4;   //-b + sqrt(lTop)
+            return lTop == Math.Floor(lTop);          //lTop / 2a
         }
     }
 }
