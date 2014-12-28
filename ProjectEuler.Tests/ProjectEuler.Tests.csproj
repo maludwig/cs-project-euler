@@ -90,6 +90,7 @@
     <Compile Include="Classes\ExtensionsTest.cs" />
     <Compile Include="Classes\BigNumbersTest.cs" />
     <Compile Include="Classes\NumbersTest.cs" />
+    <Compile Include="Classes\PermutationsTest.cs" />
     <Compile Include="Performance\HashSetTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

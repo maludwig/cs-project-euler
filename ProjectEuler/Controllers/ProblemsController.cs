@@ -690,7 +690,6 @@ namespace ProjectEuler.Controllers {
             //We know the largest Pandigital is at least 918273645
             //Since the first digit of this given pandigital is 9, and the number is of fixed length, as it is 1-9 pandigital
             //And since the first digit is the first digit of x*1, we know that x must begin with 9, and that x!=9.
-            int x;
             int iConProd;
             int iConProdMax = 0;
             for (int i = 90; i < 100; i++) {
@@ -757,7 +756,7 @@ namespace ProjectEuler.Controllers {
         public void Problem40() {
             int[] iaDigitIndicies = new int[] { 1, 10, 100, 1000, 10000, 100000, 1000000 };
             int iProduct = 1;
-            foreach(int i in iaDigitIndicies) {
+            foreach (int i in iaDigitIndicies) {
                 iProduct *= GetDigitOfWeirdIrrational(i);
             }
             ViewBag.Answer = iProduct;
@@ -772,7 +771,7 @@ namespace ProjectEuler.Controllers {
             if (iIndex < 10) return iIndex;
             iIndex--;
             for (iTermSize = 1; iTotal < iIndex; iTermSize++) {
-                iDigitCount = iTermSize * ((int)Math.Pow(10, iTermSize-1) * 9);
+                iDigitCount = iTermSize * ((int)Math.Pow(10, iTermSize - 1) * 9);
                 iTotal += iDigitCount;
             }
             iTotal -= iDigitCount;
@@ -785,15 +784,45 @@ namespace ProjectEuler.Controllers {
             return int.Parse(sDigit);
         }
         public void Problem41() {
-            PrimeGenerator pg = new SieveOfAtkin(1010000000);
-            int iPrime;
-            for (int i = 0; pg.getPrime(i) < 2200; i++ ) {
+            //Since any power of 10^n = 3k+1 for some k (ex. 1000 = 3(333)+1)
+            //Then we know for any x(10^n) = x(3k+1) = 3kx+x  (ex. 800 = 3(33*8)+8)
+            //Therefore if the sum of the digits of a number are divisible by 3, then the number must be divisible by 3
+            //    ex. 813 = 3(33*8)+8 + 3(3*1)+1 + 3 = 3(33*8 + 3*1) + 8 + 1 + 3 = 3(277) + 8+1+3 = 3(277) + 3(4)
+
+            //Therefore, since 1+2+3+4+5+6+7+8+9 is divisible by 3, and 1+2+3+4+5+6+7+8 is divisible by 3, all permutations of them will be divisible by 3.
+            PrimeGenerator pg = new SieveOfAtkin(10000000);
+            int iPrime = 0;
+
+            for (int i = pg.Count()-1; i > 0; i--) {
                 iPrime = pg.getPrime(i);
                 if (Numbers.IsPandigital(iPrime, iPrime.ToString().Length)) {
-                    System.Diagnostics.Debug.WriteLine(iPrime);
+                    break;
                 }
             }
-            ViewBag.Answer = 0;
+            ViewBag.Answer = iPrime;
+        }
+        public void Problem42() {
+
+            List<string> lsWords = new List<string>(System.IO.File.ReadAllLines(Server.MapPath(@"~/App_Data/words.txt")));
+            int iCount = 0;
+            int iSum = 0;
+            List<int> liTriangles = new List<int>();
+            char[] ca;
+            for (int i = 1; i < 100; i++) {
+                iSum += i;
+                liTriangles.Add(iSum);
+            }
+            foreach (string sWord in lsWords) {
+                ca = sWord.ToCharArray();
+                iSum = 0;
+                foreach (char c in ca) {
+                    iSum += (int)c - (int)'A' + 1;
+                }
+                if (liTriangles.Contains(iSum)) {
+                    iCount++;
+                }
+            }
+            ViewBag.Answer = iCount;
         }
         public void ProblemN() {
             ViewBag.Answer = 0;
