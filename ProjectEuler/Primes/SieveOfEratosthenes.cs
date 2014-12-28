@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ProjectEuler.Classes;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace ProjectEuler.Classes {
+namespace ProjectEuler.Primes {
     public class SieveOfEratosthenes : PrimeGenerator {
         public const int INSTANT = 100000;
         public const int FIVE = 1200000;
@@ -33,7 +34,7 @@ namespace ProjectEuler.Classes {
                 lRoot = (int)(Math.Sqrt(lNum));
                 k = 0;
                 bIsComposite = false;
-                while (iaPrimes[k] <= lRoot && bIsComposite == false && iaPrimes[k] != 0) {
+                while (iaPrimes[k] <= lRoot && !bIsComposite && iaPrimes[k] != 0) {
                     if (lNum % iaPrimes[k] == 0) {
                         bIsComposite = true;
                     }
@@ -43,6 +44,10 @@ namespace ProjectEuler.Classes {
                     iaPrimes[i] = lNum;
                     i++;
                 }
+            }
+            _bmIsPrime = new BoolMap(iaPrimes[iCount - 1]);
+            for (int i = 0; i < iCount; i++) {
+                _bmIsPrime[iaPrimes[i]] = true;
             }
             stopWatch.Stop();
             ts = stopWatch.Elapsed;

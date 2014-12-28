@@ -1,10 +1,11 @@
-﻿using System;
+﻿using ProjectEuler.Classes;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Web;
 
-namespace ProjectEuler.Classes {
+namespace ProjectEuler.Primes {
     public class SieveOfAtkin : PrimeGenerator {
         public const int INSTANT = 10000000; //All primes up to 10 million
         public const int FIVE = 100000000; //All primes up to 100 million
@@ -19,7 +20,7 @@ namespace ProjectEuler.Classes {
 
             // For tracking performance
             // final long lTime = System.nanoTime();
-            BoolMap bmIsPrime = new BoolMap(iLimit + 1);
+            _bmIsPrime = new BoolMap(iLimit + 1);
             int x;
             int y;
             int n;
@@ -69,7 +70,7 @@ namespace ProjectEuler.Classes {
                                 if (n <= iLimit) {
                                     nMod12 = n % 12;
                                     if (nMod12 == 1 || nMod12 == 5) {
-                                        bmIsPrime.Flip(n);
+                                        _bmIsPrime.Flip(n);
                                     }
                                 } else {
                                     y = sqrtLimit + 1;
@@ -86,7 +87,7 @@ namespace ProjectEuler.Classes {
                                 n = 3 * xSquared + y * y;
                                 if (n <= iLimit) {
                                     if (n % 12 == 7) {
-                                        bmIsPrime.Flip(n);
+                                        _bmIsPrime.Flip(n);
                                     }
                                 } else {
                                     y = sqrtLimit + 1;
@@ -103,7 +104,7 @@ namespace ProjectEuler.Classes {
                                 n = 3 * xSquared - y * y;
                                 if (n <= iLimit) {
                                     if (n % 12 == 11) {
-                                        bmIsPrime.Flip(n);
+                                        _bmIsPrime.Flip(n);
                                     }
                                 } else {
                                     y = 0;
@@ -114,25 +115,27 @@ namespace ProjectEuler.Classes {
                         }
                     }
                     for (n = 5; n < sqrtLimit; n += 2) {
-                        if (bmIsPrime.Get(n)) {
+                        if (_bmIsPrime.Get(n)) {
                             nSquared = n * n;
                             for (i = nSquared; i < iLimit; i += nSquared) {
-                                bmIsPrime.Disable(i);
+                                _bmIsPrime.Disable(i);
                             }
                         }
                     }
                     iCount = 3;
-                    for (n = 7; n < bmIsPrime.Length(); n += 2) {
-                        if (bmIsPrime.Get(n)) {
+                    for (n = 7; n < _bmIsPrime.Length(); n += 2) {
+                        if (_bmIsPrime[n]) {
                             iCount++;
                         }
                     }
                     iaPrimes = new int[iCount];
                     iaPrimes[0] = 2;
                     iaPrimes[1] = 3;
+                    _bmIsPrime[2] = true;
+                    _bmIsPrime[3] = true;
                     i = 2;
-                    for (n = 5; n < bmIsPrime.Length(); n += 2) {
-                        if (bmIsPrime.Get(n)) {
+                    for (n = 5; n < _bmIsPrime.Length(); n += 2) {
+                        if (_bmIsPrime[n]) {
                             iaPrimes[i] = n;
                             i++;
                         }

@@ -29,20 +29,20 @@ namespace ProjectEuler.Classes {
             }
         }
         public bool Get(int iIndex) {
-            return ((_baMap[iIndex / 8] >> (iIndex % 8)) & 1) == 1;
+            return ((_baMap[iIndex / 8] << (iIndex % 8)) & 128) == 128;
         }
         public void Set(int iIndex, bool bValue) {
             if (bValue) Enable(iIndex);
             else Disable(iIndex);
         }
         public void Enable(int iIndex) {
-            _baMap[iIndex / 8] |= (byte)(1 << (iIndex % 8));
+            _baMap[iIndex / 8] |= (byte)(128 >> (iIndex % 8));
         }
         public void Disable(int iIndex) {
-            _baMap[iIndex / 8] &= (byte)((1 << (iIndex % 8)) ^ 255);
+            _baMap[iIndex / 8] &= (byte)((128 >> (iIndex % 8)) ^ 255);
         }
         public void Flip(int iIndex) {
-            _baMap[iIndex / 8] ^= (byte)(1 << (iIndex % 8));
+            _baMap[iIndex / 8] ^= (byte)(128 >> (iIndex % 8));
         }
         public override string ToString() {
             StringBuilder sbOut = new StringBuilder("0x");

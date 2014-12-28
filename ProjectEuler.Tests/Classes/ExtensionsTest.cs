@@ -10,16 +10,16 @@ namespace ProjectEuler.Tests.Classes {
         public void ListEquality() {
             List<int> l1 = new List<int>(new int[] { 1, 2, 3, 4 });
             List<int> l2 = new List<int>(new int[] { 1, 2, 3, 4 });
-            Assert.IsTrue(Extensions.EachItemEqual(l1, l2));
+            Assert.IsTrue(l1.EachItemEqual(l2));
             l2.Add(5);
-            Assert.IsFalse(Extensions.EachItemEqual(l1, l2));
+            Assert.IsFalse(l1.EachItemEqual(l2));
             l2 = new List<int>(new int[] { 8, 2, 1, 4 });
-            Assert.IsFalse(Extensions.EachItemEqual(l1, l2));
+            Assert.IsFalse(l1.EachItemEqual(l2));
             l2 = l1;
-            Assert.IsTrue(Extensions.EachItemEqual(l1, l2));
+            Assert.IsTrue(l1.EachItemEqual(l2));
             l1 = new List<int>();
             l2 = new List<int>();
-            Assert.IsTrue(Extensions.EachItemEqual(l1, l2));
+            Assert.IsTrue(l1.EachItemEqual(l2));
         }
         [TestMethod]
         public void BinaryStringTest() {

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Numerics;
 using System.Diagnostics;
 using System.Text;
+using ProjectEuler.Primes;
 
 namespace ProjectEuler.Controllers {
     public class ProblemsController : Controller {

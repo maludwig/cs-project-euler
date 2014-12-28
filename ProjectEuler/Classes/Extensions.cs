@@ -59,7 +59,7 @@ namespace ProjectEuler.Classes {
         /// <summary>
         /// Compare two enumerable objects to see if each item is equal
         /// </summary>
-        public static bool EachItemEqual<T>(IEnumerable<T> list1, IEnumerable<T> list2) {
+        public static bool EachItemEqual<T>(this IEnumerable<T> list1, IEnumerable<T> list2) {
             if (list1.Count() != list2.Count()) return false;
             IEnumerator<T> enum1 = list1.GetEnumerator();
             IEnumerator<T> enum2 = list2.GetEnumerator();

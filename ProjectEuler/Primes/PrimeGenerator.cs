@@ -1,13 +1,15 @@
-﻿using System;
+﻿using ProjectEuler.Classes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ProjectEuler.Classes {
+namespace ProjectEuler.Primes {
     public enum PerfectionLevel { DEFICIENT = -1, PERFECT, ABUNDANT };
     public class PrimeGenerator {
         protected int[] _iaPrimes;
+        protected BoolMap _bmIsPrime;
         public PrimeGenerator() {
 
         }
@@ -120,7 +122,8 @@ namespace ProjectEuler.Classes {
             return 0;
         }
         public bool IsPrime(int iNum) {
-            return findPrime(iNum) != -1;
+            bool b = _bmIsPrime[iNum];
+            return b;
         }
         public bool IsCircularPrime(int iNum) {
             string s = iNum.ToString();

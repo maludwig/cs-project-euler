@@ -116,9 +116,10 @@
     <Compile Include="Classes\Extensions.cs" />
     <Compile Include="Classes\Numbers.cs" />
     <Compile Include="Classes\Palindromes.cs" />
-    <Compile Include="Classes\PrimeGenerator.cs" />
-    <Compile Include="Classes\SieveOfAtkin.cs" />
-    <Compile Include="Classes\SieveOfEratosthenes.cs" />
+    <Compile Include="Primes\PrimalityTest.cs" />
+    <Compile Include="Primes\PrimeGenerator.cs" />
+    <Compile Include="Primes\SieveOfAtkin.cs" />
+    <Compile Include="Primes\SieveOfEratosthenes.cs" />
     <Compile Include="Classes\Sums.cs" />
     <Compile Include="Classes\Trigonometry.cs" />
     <Compile Include="Controllers\HomeController.cs" />
