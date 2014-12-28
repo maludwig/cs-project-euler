@@ -885,7 +885,25 @@ namespace ProjectEuler.Controllers {
 
             ViewBag.Answer = 0;
         }
-
+        public void Problem46() {
+            bool bWritable;
+            PrimeGenerator pg = new SieveOfAtkin();
+            for (int i = 9; true; i += 2) {
+                if (!pg.IsPrime(i)) {
+                    bWritable = false;
+                    for (int sq = 1; 2 * sq * sq < i; sq++) {
+                        if (pg.IsPrime(i - 2 * sq * sq)) {
+                            bWritable = true;
+                            break;
+                        }
+                    }
+                    if (!bWritable) {
+                        ViewBag.Answer = i;
+                        return;
+                    }
+                }
+            }
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
