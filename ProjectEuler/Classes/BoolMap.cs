@@ -20,6 +20,14 @@ namespace ProjectEuler.Classes {
         public byte[] ToByteArray() {
             return _baMap;
         }
+        public bool this[int iIndex] {
+            get {
+                return Get(iIndex);
+            }
+            set {
+                Set(iIndex, value);
+            }
+        }
         public bool Get(int iIndex) {
             return ((_baMap[iIndex / 8] >> (iIndex % 8)) & 1) == 1;
         }

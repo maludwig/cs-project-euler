@@ -36,6 +36,21 @@ namespace ProjectEuler.Tests.Classes {
             }
         }
         [TestMethod]
+        public void MajorWithIndex() {
+            BoolMap bm = new BoolMap(1000);
+            for (int i = 0; i < 1000; i++) {
+                Assert.IsFalse(bm[i]);
+            }
+            for (int i = 0; i < 1000; i++) {
+                bm[i] = true;
+                Assert.IsTrue(bm[i]);
+                bm[i] = false;
+                for (int k = 0; k < 1000; k++) {
+                    Assert.IsFalse(bm[k]);
+                }
+            }
+        }
+        [TestMethod]
         public void MajorBool() {
             bool[] ba = new bool[1000];
             for (int i = 0; i < 1000; i++) {

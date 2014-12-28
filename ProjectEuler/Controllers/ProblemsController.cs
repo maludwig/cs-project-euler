@@ -783,6 +783,17 @@ namespace ProjectEuler.Controllers {
             sDigit = iTerm.ToString().Substring((iIndex - iTotal) % iTermSize, 1);
             return int.Parse(sDigit);
         }
+        public void Problem41() {
+            PrimeGenerator pg = new SieveOfAtkin(1010000000);
+            int iPrime;
+            for (int i = 0; pg.getPrime(i) < 2200; i++ ) {
+                iPrime = pg.getPrime(i);
+                if (Numbers.IsPandigital(iPrime, iPrime.ToString().Length)) {
+                    System.Diagnostics.Debug.WriteLine(iPrime);
+                }
+            }
+            ViewBag.Answer = 0;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
