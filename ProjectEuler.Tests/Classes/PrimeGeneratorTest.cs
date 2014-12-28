@@ -56,11 +56,11 @@ namespace ProjectEuler.Tests.Classes {
             PrimeGenerator pg = new SieveOfAtkin();
             List<int> liFactors;
             liFactors = new List<int>(new int[] { 2, 5 });
-            Assert.IsTrue(liFactors.EachItemEqual(pg.factor(10)));
+            Assert.IsTrue(liFactors.EachItemEqual(pg.Factors(10)));
             liFactors = new List<int>(new int[] { 5 });
-            Assert.IsTrue(liFactors.EachItemEqual(pg.factor(5)));
+            Assert.IsTrue(liFactors.EachItemEqual(pg.Factors(5)));
             liFactors = new List<int>(new int[] { 71, 839, 1471, 6857 });
-            Assert.IsTrue(liFactors.EachItemEqual(pg.factor(600851475143)));
+            Assert.IsTrue(liFactors.EachItemEqual(pg.Factors(600851475143)));
 
         }
         [TestMethod]

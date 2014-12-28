@@ -58,10 +58,15 @@ namespace ProjectEuler.Primes {
                 else return findClosestPrime(iNum, iStart, iMid);
             }
         }
-        public List<int> factor(int iNum) {
-            return factor((long)iNum);
+        public List<int> Factors(int iNum) {
+            if (IsPrime(iNum)) {
+                List<int> li = new List<int>();
+                li.Add(iNum);
+                return li;
+            }
+            return Factors((long)iNum);
         }
-        public List<int> factor(long lNum) {
+        public List<int> Factors(long lNum) {
             List<int> liFactors = new List<int>();
             for (int i = 0; _iaPrimes[i] <= lNum; i++) {
                 if (lNum % _iaPrimes[i] == 0) {
@@ -72,11 +77,47 @@ namespace ProjectEuler.Primes {
             }
             return liFactors;
         }
+        public List<int> DistinctFactors(int iNum) {
+            if (IsPrime(iNum)) {
+                List<int> li = new List<int>();
+                li.Add(iNum);
+                return li;
+            }
+            return DistinctFactors((long)iNum);
+        }
+        public List<int> DistinctFactors(long lNum) {
+            List<int> liFactors = new List<int>();
+            for (int i = 0; _iaPrimes[i] <= lNum; i++) {
+                if (lNum % _iaPrimes[i] == 0) {
+                    lNum /= _iaPrimes[i];
+                    while (lNum % _iaPrimes[i] == 0) lNum /= _iaPrimes[i];
+                    liFactors.Add(_iaPrimes[i]);
+                }
+            }
+            return liFactors;
+        }
+        public int DistinctFactorCount(int iNum) {
+            if (IsPrime(iNum)) {
+                return 1;
+            }
+            return DistinctFactorCount((long)iNum);
+        }
+        public int DistinctFactorCount(long lNum) {
+            int iCount = 0;
+            for (int i = 0; _iaPrimes[i] <= lNum; i++) {
+                if (lNum % _iaPrimes[i] == 0) {
+                    lNum /= _iaPrimes[i];
+                    while (lNum % _iaPrimes[i] == 0) lNum /= _iaPrimes[i];
+                    iCount++;
+                }
+            }
+            return iCount;
+        }
         public List<int> divisors(int iNum) {
             return divisors((long)iNum);
         }
         public List<int> divisors(long lNum) {
-            List<int> liFactors = factor(lNum);
+            List<int> liFactors = Factors(lNum);
             List<int> liLastDivs = new List<int>();
             List<int> liDivs = new List<int>();
             int iLastFactor = 0;

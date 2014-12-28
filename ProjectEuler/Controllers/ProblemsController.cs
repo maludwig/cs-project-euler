@@ -34,7 +34,7 @@ namespace ProjectEuler.Controllers {
         public void Problem3() {
             PrimeGenerator pg = new SieveOfEratosthenes(1000);
 
-            ViewBag.Answer = pg.factor(600851475143).Last();
+            ViewBag.Answer = pg.Factors(600851475143).Last();
         }
         public void Problem4() {
             int iMax = 0;
@@ -54,7 +54,7 @@ namespace ProjectEuler.Controllers {
             List<int> liFactors;
             int iNum = 1;
             for (int i = 1; i <= 20; i++) {
-                liFactors = pg.factor(i);
+                liFactors = pg.Factors(i);
                 for (int f = 1; f <= 20; f++) {
                     iaFactors[f] = Math.Max(iaFactors[f], liFactors.Where(x => x == f).Count());
                 }
@@ -170,7 +170,7 @@ namespace ProjectEuler.Controllers {
             int iLastDivCount;
             for (int i = 2; i < 1000000; i++) {
                 lTri += i;
-                liFactors = pg.factor(lTri);
+                liFactors = pg.Factors(lTri);
                 iCurrDivCount = 1;
                 iLastDivCount = 1;
                 foreach (int iFactor in liFactors) {
@@ -900,6 +900,24 @@ namespace ProjectEuler.Controllers {
                     if (!bWritable) {
                         ViewBag.Answer = i;
                         return;
+                    }
+                }
+            }
+        }
+        public void Problem47() {
+            PrimeGenerator pg = new SieveOfAtkin(600000);
+            int i;
+            for (i = 1; true; i++) {
+                if ((i % 2 == 0) || (i % 3 == 0)) {
+                    if (pg.DistinctFactorCount(i) == 4) {
+                        if (pg.DistinctFactorCount(i + 1) == 4) {
+                            if (pg.DistinctFactorCount(i + 2) == 4) {
+                                if (pg.DistinctFactorCount(i + 3) == 4) {
+                                    ViewBag.Answer = i;
+                                    return;
+                                }
+                            }
+                        }
                     }
                 }
             }
