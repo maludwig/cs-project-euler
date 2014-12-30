@@ -118,7 +118,14 @@ namespace ProjectEuler.Classes {
         /// </summary>
         public static int GetDigits(this int iNum, int iDigitIndex, int iLength) {
             int iCancelledTop = iNum % 10.Pow(iDigitIndex);
-            return iCancelledTop / 10.Pow(iDigitIndex - iLength);;
+            return iCancelledTop / 10.Pow(iDigitIndex - iLength); ;
+        }
+        /// <summary>
+        /// Returns true if iNum is a lexicographic permutation of iOther
+        /// </summary>
+        public static bool IsPermutationOf(this int iNum, int iOther) {
+            Permutations p = new Permutations(iNum.ToString());
+            return p.IsPermutationOf(iOther.ToString());
         }
     }
 }

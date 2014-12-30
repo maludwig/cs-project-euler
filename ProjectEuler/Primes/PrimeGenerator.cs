@@ -13,6 +13,11 @@ namespace ProjectEuler.Primes {
         public PrimeGenerator() {
 
         }
+        public int this[int iIndex] {
+            get {
+                return _iaPrimes[iIndex];
+            }
+        }
         public int Count() {
             return _iaPrimes.Length;
         }

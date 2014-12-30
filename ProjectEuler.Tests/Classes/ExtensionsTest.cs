@@ -59,6 +59,7 @@ namespace ProjectEuler.Tests.Classes {
         }
         [TestMethod]
         public void GetDigit() {
+            string s;
             Assert.AreEqual(3, 321.GetDigit(3));
             Assert.AreEqual(2, 321.GetDigit(2));
             Assert.AreEqual(1, 321.GetDigit(1));

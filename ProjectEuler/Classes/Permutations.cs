@@ -24,6 +24,28 @@ namespace ProjectEuler.Classes {
                 return sResult;
             }
         }
+        public bool IsPermutationOf(string sTest) {
+            Dictionary<char, int> diiDigits = new Dictionary<char, int>();
+            if (sTest.Length != _sSeed.Length) return false;
+            char[] ca = _sSeed.ToCharArray();
+            foreach (char c in ca) {
+                if (diiDigits.ContainsKey(c)) {
+                    diiDigits[c]++;
+                } else {
+                    diiDigits.Add(c, 1);
+                }
+            }
+            ca = sTest.ToCharArray();
+            foreach (char c in ca) {
+                if (diiDigits.ContainsKey(c)) {
+                    diiDigits[c]--;
+                    if (diiDigits[c] == 0) diiDigits.Remove(c);
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
         public IEnumerator<string> GetEnumerator() {
             int iMaxCombs = Numbers.factorial(_sSeed.Length);
             for (int i = 0; i < iMaxCombs; i++) {

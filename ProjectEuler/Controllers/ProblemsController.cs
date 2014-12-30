@@ -922,6 +922,64 @@ namespace ProjectEuler.Controllers {
                 }
             }
         }
+        public void Problem48() {
+            BigInteger bSum = BigInteger.Zero;
+            BigInteger bPow;
+            string sAns;
+            for (int i = 1; i <= 1000; i++) {
+                bPow = BigInteger.Pow(i, i);
+                bSum += bPow;
+            }
+            sAns = bSum.ToString();
+            ViewBag.Answer = sAns.Substring(sAns.Length - 10);
+        }
+        public void Problem49() {
+            PrimeGenerator pg = new SieveOfAtkin();
+            int iDiff;
+            int iTopPrime;
+            int iIPrime;
+            int iKPrime;
+            for (int i = 169; pg.getPrime(i) < 10000; i++) {
+                iIPrime = pg.getPrime(i);
+                for (int k = i + 1; pg.getPrime(k) < 10000; k++) {
+                    iKPrime = pg.getPrime(k);
+                    iDiff = iKPrime - iIPrime;
+                    iTopPrime = iKPrime + iDiff;
+                    if (pg.IsPrime(iTopPrime)) {
+                        if (iKPrime.IsPermutationOf(iIPrime) && iIPrime.IsPermutationOf(iTopPrime)) {
+                            ViewBag.Answer = iIPrime.ToString() + iKPrime.ToString() + iTopPrime;
+                        }
+                    }
+                }
+            }
+            //ViewBag.Answer = 0;
+        }
+        public void Problem50() {
+            int iMaxCount = 1000;
+            int iMinCount = 1;
+            int iMaxPrime = 0;
+            int iMaxIndex = 0;
+            int iCurrSum = 0;
+            PrimeGenerator pg = new SieveOfAtkin();
+            for (int i = 0; pg[i] < 1000000; i++) {
+                iCurrSum = pg[i];
+                for (int k = 1; k <= iMinCount; k++) {
+                    iCurrSum += pg[i + k];
+                }
+                if (iCurrSum > 1000000) break;
+                for (int k = iMinCount + 1; k < iMaxCount; k++) {
+                    iCurrSum += pg[i + k];
+                    if (iCurrSum > 1000000) break;
+                    if (pg.IsPrime(iCurrSum)) {
+                        iMinCount = k;
+                        iMaxPrime = iCurrSum;
+                        iMaxIndex = i;
+                        i = 0;
+                    }
+                }
+            }
+            ViewBag.Answer = iMaxPrime;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
