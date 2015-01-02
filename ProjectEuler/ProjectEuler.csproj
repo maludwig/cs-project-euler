@@ -118,7 +118,7 @@
     <Compile Include="Classes\Numbers.cs" />
     <Compile Include="Classes\Palindromes.cs" />
     <Compile Include="Classes\Permutations.cs" />
-    <Compile Include="Primes\PrimalityTest.cs" />
+    <Compile Include="Primes\IPrimalityTest.cs" />
     <Compile Include="Primes\PrimeGenerator.cs" />
     <Compile Include="Primes\SieveOfAtkin.cs" />
     <Compile Include="Primes\SieveOfEratosthenes.cs" />
