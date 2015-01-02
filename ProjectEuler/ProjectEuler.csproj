@@ -114,6 +114,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\BoolMap.cs" />
     <Compile Include="Classes\Extensions.cs" />
+    <Compile Include="Classes\IntExtensions.cs" />
     <Compile Include="Classes\Numbers.cs" />
     <Compile Include="Classes\Palindromes.cs" />
     <Compile Include="Classes\Permutations.cs" />

@@ -980,6 +980,39 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = iMaxPrime;
         }
+        public void Problem51() {
+            PrimeGenerator pg = new SieveOfAtkin(100000);
+            Dictionary<string, int> dsiModdedPrimes = new Dictionary<string, int>();
+            string sPrime;
+            string sMod;
+            int k;
+            char[] caNums = new char[] {'0','1','2','3','4','5','6','7','8','9'};
+            foreach (int iPrime in pg) {
+                sPrime = iPrime.ToString();
+                if (iPrime == 56003) {
+                    System.Diagnostics.Debug.WriteLine("test");
+                }
+                for (k = 0; k <= 9; k++) {
+                    if (iPrime.ContainsDigit(k)) {
+                        sMod = sPrime.Replace(caNums[k],'x');
+                        if (dsiModdedPrimes.ContainsKey(sMod)) {
+                            dsiModdedPrimes[sMod]++;
+                            if (sMod == "56xx3") {
+                                System.Diagnostics.Debug.WriteLine("kk");
+                            }
+                        } else {
+                            dsiModdedPrimes.Add(sMod,1);
+                        }
+                    }
+                }
+            }
+            foreach (KeyValuePair<string, int> kvp in dsiModdedPrimes) {
+                if (kvp.Value == 8) {
+                    System.Diagnostics.Debug.WriteLine(kvp.Key + ": " + kvp.Value);
+                }
+            }
+            ViewBag.Answer = 0;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }

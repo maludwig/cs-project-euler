@@ -1,5 +1,6 @@
 ﻿using ProjectEuler.Classes;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ProjectEuler.Primes {
     public enum PerfectionLevel { DEFICIENT = -1, PERFECT, ABUNDANT };
-    public class PrimeGenerator {
+    public class PrimeGenerator : IEnumerable<int> {
         protected int[] _iaPrimes;
         protected BoolMap _bmIsPrime;
         public PrimeGenerator() {
@@ -17,6 +18,14 @@ namespace ProjectEuler.Primes {
             get {
                 return _iaPrimes[iIndex];
             }
+        }
+        public IEnumerator<int> GetEnumerator() {
+            for (int i = 0; i < _iaPrimes.Length; i++) {
+                yield return _iaPrimes[i];
+            }
+        }
+        IEnumerator IEnumerable.GetEnumerator() {
+            return this.GetEnumerator();
         }
         public int Count() {
             return _iaPrimes.Length;
