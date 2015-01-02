@@ -11,18 +11,11 @@ namespace MikesEuler.Tests.NumberTests {
         [TestMethod]
         public void TestPrimalityTests() {
             IPrimalityTest p = new BasicPrimes();
-            List<int> liExtraPrimes = new List<int>();
-            liPrimes.Add(23);
-            liPrimes.AddRange(new int[] { 29, 31, 37 });
-            liExtraPrimes.Add(41);
-            liExtraPrimes.Add(43);
-            liExtraPrimes.Add(47);
-            liExtraPrimes.Add(53);
-            liPrimes.AddRange(liExtraPrimes);
-
             TestAnInterface(p);
-
-            //p = new BaillePWSNFSDKN();
+        }
+        [TestMethod]
+        public void TestBailliePSW() {
+            IPrimalityTest p = new BailliePSW();
             TestAnInterface(p);
         }
         public void TestAnInterface(IPrimalityTest p) {
