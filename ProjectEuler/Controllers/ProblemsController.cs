@@ -9,6 +9,7 @@ using System.Numerics;
 using System.Diagnostics;
 using System.Text;
 using ProjectEuler.Primes;
+using ProjectEuler.CardGames;
 
 namespace ProjectEuler.Controllers {
     public class ProblemsController : Controller {
@@ -984,7 +985,6 @@ namespace ProjectEuler.Controllers {
             List<string> lsPerms;
             List<int> iaFamily = new List<int>(new int[] {56003, 56113, 56333, 56443, 56663, 56773, 56993});
             string sPrime;
-            string sMod;
             int k;
             char[] caNums = new char[] {'0','1','2','3','4','5','6','7','8','9'};
             string sRet = "";
@@ -1046,6 +1046,20 @@ namespace ProjectEuler.Controllers {
                 }
             }
             ViewBag.Answer =iCount;
+        }
+        public void Problem54() {
+            List<string> lsLines = new List<string>(System.IO.File.ReadAllLines(Server.MapPath(@"~/App_Data/poker.txt")));
+            Hand h1, h2;
+            PokerHand p1, p2;
+            int iP1Wins = 0;
+            foreach (string sLine in lsLines) {
+                h1 = new Hand(sLine.Substring(0, 14));
+                h2 = new Hand(sLine.Substring(15));
+                p1 = new PokerHand(h1);
+                p2 = new PokerHand(h2);
+                if (p1 > p2) iP1Wins++;
+            }
+            ViewBag.Answer = iP1Wins;
         }
         public void ProblemN() {
             ViewBag.Answer = 0;
