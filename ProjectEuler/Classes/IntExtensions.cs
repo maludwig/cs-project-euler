@@ -93,7 +93,7 @@ namespace ProjectEuler.Classes {
             return iCount;
         }
         //Returns true of all of the decimal digits are different (ex. 1234=true, 11=false)
-        public static bool AllDigitsDifferent(int i) {
+        public static bool AllDigitsDifferent(this int i) {
             bool[] b = new bool[10];
             int x;
             while (i > 0) {

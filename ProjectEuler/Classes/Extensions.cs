@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Web;
 
@@ -68,6 +69,14 @@ namespace ProjectEuler.Classes {
                 if (!enum1.Current.Equals(enum2.Current)) return false;
             }
             return true;
+        }
+
+        public static BigInteger Factorial(this BigInteger b) {
+            BigInteger bRet = 1;
+            for (BigInteger bDec = b; bDec > 1; bDec--) {
+                bRet *= bDec;
+            }
+            return bRet;
         }
 
     }

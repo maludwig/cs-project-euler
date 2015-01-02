@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using ProjectEuler.Classes;
+using System.Numerics;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]

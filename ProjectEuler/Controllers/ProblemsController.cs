@@ -1020,6 +1020,33 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = sRet;
         }
+        public void Problem52() {
+            for (int i = 2; true; i++) {
+                if (i.IsPermutationOf(2 * i)) {
+                    if (i.IsPermutationOf(3 * i)) {
+                        if (i.IsPermutationOf(4 * i)) {
+                            if (i.IsPermutationOf(5 * i)) {
+                                if (i.IsPermutationOf(6 * i)) {
+                                    ViewBag.Answer = i;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void Problem53() {
+            int iCount = 0;
+            for (int iN = 1; iN <= 100; iN++) {
+                for (int iR = 1; iR <= iN; iR++) {
+                    if (Combinations.CountCombinations(iN, iR) > 1000000) {
+                        iCount++;
+                    }
+                }
+            }
+            ViewBag.Answer =iCount;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
