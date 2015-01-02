@@ -1,6 +1,8 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectEuler.Classes;
+using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
@@ -30,6 +32,15 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual("01,10", string.Join(",", pm));
             pm = new Permutations("012");
             Assert.AreEqual("012,021,102,120,201,210", string.Join(",", pm));
+        }
+        [TestMethod]
+        public void ReplPermsTest() {
+            List<string> ls = Permutations.ReplacementPermutations("56606", '6', 'x');
+            string[] saCompare = new string[] { "5xx0x", "56x0x", "5x60x", "5660x", "5xx06", "56x06", "5x606", "56606" };
+            Assert.IsTrue(saCompare.EachItemEqual(ls));
+            ls = Permutations.ReplacementPermutations("56606", '7', 'x');
+            saCompare = new string[] { "56606" };
+            Assert.IsTrue(saCompare.EachItemEqual(ls));
         }
     }
 }

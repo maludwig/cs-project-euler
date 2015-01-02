@@ -16,7 +16,7 @@ namespace ProjectEuler.Classes {
                 int iFactorial;
                 string sResult = "";
                 while (sRemainingDigits.Length != 0) {
-                    iFactorial = Numbers.factorial(sRemainingDigits.Length - 1);
+                    iFactorial = (sRemainingDigits.Length - 1).factorial();
                     sResult += sRemainingDigits.Substring(iIndex / iFactorial, 1);
                     sRemainingDigits = sRemainingDigits.Substring(0, iIndex / iFactorial) + sRemainingDigits.Substring((iIndex / iFactorial) + 1);
                     iIndex %= iFactorial;
@@ -47,13 +47,36 @@ namespace ProjectEuler.Classes {
             return true;
         }
         public IEnumerator<string> GetEnumerator() {
-            int iMaxCombs = Numbers.factorial(_sSeed.Length);
+            int iMaxCombs = _sSeed.Length.factorial();
             for (int i = 0; i < iMaxCombs; i++) {
                 yield return this[i];
             }
         }
         IEnumerator IEnumerable.GetEnumerator() {
             return this.GetEnumerator();
+        }
+        public static List<string> ReplacementPermutations(string s, char cSwapFrom, char cSwapTo) {
+            List<string> lsPerms = new List<string>();
+            char[] ca = s.ToCharArray();
+            List<int> liIndicies = new List<int>();
+            int iCount;
+            int iCharIndex;
+
+            for (int i = 0; i < ca.Length; i++) {
+                if (ca[i] == cSwapFrom) liIndicies.Add(i);
+            }
+            iCount = 2.Pow(liIndicies.Count);
+            for (int i = 0; i < iCount; i++) {
+                for (int iIndexIndex = 0; iIndexIndex < liIndicies.Count; iIndexIndex++) {
+                    iCharIndex = liIndicies[iIndexIndex];
+                    if (i % 2.Pow(iIndexIndex) == 0) {
+                        if (ca[iCharIndex] == cSwapFrom) ca[iCharIndex] = cSwapTo;
+                        else ca[iCharIndex] = cSwapFrom;
+                    }
+                }
+                lsPerms.Add(new string(ca));
+            }
+            return lsPerms;
         }
     }
 }

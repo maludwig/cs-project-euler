@@ -452,7 +452,7 @@ namespace ProjectEuler.Controllers {
             int iFactorial;
             string sResult = "";
             while (sRemainingDigits.Length != 0) {
-                iFactorial = Numbers.factorial(sRemainingDigits.Length - 1);
+                iFactorial = (sRemainingDigits.Length - 1).factorial();
                 sResult += sRemainingDigits.Substring(iPerm / iFactorial, 1);
                 sRemainingDigits = sRemainingDigits.Substring(0, iPerm / iFactorial) + sRemainingDigits.Substring((iPerm / iFactorial) + 1);
                 iPerm %= iFactorial;
@@ -645,7 +645,7 @@ namespace ProjectEuler.Controllers {
                 iFactSum = 0;
                 while (iCopy > 0) {
                     d = iCopy % 10;
-                    iFactSum += Numbers.factorial(d);
+                    iFactSum += d.factorial();
                     iCopy /= 10;
                 }
                 if (iFactSum == i) {
@@ -882,8 +882,6 @@ namespace ProjectEuler.Controllers {
                     }
                 }
             }
-
-            ViewBag.Answer = 0;
         }
         public void Problem46() {
             bool bWritable;
@@ -981,37 +979,46 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = iMaxPrime;
         }
         public void Problem51() {
-            PrimeGenerator pg = new SieveOfAtkin(100000);
+            PrimeGenerator pg = new SieveOfAtkin(1000000);
             Dictionary<string, int> dsiModdedPrimes = new Dictionary<string, int>();
+            List<string> lsPerms;
+            List<int> iaFamily = new List<int>(new int[] {56003, 56113, 56333, 56443, 56663, 56773, 56993});
             string sPrime;
             string sMod;
             int k;
             char[] caNums = new char[] {'0','1','2','3','4','5','6','7','8','9'};
+            string sRet = "";
+
             foreach (int iPrime in pg) {
                 sPrime = iPrime.ToString();
-                if (iPrime == 56003) {
+                if (iaFamily.Contains(iPrime)) {
                     System.Diagnostics.Debug.WriteLine("te st");
                 }
                 for (k = 0; k <= 9; k++) {
                     if (iPrime.ContainsDigit(k)) {
-                        sMod = sPrime.Replace(caNums[k],'x');
-                        if (dsiModdedPrimes.ContainsKey(sMod)) {
-                            dsiModdedPrimes[sMod]++;
-                            if (sMod == "56xx3") {
-                                System.Diagnostics.Debug.WriteLine("kk");
+                        lsPerms = Permutations.ReplacementPermutations(sPrime, (char)('0' + k), 'x');
+                        foreach (string sPerm in lsPerms) {
+                            if (dsiModdedPrimes.ContainsKey(sPerm)) {
+                                dsiModdedPrimes[sPerm]++;
+                            } else {
+                                dsiModdedPrimes.Add(sPerm, 1);
                             }
-                        } else {
-                            dsiModdedPrimes.Add(sMod,1);
                         }
                     }
                 }
             }
             foreach (KeyValuePair<string, int> kvp in dsiModdedPrimes) {
                 if (kvp.Value == 8) {
-                    System.Diagnostics.Debug.WriteLine(kvp.Key + ": " + kvp.Value);
+                    sRet = kvp.Key;
+                    break;
                 }
             }
-            ViewBag.Answer = 0;
+            for (k = 0; k < 10; k++) {
+                if (pg.IsPrime(int.Parse(sRet.Replace('x', (char)('0' + k))))) {
+                    sRet = sRet.Replace('x', (char)('0' + k));
+                }
+            }
+            ViewBag.Answer = sRet;
         }
         public void ProblemN() {
             ViewBag.Answer = 0;
