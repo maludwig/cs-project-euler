@@ -990,7 +990,7 @@ namespace ProjectEuler.Controllers {
             foreach (int iPrime in pg) {
                 sPrime = iPrime.ToString();
                 if (iPrime == 56003) {
-                    System.Diagnostics.Debug.WriteLine("test");
+                    System.Diagnostics.Debug.WriteLine("te st");
                 }
                 for (k = 0; k <= 9; k++) {
                     if (iPrime.ContainsDigit(k)) {
