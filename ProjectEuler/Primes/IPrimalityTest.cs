@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace ProjectEuler.Primes {
-    interface PrimalityTest {
+    public interface IPrimalityTest {
         bool IsPrime(int i);
         bool IsPrime(long i);
         bool IsPrime(BigInteger b);
