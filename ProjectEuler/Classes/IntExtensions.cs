@@ -111,5 +111,12 @@ namespace ProjectEuler.Classes {
             for (int i = 2; i <= n; i++) iResult *= i;
             return iResult;
         }
+
+        public static int GCD(this int iA, int iB) {
+            if (iA == 0) return iB;
+            if (iB == 0) return iA;
+            if (iA > iB) return GCD(iB, iA % iB);
+            return GCD(iA, iB % iA);
+        }
     }
 }

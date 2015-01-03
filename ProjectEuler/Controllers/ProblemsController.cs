@@ -1083,6 +1083,19 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = iMax;
         }
+        public void Problem57() {
+            BigFraction f = 2 + new BigFraction(1, 2);
+            BigFraction bCurr;
+            int iCount = 0;
+            Debug.WriteLine(1 + new BigFraction(1, 2));
+            Debug.WriteLine(1 + 1 / f);
+            for (int i = 3; i <= 1000; i++) {
+                f = 2 + 1 / f;
+                bCurr = 1 + 1 / f;
+                if (bCurr.Numerator.ToString().Length > bCurr.Denominator.ToString().Length) iCount++;
+            }
+            ViewBag.Answer = iCount;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }

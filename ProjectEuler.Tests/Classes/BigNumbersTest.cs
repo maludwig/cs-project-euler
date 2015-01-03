@@ -77,6 +77,11 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual("321E11", bd2.ToString());
             bd2 = new BigDecimal(321, 12);
             Assert.AreEqual("321E12", bd2.ToString());
+
+            bd1 = new BigDecimal(123, 0);
+            bd2 = -bd1;
+            Assert.AreEqual("123", bd1.ToString());
+            Assert.AreEqual("-123", bd2.ToString());
         }
     }
 }

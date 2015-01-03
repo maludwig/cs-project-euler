@@ -119,5 +119,13 @@ namespace ProjectEuler.Tests.Classes {
             Assert.IsFalse(pg.IsTruncatablePrime(7));
             Assert.IsFalse(pg.IsTruncatablePrime(5));
         }
+        [TestMethod]
+        public void GCDTest() {
+            Assert.AreEqual(7, 7.GCD(0));
+            Assert.AreEqual(7, 7.GCD(14));
+            Assert.AreEqual(7, 7.GCD(21));
+            Assert.AreEqual(4, 8.GCD(4));
+            Assert.AreEqual(3, 300.GCD(9));
+        }
     }
 }

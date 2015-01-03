@@ -97,6 +97,7 @@
     <Compile Include="Classes\CombinationsTest.cs" />
     <Compile Include="Cards\CardTest.cs" />
     <Compile Include="Classes\PalindromesTest.cs" />
+    <Compile Include="Classes\FractionTest.cs" />
     <Compile Include="Performance\HashSetTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

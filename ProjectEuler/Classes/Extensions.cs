@@ -79,5 +79,11 @@ namespace ProjectEuler.Classes {
             return bRet;
         }
 
+        public static BigInteger GCD(this BigInteger iA, BigInteger iB) {
+            if (iA == 0) return iB;
+            if (iB == 0) return iA;
+            if (iA > iB) return GCD(iB, iA % iB);
+            return GCD(iA, iB % iA);
+        }
     }
 }
