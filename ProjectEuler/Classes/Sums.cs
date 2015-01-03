@@ -17,12 +17,7 @@ namespace ProjectEuler.Classes {
             return iSum;
         }
         public static long sumDigits(BigInteger b) {
-            string s = b.ToString();
-            int iSum = 0;
-            for (int i = 0; i < s.Length; i++) {
-                iSum += int.Parse(s.Substring(i, 1));
-            }
-            return iSum;
+            return sumDigits(b.ToString());
         }
     }
 }

@@ -1061,6 +1061,28 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = iP1Wins;
         }
+        public void Problem55() {
+            int iCount = 0;
+            for (int i = 1; i < 10000; i++) {
+                if (Palindromes.LychrelValue(i) == -1) {
+                    iCount++;
+                }
+            }
+            ViewBag.Answer = iCount;
+        }
+        public void Problem56() {
+            long iMax = 0;
+            long iSum;
+            BigInteger bPow;
+            for (BigInteger bA = 1; bA < 100; bA++) {
+                for (int b = 1; b < 100; b++) {
+                    bPow = BigInteger.Pow(bA, b);
+                    iSum = Sums.sumDigits(bPow);
+                    iMax = Math.Max(iSum, iMax);
+                }
+            }
+            ViewBag.Answer = iMax;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }

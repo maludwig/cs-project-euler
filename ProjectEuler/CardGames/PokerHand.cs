@@ -162,6 +162,18 @@ namespace ProjectEuler.CardGames {
         public static bool operator >=(PokerHand left, PokerHand right) {
             return left.CompareTo(right) >= 0;
         }
+        public bool Equals(PokerHand c) {
+            return this == c;
+        }
+        public override bool Equals(object obj) {
+            if (ReferenceEquals(null, obj)) {
+                return false;
+            }
+            return obj is PokerHand && Equals((PokerHand)obj);
+        }
+        public override int GetHashCode() {
+            return ToString().GetHashCode();
+        }
 
         public int CompareTo(Object h) {
             return CompareTo((PokerHand)h);
