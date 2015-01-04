@@ -48,6 +48,11 @@ namespace MikesEuler.Tests.NumberTests {
                 Assert.IsFalse(mr.IsPrime(b + 1));
                 Assert.IsTrue(mr.IsComposite(b+1));
             }
+            string[] saTestPseudoPrimes = new string[] { "2047", "1373653", "25326001", "3215031751", "2152302898747", "3474749660383", "341550071728321", "341550071728321"};//, "3825123056546413051", "3825123056546413051", "3825123056546413051" };
+            for (int i = 0; i < saTestPseudoPrimes.Length - 1; i++) {
+                b = BigInteger.Parse(saTestPseudoPrimes[i]);
+                Assert.IsTrue(mr.IsComposite(b));
+            }
         }
         [TestMethod]
         public void TestBailliePSW() {
