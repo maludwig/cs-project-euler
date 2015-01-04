@@ -64,7 +64,7 @@ namespace ProjectEuler.Primes {
             return !IsPrime(b);
         }
 
-        private static bool MillerRabinPass(int iWitness, int iNum) {
+        public static bool MillerRabinPass(int iWitness, int iNum) {
             int d = iNum - 1;
             int s = d.CountBinaryTrailingZeros();
             d >>= s;
