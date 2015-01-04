@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Web;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Classes {
     public struct BigFraction {
@@ -54,6 +55,12 @@ namespace ProjectEuler.Classes {
         }
         public static BigFraction operator /(BigInteger left, BigFraction right) {
             return new BigFraction(left * right.Denominator, right.Numerator);
+        }
+        public static bool operator ==(BigFraction left, BigFraction right) {
+            return left.Equals(right);
+        }
+        public static bool operator !=(BigFraction left, BigFraction right) {
+            return !left.Equals(right);
         }
         private static BigFraction Add(BigFraction f, BigInteger i) {
             return new BigFraction(f.Numerator + (i * f.Denominator), f.Denominator);

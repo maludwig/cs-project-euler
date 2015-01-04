@@ -9,10 +9,19 @@ namespace MikesEuler.Tests.NumberTests {
     public class PrimalityTestsTest {
         List<int> liPrimes = new List<int>(new int[] { 2, 3, 5, 7, 11, 13, 17, 19 });
 
+
+        PrimeGenerator pg = new SieveOfAtkin();
+
         [TestMethod]
-        public void TestPrimalityTests() {
+        public void BasicPrimesTest() {
             IPrimalityTest p = new BasicPrimes();
             TestAnInterface(p);
+        }
+        [TestMethod]
+        public void TestMillerRabin() {
+            IPrimalityTest p = new MillerRabin();
+            TestAnInterface(p);
+            BigInterfaceTest(p);
         }
         [TestMethod]
         public void TestBailliePSW() {
@@ -57,6 +66,11 @@ namespace MikesEuler.Tests.NumberTests {
             Assert.AreEqual(8, BailliePSW.PowerMod(2, 3, 1000));
             Assert.AreEqual(2, BailliePSW.PowerMod(2, 3, 6));
             Assert.AreEqual(1, BailliePSW.PowerMod(9, 2, 80));
+        }
+        public void BigInterfaceTest(IPrimalityTest p) {
+            for (int i = 0; i <= pg.largestPrime(); i++) {
+                Assert.AreEqual(pg.IsPrime(i), p.IsPrime(i));
+            }
         }
     }
 }

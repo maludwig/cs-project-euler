@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectEuler.Classes;
 using System.Diagnostics;
 using System.Collections.Generic;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]

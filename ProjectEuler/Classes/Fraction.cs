@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Classes {
     public struct Fraction {
@@ -45,6 +46,12 @@ namespace ProjectEuler.Classes {
         }
         public static Fraction operator /(int left, Fraction right) {
             return new Fraction(left * right.Denominator,right.Numerator);
+        }
+        public static bool operator ==(Fraction left, Fraction right) {
+            return left.Equals(right);
+        }
+        public static bool operator !=(Fraction left, Fraction right) {
+            return !left.Equals(right);
         }
         private static Fraction Add(Fraction f, int i) {
             return new Fraction(f.Numerator + (i * f.Denominator), f.Denominator);

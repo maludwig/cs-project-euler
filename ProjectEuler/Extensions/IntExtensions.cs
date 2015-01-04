@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Web;
+using ProjectEuler.Classes;
+using System.Text;
 
-namespace ProjectEuler.Classes {
+namespace ProjectEuler.Extensions {
     public static class IntExtensions {
 
         /// <summary>
@@ -106,7 +109,7 @@ namespace ProjectEuler.Classes {
         }
 
         //Returns n!
-        public static int factorial(this int n) {
+        public static int Factorial(this int n) {
             int iResult = 1;
             for (int i = 2; i <= n; i++) iResult *= i;
             return iResult;
@@ -117,6 +120,40 @@ namespace ProjectEuler.Classes {
             if (iB == 0) return iA;
             if (iA > iB) return GCD(iB, iA % iB);
             return GCD(iA, iB % iA);
+        }
+
+        public static int CountBinaryTrailingZeros(this int iNum) {
+            int i;
+            for (i = 0; i < 32 && (iNum & 1) == 0; i++) {
+                iNum >>= 1;
+            }
+            return i;
+        }
+
+        public static int ModPow(this int iBase, int iPower, int iModulus) {
+            long lRet = 1;
+            for (int i = 31; i >= 0; i--) {
+                lRet = (lRet * lRet) % iModulus;
+                if ((iPower & (1 << i)) != 0) {
+                    lRet = (lRet * iBase) % iModulus;
+                }
+            }
+            return (int)lRet;
+        }
+
+        public static string ToBinaryString(this int source) {
+            StringBuilder sb = new StringBuilder();
+            string sRet;
+            int i = source;
+            if (i == 0) return "0";
+            if (i < 0) i *= -1;
+            while (i > 0) {
+                sb.Append((i & 1) == 0 ? "0" : "1");
+                i >>= 1;
+            }
+            if (source < 0) sb.Append("-");
+            sRet = sb.ToString().StrReverse();
+            return sRet;
         }
     }
 }

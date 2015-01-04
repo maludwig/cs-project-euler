@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Classes {
     public class Permutations : IEnumerable<string> {
@@ -16,7 +17,7 @@ namespace ProjectEuler.Classes {
                 int iFactorial;
                 string sResult = "";
                 while (sRemainingDigits.Length != 0) {
-                    iFactorial = (sRemainingDigits.Length - 1).factorial();
+                    iFactorial = (sRemainingDigits.Length - 1).Factorial();
                     sResult += sRemainingDigits.Substring(iIndex / iFactorial, 1);
                     sRemainingDigits = sRemainingDigits.Substring(0, iIndex / iFactorial) + sRemainingDigits.Substring((iIndex / iFactorial) + 1);
                     iIndex %= iFactorial;
@@ -47,7 +48,7 @@ namespace ProjectEuler.Classes {
             return true;
         }
         public IEnumerator<string> GetEnumerator() {
-            int iMaxCombs = _sSeed.Length.factorial();
+            int iMaxCombs = _sSeed.Length.Factorial();
             for (int i = 0; i < iMaxCombs; i++) {
                 yield return this[i];
             }
