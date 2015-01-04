@@ -29,6 +29,27 @@ namespace ProjectEuler.Extensions {
             }
             return i;
         }
+        public static BigInteger FindRoot(this BigInteger b) {
+            BigInteger root = 1;
+            BigInteger oldRoot = 0;
+            if (b == 0) return 0;
+            b--;
+            if (b == 0) return 1;
+            do {
+                oldRoot = root;
+                root = (root + (b / root)) / 2;
+                if (root - oldRoot == 1 & oldRoot == (root + (b / root)) / 2) {
+                    return root;
+                }
+            }
+            while (root - oldRoot != 0);
+            return root;
+        }
+        public static bool IsSquare(this BigInteger b){
+            BigInteger bRoot = b.FindRoot();
+            return (bRoot * bRoot == b);
+        }
+
 
     }
 }
