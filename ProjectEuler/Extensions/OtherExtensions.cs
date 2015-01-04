@@ -56,6 +56,20 @@ namespace ProjectEuler.Extensions {
         public static byte XOR(this byte left, byte right) {
             return (byte)(left ^ right);
         }
-
+        public static int[] QuickClone(this int[] array) {
+            int[] result = new int[array.Length];
+            Buffer.BlockCopy(array, 0, result, 0, array.Length * sizeof(int));
+            return result;
+        }
+        public static byte[] QuickClone(this byte[] array) {
+            byte[] result = new byte[array.Length];
+            Buffer.BlockCopy(array, 0, result, 0, array.Length * sizeof(byte));
+            return result;
+        }
+        public static int Sum(this byte[] array) {
+            int iRet = 0;
+            foreach (byte b in array) iRet += b;
+            return iRet;
+        }
     }
 }

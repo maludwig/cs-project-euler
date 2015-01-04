@@ -7,7 +7,7 @@ using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Encryption {
     public class XORTransform :ICryptoTransform {
-        byte[] Key {get;set;}
+        public byte[] Key {get;set;}
         public bool CanReuseTransform { get; protected set; }
         public bool CanTransformMultipleBlocks { get; protected set; }
         public int InputBlockSize { get; protected set; }
@@ -24,7 +24,7 @@ namespace ProjectEuler.Encryption {
             int iKeyIndex = 0;
             for (int i = iInputOffset; i < iInputEnd; i++) {
                 baOutput[iOutputOffset] = (byte)(baInput[i] ^ Key[iKeyIndex]);
-                iKeyIndex++;
+                iKeyIndex = (iKeyIndex + 1) % Key.Length;
                 iOutputOffset++;
             }
             return iInputEnd - iInputOffset;
@@ -34,6 +34,17 @@ namespace ProjectEuler.Encryption {
             int iLength = iInputEnd - iInputOffset;
             byte[] baBuffer = new byte[iLength];
             TransformBlock(baInput, iInputOffset, iInputCount, baBuffer, 0);
+            return baBuffer;
+        }
+        public byte[] TransformFinalBlock(byte[] baInput, int iInputOffset) {
+            int iLength = baInput.Length - iInputOffset;
+            byte[] baBuffer = new byte[iLength];
+            TransformBlock(baInput, iInputOffset, iLength, baBuffer, 0);
+            return baBuffer;
+        }
+        public byte[] TransformFinalBlock(byte[] baInput) {
+            byte[] baBuffer = new byte[baInput.Length];
+            TransformBlock(baInput, 0, baInput.Length, baBuffer, 0);
             return baBuffer;
         }
     }

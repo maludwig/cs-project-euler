@@ -14,7 +14,7 @@ using ProjectEuler.Extensions;
 using ProjectEuler.Encryption;
 
 namespace ProjectEuler.Controllers {
-    public class ProblemsController : Controller {
+    public class ProblemsController :Controller {
 
         public void Problem1() {
             int sum = 0;
@@ -796,7 +796,7 @@ namespace ProjectEuler.Controllers {
             PrimeGenerator pg = new SieveOfAtkin(10000000);
             int iPrime = 0;
 
-            for (int i = pg.Count()-1; i > 0; i--) {
+            for (int i = pg.Count() - 1; i > 0; i--) {
                 iPrime = pg.getPrime(i);
                 if (Numbers.IsPandigital(iPrime, iPrime.ToString().Length)) {
                     break;
@@ -985,10 +985,10 @@ namespace ProjectEuler.Controllers {
             PrimeGenerator pg = new SieveOfAtkin(1000000);
             Dictionary<string, int> dsiModdedPrimes = new Dictionary<string, int>();
             List<string> lsPerms;
-            List<int> iaFamily = new List<int>(new int[] {56003, 56113, 56333, 56443, 56663, 56773, 56993});
+            List<int> iaFamily = new List<int>(new int[] { 56003, 56113, 56333, 56443, 56663, 56773, 56993 });
             string sPrime;
             int k;
-            char[] caNums = new char[] {'0','1','2','3','4','5','6','7','8','9'};
+            char[] caNums = new char[] { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' };
             string sRet = "";
 
             foreach (int iPrime in pg) {
@@ -1047,7 +1047,7 @@ namespace ProjectEuler.Controllers {
                     }
                 }
             }
-            ViewBag.Answer =iCount;
+            ViewBag.Answer = iCount;
         }
         public void Problem54() {
             List<string> lsLines = new List<string>(System.IO.File.ReadAllLines(Server.MapPath(@"~/App_Data/poker.txt")));
@@ -1112,19 +1112,86 @@ namespace ProjectEuler.Controllers {
                 if (pt.IsPrime(iaCorners[2])) dPrimeCount++;
                 if (pt.IsPrime(iaCorners[3])) dPrimeCount++;
             }
-            ViewBag.Answer = iLayer * 2 -1;
+            ViewBag.Answer = iLayer * 2 - 1;
         }
 
         public void Problem59() {
             string sFile = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/cipher.txt"));
-            string[] sNums = sFile.Split(',');
-            byte[] baNums = new byte[sNums.Length];
+            string[] saCipher = sFile.Split(',');
+            byte[] baCipher = new byte[saCipher.Length];
             byte[] baKey = new byte[3];
+            byte[] baPlain;
+            string sPlain;
+            string[] saCommonWords = new string[] { "the", "be", "to", "of", "and", "a", "in", "that", "have", "I", "it", "for", "not", "on", "with", "he", "as", "you", "do", "at" };
+            int iMaxCommons = 0;
+            int iCurrCommons = 0;
+            int iLetterCount;
+            byte[] baMaxCommonsKey;
+            int iMaxSum = 0;
+            List<byte> lbPossibleB1 = new List<byte>();
+            List<byte> lbPossibleB2 = new List<byte>();
+            List<byte> lbPossibleB3 = new List<byte>();
             XORTransform xt = new XORTransform(baKey);
-
-            ViewBag.Answer = 0;
+            for (int i = 0; i < baCipher.Length; i++) {
+                baCipher[i] = byte.Parse(saCipher[i]);
+            }
+            for (int i1 = 0; i1 <= byte.MaxValue; i1++) {
+                iLetterCount = P59CountLetters(baCipher, (byte)i1, 0);
+                if (iLetterCount > baCipher.Length / 4) {
+                    lbPossibleB1.Add((byte)i1);
+                }
+            }
+            for (int i2 = 0; i2 <= byte.MaxValue; i2++) {
+                iLetterCount = P59CountLetters(baCipher, (byte)i2, 1);
+                if (iLetterCount > baCipher.Length / 4) {
+                    lbPossibleB2.Add((byte)i2);
+                }
+            }
+            for (int i3 = 0; i3 <= byte.MaxValue; i3++) {
+                iLetterCount = P59CountLetters(baCipher, (byte)i3, 2);
+                if (iLetterCount > baCipher.Length / 4) {
+                    lbPossibleB3.Add((byte)i3);
+                }
+            }
+            foreach (byte b1 in lbPossibleB1) {
+                baKey[0] = b1;
+                foreach (byte b2 in lbPossibleB2) {
+                    baKey[1] = b2;
+                    foreach (byte b3 in lbPossibleB3) {
+                        baKey[2] = b3;
+                        xt.Key = baKey;
+                        baPlain = xt.TransformFinalBlock(baCipher);
+                            iCurrCommons = 0;
+                            sPlain = Encoding.ASCII.GetString(baPlain);
+                            foreach (string sWord in saCommonWords) {
+                                if (sPlain.Contains(sWord)) iCurrCommons++;
+                            }
+                            if (iMaxCommons < iCurrCommons) {
+                                iMaxCommons = iCurrCommons;
+                                baMaxCommonsKey = baKey.QuickClone();
+                                iMaxSum = baPlain.Sum();
+                                Debug.WriteLine(sPlain);
+                            }
+                    }
+                }
+            }
+            ViewBag.Answer = iMaxSum;
         }
-        
+        private int P59CountLetters(byte[] baCipher, byte bKey, int iOffset) {
+            int iLetterCount = 0;
+            byte bChar;
+            for (int i = iOffset; i < baCipher.Length; i += 3) {
+                bChar = (byte)(baCipher[i] ^ bKey);
+                if (bChar < 32 || bChar > 127) {
+                    iLetterCount = -1;
+                    break;
+                }
+                if (bChar >= 65 && bChar <= 90) iLetterCount++;
+                else if (bChar >= 97 && bChar <= 122) iLetterCount++;
+            }
+            return iLetterCount;
+        }
+
         public void ProblemN() {
             ViewBag.Answer = 0;
         }

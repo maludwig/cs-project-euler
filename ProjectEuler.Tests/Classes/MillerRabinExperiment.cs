@@ -6,7 +6,7 @@ using System.Diagnostics;
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
     public class MillerRabinExperiment {
-        PrimeGenerator pg = new SieveOfAtkin();
+        PrimeGenerator pg = new SieveOfAtkin(1000);
         MillerRabin p = new MillerRabin();
         [TestMethod]
         public void StrongPseudoPrimes() {
