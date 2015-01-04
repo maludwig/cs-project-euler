@@ -120,8 +120,8 @@ namespace ProjectEuler.Extensions {
             return GCD(iA, iB % iA);
         }
 
-        public static long CountBinaryTrailingZeros(this long iNum) {
-            long i;
+        public static int CountBinaryTrailingZeros(this long iNum) {
+            int i;
             for (i = 0; i < 64 && (iNum & 1) == 0; i++) {
                 iNum >>= 1;
             }
@@ -129,14 +129,8 @@ namespace ProjectEuler.Extensions {
         }
 
         public static long ModPow(this long iBase, long iPower, long iModulus) {
-            long lRet = 1;
-            for (int i = 63; i >= 0; i--) {
-                lRet = (lRet * lRet) % iModulus;
-                if ((iPower & (1L << i)) != 0) {
-                    lRet = (lRet * iBase) % iModulus;
-                }
-            }
-            return (long)lRet;
+            BigInteger bRet = BigInteger.ModPow(iBase, iPower, iModulus);
+            return (long)bRet;
         }
 
         public static string ToBinaryString(this long source) {
@@ -152,6 +146,32 @@ namespace ProjectEuler.Extensions {
             if (source < 0) sb.Append("-");
             sRet = sb.ToString().StrReverse();
             return sRet;
+        }
+        public static bool IsSquare(this long possiblePrime) {
+            long possibleRoot = (long) Math.Sqrt(possiblePrime);
+            return possibleRoot * possibleRoot == possiblePrime;
+        }
+        /*
+         * This method will work for really large long values.
+         */
+        public static long findRoot(this long n) {
+            long root = 1;
+            long oldRoot = 0;
+            if (n == 0) return 0;
+            n--;
+            if (n == 0) return 1;
+            do {
+                oldRoot = root;
+                root = (root + (n / root)) / 2;
+                if (root - oldRoot == 1 & oldRoot == (root + (n / root)) / 2) {
+                    return root;
+                }
+            }
+            while (root - oldRoot != 0);
+            return root;
+        }
+        public static long TruncateBinaryTrailingZeros(this long n) {
+            return n >> n.CountBinaryTrailingZeros();
         }
     }
 }
