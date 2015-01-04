@@ -69,5 +69,20 @@ namespace ProjectEuler.Tests.Classes {
                 Assert.AreEqual(i, 2.Pow(i).CountBinaryTrailingZeros());
             }
         }
+        [TestMethod]
+        public void ModPow() {
+            Assert.AreEqual(1, 2.ModPow(3, 7));
+            Assert.AreEqual(2, 2.ModPow(4, 7));
+            Assert.AreEqual(4, 2.ModPow(5, 7));
+            Assert.AreEqual(1, 2.ModPow(6, 7));
+            Assert.AreEqual(47, 174.ModPow(55, 221));
+            Assert.AreEqual(220, 174.ModPow(110, 221));
+            Assert.AreEqual(188, 137.ModPow(55, 221));
+            Assert.AreEqual(205, 137.ModPow(110, 221));
+            Assert.AreEqual(210, 2000000000.ModPow(55, 221));
+            Assert.AreEqual(166, 2090000001.ModPow(106, 221));
+            Assert.AreEqual(166, 2090000001.ModPow(106, 221));
+            Assert.AreEqual(1248031580, 2090000009.ModPow(2090000007, 2090000001));
+        }
     }
 }
