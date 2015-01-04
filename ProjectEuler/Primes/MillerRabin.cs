@@ -70,9 +70,9 @@ namespace ProjectEuler.Primes {
             d >>= s;
             int iWitnessPowModN = iWitness.ModPow(d, iNum);
             if (iWitnessPowModN == 1) return true;
-            for (int i = 0; i < s - 1; i++) {
+            for (int i = 0; i <= s - 1; i++) {
                 if (iWitnessPowModN == iNum - 1) return true;
-                iWitnessPowModN = iWitness.ModPow(2, iNum);
+                iWitnessPowModN = iWitnessPowModN.ModPow(2, iNum);
             }
             if (iWitnessPowModN == iNum - 1) return true;
             return false;
