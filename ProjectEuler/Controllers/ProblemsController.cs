@@ -454,7 +454,7 @@ namespace ProjectEuler.Controllers {
             int iFactorial;
             string sResult = "";
             while (sRemainingDigits.Length != 0) {
-                iFactorial = (sRemainingDigits.Length - 1).factorial();
+                iFactorial = (sRemainingDigits.Length - 1).Factorial();
                 sResult += sRemainingDigits.Substring(iPerm / iFactorial, 1);
                 sRemainingDigits = sRemainingDigits.Substring(0, iPerm / iFactorial) + sRemainingDigits.Substring((iPerm / iFactorial) + 1);
                 iPerm %= iFactorial;
@@ -647,7 +647,7 @@ namespace ProjectEuler.Controllers {
                 iFactSum = 0;
                 while (iCopy > 0) {
                     d = iCopy % 10;
-                    iFactSum += d.factorial();
+                    iFactSum += d.Factorial();
                     iCopy /= 10;
                 }
                 if (iFactSum == i) {

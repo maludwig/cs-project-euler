@@ -128,6 +128,7 @@
     <Compile Include="Classes\Palindromes.cs" />
     <Compile Include="Classes\Permutations.cs" />
     <Compile Include="Classes\SquareSpiral.cs" />
+    <Compile Include="Primes\BailliePSW.cs" />
     <Compile Include="Primes\BasicPrimes.cs" />
     <Compile Include="Primes\IPrimalityTest.cs" />
     <Compile Include="Primes\MillerRabin.cs" />

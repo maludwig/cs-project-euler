@@ -181,8 +181,7 @@ namespace ProjectEuler.Primes {
             return 0;
         }
         public bool IsPrime(int iNum) {
-            bool b = _bmIsPrime[iNum];
-            return b;
+            return _bmIsPrime[iNum];
         }
         public bool IsCircularPrime(int iNum) {
             string s = iNum.ToString();

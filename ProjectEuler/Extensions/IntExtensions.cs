@@ -109,7 +109,7 @@ namespace ProjectEuler.Extensions {
         }
 
         //Returns n!
-        public static int factorial(this int n) {
+        public static int Factorial(this int n) {
             int iResult = 1;
             for (int i = 2; i <= n; i++) iResult *= i;
             return iResult;
