@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectEuler.Classes;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
@@ -56,6 +57,17 @@ namespace ProjectEuler.Tests.Classes {
             Assert.IsFalse(1.ContainsDigit(4));
             Assert.IsFalse(20.ContainsDigit(1));
             Assert.IsFalse(300.ContainsDigit(5));
+        }
+        [TestMethod]
+        public void TrailingZeros() {
+            Assert.AreEqual(0, 1.CountBinaryTrailingZeros());
+            Assert.AreEqual(0, 7.CountBinaryTrailingZeros());
+            for (int i = 1; i < 1000; i += 2) {
+                Assert.AreEqual(0, i.CountBinaryTrailingZeros());
+            }
+            for (int i = 0; i < 32; i++) {
+                Assert.AreEqual(i, 2.Pow(i).CountBinaryTrailingZeros());
+            }
         }
     }
 }

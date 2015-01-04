@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Web;
+using ProjectEuler.Classes;
+using System.Text;
 
-namespace ProjectEuler.Classes {
-    public static class IntExtensions {
+namespace ProjectEuler.Extensions {
+    public static class LongExtensions {
 
         /// <summary>
-        /// Calculates the current int, raised to the specified power.
+        /// Calculates the current long, raised to the specified power.
         /// Usage: 3.Pow(4) == 81
         /// </summary>
-        public static int Pow(this int x, int pow) {
+        public static long Pow(this long x, long pow) {
             switch (pow) {
                 case 0: return 1;
                 case 1: return x;
@@ -26,7 +29,7 @@ namespace ProjectEuler.Classes {
                 case 11: return x * x * x * x * x * x * x * x * x * x * x;
                 // up to 32 can be added 
                 default: // Vilx's solution is used for default
-                    int ret = 1;
+                    long ret = 1;
                     while (pow != 0) {
                         if ((pow & 1) == 1)
                             ret *= x;
@@ -39,65 +42,63 @@ namespace ProjectEuler.Classes {
         /// <summary>
         /// Gets the n'th decimal digit from the end of a number
         /// </summary>
-        public static int GetDigit(this int iNum, int iDigitIndex) {
-            int TenPow = 10.Pow(iDigitIndex - 1);
+        public static long GetDigit(this long iNum, long iDigitIndex) {
+            long TenPow = 10L.Pow(iDigitIndex - 1);
             return (iNum % (TenPow * 10)) / TenPow;
         }
         /// <summary>
         /// Starting from the n'th decimal digit from the end of a number, returns all following digits
         /// </summary>
-        public static int GetDigits(this int iNum, int iDigitIndex) {
-            return iNum % 10.Pow(iDigitIndex);
+        public static long GetDigits(this long iNum, long iDigitIndex) {
+            return iNum % 10L.Pow(iDigitIndex);
         }
         /// <summary>
         /// Starting from the n'th decimal digit from the end of a number, returns the specified number of following digits
         /// </summary>
-        public static int GetDigits(this int iNum, int iDigitIndex, int iLength) {
-            int iCancelledTop = iNum % 10.Pow(iDigitIndex);
-            return iCancelledTop / 10.Pow(iDigitIndex - iLength); ;
+        public static long GetDigits(this long iNum, long iDigitIndex, long iLength) {
+            long iCancelledTop = iNum % 10L.Pow(iDigitIndex);
+            return iCancelledTop / 10L.Pow(iDigitIndex - iLength); ;
         }
         /// <summary>
         /// Returns true if iNum is a lexicographic permutation of iOther
         /// </summary>
-        public static bool IsPermutationOf(this int iNum, int iOther) {
+        public static bool IsPermutationOf(this long iNum, long iOther) {
             Permutations p = new Permutations(iNum.ToString());
             return p.IsPermutationOf(iOther.ToString());
         }
         /// <summary>
         /// Returns true if i contains the specified digit at least once
         /// </summary>
-        public static bool ContainsDigit(this int i, int iDigit) {
-            int x;
-            int iNum = i;
+        public static bool ContainsDigit(this long i, long iDigit) {
+            long x;
             if (i == iDigit) return true;
-            while (iNum > 0) {
-                x = iNum % 10;
+            while (i > 0) {
+                x = i % 10;
                 if (x == iDigit) return true;
-                iNum = iNum / 10;
+                i = i / 10;
             }
             return false;
         }
         /// <summary>
         /// Counts the number of occurrences of iDigit in i
         /// </summary>
-        public static int CountDigits(this int i, int iDigit) {
+        public static long CountDigits(this long i, int iDigit) {
             int x;
-            int iNum = i;
-            int iCount = 0;
+            long iCount = 0;
             if (i == iDigit) return 1;
-            while (iNum > 0) {
-                x = iNum % 10;
+            while (i > 0) {
+                x = (int)(i % 10);
                 if (x == iDigit) iCount++;
-                iNum = iNum / 10;
+                i = i / 10;
             }
             return iCount;
         }
         //Returns true of all of the decimal digits are different (ex. 1234=true, 11=false)
-        public static bool AllDigitsDifferent(this int i) {
+        public static bool AllDigitsDifferent(this long i) {
             bool[] b = new bool[10];
             int x;
             while (i > 0) {
-                x = i % 10;
+                x = (int)(i % 10);
                 if (b[x]) return false;
                 b[x] = true;
                 i = i / 10;
@@ -106,17 +107,51 @@ namespace ProjectEuler.Classes {
         }
 
         //Returns n!
-        public static int factorial(this int n) {
-            int iResult = 1;
-            for (int i = 2; i <= n; i++) iResult *= i;
+        public static long factorial(this long n) {
+            long iResult = 1;
+            for (long i = 2; i <= n; i++) iResult *= i;
             return iResult;
         }
 
-        public static int GCD(this int iA, int iB) {
+        public static long GCD(this long iA, long iB) {
             if (iA == 0) return iB;
             if (iB == 0) return iA;
             if (iA > iB) return GCD(iB, iA % iB);
             return GCD(iA, iB % iA);
+        }
+
+        public static long CountBinaryTrailingZeros(this long iNum) {
+            long i;
+            for (i = 0; i < 64 && (iNum & 1) == 0; i++) {
+                iNum >>= 1;
+            }
+            return i;
+        }
+
+        public static long ModPow(this long iBase, long iPower, long iModulus) {
+            long lRet = 1;
+            for (int i = 63; i >= 0; i--) {
+                lRet = (lRet * lRet) % iModulus;
+                if ((iPower & (1L << i)) != 0) {
+                    lRet = (lRet * iBase) % iModulus;
+                }
+            }
+            return (long)lRet;
+        }
+
+        public static string ToBinaryString(this long source) {
+            StringBuilder sb = new StringBuilder();
+            string sRet;
+            long i = source;
+            if (i == 0) return "0";
+            if (i < 0) i *= -1;
+            while (i > 0) {
+                sb.Append((i & 1) == 0 ? "0" : "1");
+                i >>= 1;
+            }
+            if (source < 0) sb.Append("-");
+            sRet = sb.ToString().StrReverse();
+            return sRet;
         }
     }
 }

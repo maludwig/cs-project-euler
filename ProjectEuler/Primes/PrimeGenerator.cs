@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Primes {
     public enum PerfectionLevel { DEFICIENT = -1, PERFECT, ABUNDANT };
@@ -30,11 +31,14 @@ namespace ProjectEuler.Primes {
         public int Count() {
             return _iaPrimes.Length;
         }
+        public int largestPrime() {
+            return _iaPrimes[_iaPrimes.Length-1];
+        }
         public int getPrime(int iIndex) {
             return _iaPrimes[iIndex];
         }
         public int[] getPrimes(int iFrom, int iTo) {
-            return Extensions.Slice(_iaPrimes, iFrom, iTo);
+            return OtherExtensions.Slice(_iaPrimes, iFrom, iTo);
         }
         public List<int> getPrimesTo(int iCap) {
             List<int> liPrimes = new List<int>();

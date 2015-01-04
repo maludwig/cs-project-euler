@@ -4,6 +4,7 @@ using ProjectEuler.Classes;
 using System.Diagnostics;
 using System.Collections.Generic;
 using ProjectEuler.Primes;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]

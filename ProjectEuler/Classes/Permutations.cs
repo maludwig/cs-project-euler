@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Classes {
     public class Permutations : IEnumerable<string> {

@@ -5,8 +5,8 @@ using System.Numerics;
 using System.Text;
 using System.Web;
 
-namespace ProjectEuler.Classes {
-    public static class Extensions {
+namespace ProjectEuler.Extensions {
+    public static class OtherExtensions {
         /// <summary>
         /// Get the array slice between the two indexes.
         /// ... Inclusive for start index, exclusive for end index.
@@ -24,23 +24,6 @@ namespace ProjectEuler.Classes {
                 res[i] = source[i + start];
             }
             return res;
-        }
-
-        public static string ToBinaryString(this int source) {
-            StringBuilder sb = new StringBuilder();
-            string sRet;
-            int i = source;
-            if (i == 0) return "0";
-            if (i < 0) i *= -1;
-            while (i > 0) {
-                sb.Append((i & 1) == 0 ? "0" : "1");
-                i >>= 1;
-            }
-            sRet = sb.ToString().StrReverse();
-            if (source < 0) {
-                sRet = "-" + sRet;
-            }
-            return sRet;
         }
 
         public static string StrReverse(this string source) {
@@ -71,19 +54,5 @@ namespace ProjectEuler.Classes {
             return true;
         }
 
-        public static BigInteger Factorial(this BigInteger b) {
-            BigInteger bRet = 1;
-            for (BigInteger bDec = b; bDec > 1; bDec--) {
-                bRet *= bDec;
-            }
-            return bRet;
-        }
-
-        public static BigInteger GCD(this BigInteger iA, BigInteger iB) {
-            if (iA == 0) return iB;
-            if (iB == 0) return iA;
-            if (iA > iB) return GCD(iB, iA % iB);
-            return GCD(iA, iB % iA);
-        }
     }
 }
