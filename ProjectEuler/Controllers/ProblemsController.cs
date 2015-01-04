@@ -9,6 +9,7 @@ using System.Numerics;
 using System.Diagnostics;
 using System.Text;
 using ProjectEuler.Primes;
+using ProjectEuler.CardGames;
 
 namespace ProjectEuler.Controllers {
     public class ProblemsController : Controller {
@@ -452,7 +453,7 @@ namespace ProjectEuler.Controllers {
             int iFactorial;
             string sResult = "";
             while (sRemainingDigits.Length != 0) {
-                iFactorial = Numbers.factorial(sRemainingDigits.Length - 1);
+                iFactorial = (sRemainingDigits.Length - 1).factorial();
                 sResult += sRemainingDigits.Substring(iPerm / iFactorial, 1);
                 sRemainingDigits = sRemainingDigits.Substring(0, iPerm / iFactorial) + sRemainingDigits.Substring((iPerm / iFactorial) + 1);
                 iPerm %= iFactorial;
@@ -645,7 +646,7 @@ namespace ProjectEuler.Controllers {
                 iFactSum = 0;
                 while (iCopy > 0) {
                     d = iCopy % 10;
-                    iFactSum += Numbers.factorial(d);
+                    iFactSum += d.factorial();
                     iCopy /= 10;
                 }
                 if (iFactSum == i) {
@@ -882,8 +883,6 @@ namespace ProjectEuler.Controllers {
                     }
                 }
             }
-
-            ViewBag.Answer = 0;
         }
         public void Problem46() {
             bool bWritable;
@@ -981,37 +980,121 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = iMaxPrime;
         }
         public void Problem51() {
-            PrimeGenerator pg = new SieveOfAtkin(100000);
+            PrimeGenerator pg = new SieveOfAtkin(1000000);
             Dictionary<string, int> dsiModdedPrimes = new Dictionary<string, int>();
+            List<string> lsPerms;
+            List<int> iaFamily = new List<int>(new int[] {56003, 56113, 56333, 56443, 56663, 56773, 56993});
             string sPrime;
-            string sMod;
             int k;
             char[] caNums = new char[] {'0','1','2','3','4','5','6','7','8','9'};
+            string sRet = "";
+
             foreach (int iPrime in pg) {
                 sPrime = iPrime.ToString();
-                if (iPrime == 56003) {
+                if (iaFamily.Contains(iPrime)) {
                     System.Diagnostics.Debug.WriteLine("te st");
                 }
                 for (k = 0; k <= 9; k++) {
                     if (iPrime.ContainsDigit(k)) {
-                        sMod = sPrime.Replace(caNums[k],'x');
-                        if (dsiModdedPrimes.ContainsKey(sMod)) {
-                            dsiModdedPrimes[sMod]++;
-                            if (sMod == "56xx3") {
-                                System.Diagnostics.Debug.WriteLine("kk");
+                        lsPerms = Permutations.ReplacementPermutations(sPrime, (char)('0' + k), 'x');
+                        foreach (string sPerm in lsPerms) {
+                            if (dsiModdedPrimes.ContainsKey(sPerm)) {
+                                dsiModdedPrimes[sPerm]++;
+                            } else {
+                                dsiModdedPrimes.Add(sPerm, 1);
                             }
-                        } else {
-                            dsiModdedPrimes.Add(sMod,1);
                         }
                     }
                 }
             }
             foreach (KeyValuePair<string, int> kvp in dsiModdedPrimes) {
                 if (kvp.Value == 8) {
-                    System.Diagnostics.Debug.WriteLine(kvp.Key + ": " + kvp.Value);
+                    sRet = kvp.Key;
+                    break;
                 }
             }
-            ViewBag.Answer = 0;
+            for (k = 0; k < 10; k++) {
+                if (pg.IsPrime(int.Parse(sRet.Replace('x', (char)('0' + k))))) {
+                    sRet = sRet.Replace('x', (char)('0' + k));
+                }
+            }
+            ViewBag.Answer = sRet;
+        }
+        public void Problem52() {
+            for (int i = 2; true; i++) {
+                if (i.IsPermutationOf(2 * i)) {
+                    if (i.IsPermutationOf(3 * i)) {
+                        if (i.IsPermutationOf(4 * i)) {
+                            if (i.IsPermutationOf(5 * i)) {
+                                if (i.IsPermutationOf(6 * i)) {
+                                    ViewBag.Answer = i;
+                                    return;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        public void Problem53() {
+            int iCount = 0;
+            for (int iN = 1; iN <= 100; iN++) {
+                for (int iR = 1; iR <= iN; iR++) {
+                    if (Combinations.CountCombinations(iN, iR) > 1000000) {
+                        iCount++;
+                    }
+                }
+            }
+            ViewBag.Answer =iCount;
+        }
+        public void Problem54() {
+            List<string> lsLines = new List<string>(System.IO.File.ReadAllLines(Server.MapPath(@"~/App_Data/poker.txt")));
+            Hand h1, h2;
+            PokerHand p1, p2;
+            int iP1Wins = 0;
+            foreach (string sLine in lsLines) {
+                h1 = new Hand(sLine.Substring(0, 14));
+                h2 = new Hand(sLine.Substring(15));
+                p1 = new PokerHand(h1);
+                p2 = new PokerHand(h2);
+                if (p1 > p2) iP1Wins++;
+            }
+            ViewBag.Answer = iP1Wins;
+        }
+        public void Problem55() {
+            int iCount = 0;
+            for (int i = 1; i < 10000; i++) {
+                if (Palindromes.LychrelValue(i) == -1) {
+                    iCount++;
+                }
+            }
+            ViewBag.Answer = iCount;
+        }
+        public void Problem56() {
+            long iMax = 0;
+            long iSum;
+            BigInteger bPow;
+            for (BigInteger bA = 1; bA < 100; bA++) {
+                for (int b = 1; b < 100; b++) {
+                    bPow = BigInteger.Pow(bA, b);
+                    iSum = Sums.sumDigits(bPow);
+                    iMax = Math.Max(iSum, iMax);
+                }
+            }
+            ViewBag.Answer = iMax;
+        }
+        public void Problem57() {
+            BigFraction f = 2 + new BigFraction(1, 2);
+            BigFraction bCurr;
+            int iCount = 0;
+            Debug.WriteLine(1 + new BigFraction(1, 2));
+            Debug.WriteLine(1 + 1 / f);
+            for (int i = 3; i <= 1000; i++) {
+                f = 2 + 1 / f;
+                bCurr = 1 + 1 / f;
+                if (bCurr.Numerator.ToString().Length > bCurr.Denominator.ToString().Length) iCount++;
+            }
+            ViewBag.Answer = iCount;
         }
         public void ProblemN() {
             ViewBag.Answer = 0;

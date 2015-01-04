@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cards\PokerTest.cs" />
     <Compile Include="Classes\BoolMapTest.cs" />
     <Compile Include="Classes\PrimalityTestsTest.cs" />
     <Compile Include="Classes\PrimeGeneratorTest.cs" />
@@ -93,6 +94,10 @@
     <Compile Include="Classes\NumbersTest.cs" />
     <Compile Include="Classes\PermutationsTest.cs" />
     <Compile Include="Classes\IntExtensionsTest.cs" />
+    <Compile Include="Classes\CombinationsTest.cs" />
+    <Compile Include="Cards\CardTest.cs" />
+    <Compile Include="Classes\PalindromesTest.cs" />
+    <Compile Include="Classes\FractionTest.cs" />
     <Compile Include="Performance\HashSetTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />

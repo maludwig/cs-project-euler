@@ -26,12 +26,6 @@ namespace ProjectEuler.Classes {
             }
         }
 
-        //Returns n!
-        public static int factorial(int n) {
-            int iResult = 1;
-            for (int i = 2; i <= n; i++) iResult *= i;
-            return iResult;
-        }
 
         //Returns true of all of the decimal digits are different (ex. 1234=true, 11=false)
         public static bool AllDigitsDifferent(int i) {

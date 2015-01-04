@@ -93,7 +93,7 @@ namespace ProjectEuler.Classes {
             return iCount;
         }
         //Returns true of all of the decimal digits are different (ex. 1234=true, 11=false)
-        public static bool AllDigitsDifferent(int i) {
+        public static bool AllDigitsDifferent(this int i) {
             bool[] b = new bool[10];
             int x;
             while (i > 0) {
@@ -103,6 +103,20 @@ namespace ProjectEuler.Classes {
                 i = i / 10;
             }
             return true;
+        }
+
+        //Returns n!
+        public static int factorial(this int n) {
+            int iResult = 1;
+            for (int i = 2; i <= n; i++) iResult *= i;
+            return iResult;
+        }
+
+        public static int GCD(this int iA, int iB) {
+            if (iA == 0) return iB;
+            if (iB == 0) return iA;
+            if (iA > iB) return GCD(iB, iA % iB);
+            return GCD(iA, iB % iA);
         }
     }
 }
