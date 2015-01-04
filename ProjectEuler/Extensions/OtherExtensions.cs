@@ -53,6 +53,9 @@ namespace ProjectEuler.Extensions {
             }
             return true;
         }
+        public static byte XOR(this byte left, byte right) {
+            return (byte)(left ^ right);
+        }
 
     }
 }

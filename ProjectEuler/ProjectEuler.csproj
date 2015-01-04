@@ -117,6 +117,7 @@
     <Compile Include="CardGames\PokerHand.cs" />
     <Compile Include="CardGames\Suits.cs" />
     <Compile Include="Classes\BigFraction.cs" />
+    <Compile Include="Encryption\XORTransform.cs" />
     <Compile Include="Extensions\BigIntegerExtensions.cs" />
     <Compile Include="Classes\BoolMap.cs" />
     <Compile Include="Classes\Combinations.cs" />
@@ -148,6 +149,7 @@
   <ItemGroup>
     <Content Include="App_Data\names.txt" />
     <Content Include="App_Data\poker.txt" />
+    <Content Include="App_Data\cipher.txt" />
     <Content Include="App_Data\words.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

@@ -11,6 +11,7 @@ using System.Text;
 using ProjectEuler.Primes;
 using ProjectEuler.CardGames;
 using ProjectEuler.Extensions;
+using ProjectEuler.Encryption;
 
 namespace ProjectEuler.Controllers {
     public class ProblemsController : Controller {
@@ -1098,30 +1099,32 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = iCount;
         }
         public void Problem58() {
-            PrimeGenerator pg = new SieveOfAtkin(SieveOfAtkin.FIVE);
             IPrimalityTest pt = new MillerRabin();
             double dPrimeCount = 3;
-            double dAllCount = 4;
+            double dAllCount = 5;
             int iLayer;
             int[] iaCorners;
-            for (int i = 0; i <= pg.largestPrime(); i++) {
-                if (pg.IsPrime(i) != pt.IsPrime(i)) {
-                    Debug.WriteLine("ERROR");
-                }
-            }
-            return;
-            for (iLayer = 1; dPrimeCount > dAllCount / 10; iLayer++) {
+            for (iLayer = 2; dPrimeCount > dAllCount / 10; iLayer++) {
                 dAllCount += 4;
                 iaCorners = SquareSpiral.GetCorners(iLayer);
-                if (pg.IsPrime(iaCorners[0])) dPrimeCount++;
-                if (pg.IsPrime(iaCorners[1])) dPrimeCount++;
-                if (pg.IsPrime(iaCorners[2])) dPrimeCount++;
-                if (pg.IsPrime(iaCorners[3])) dPrimeCount++;
+                if (pt.IsPrime(iaCorners[0])) dPrimeCount++;
+                if (pt.IsPrime(iaCorners[1])) dPrimeCount++;
+                if (pt.IsPrime(iaCorners[2])) dPrimeCount++;
+                if (pt.IsPrime(iaCorners[3])) dPrimeCount++;
             }
-            ViewBag.Answer = iLayer * 2 + 1;
+            ViewBag.Answer = iLayer * 2 -1;
         }
-        public void TestAnInterface(IPrimalityTest p) {
+
+        public void Problem59() {
+            string sFile = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/cipher.txt"));
+            string[] sNums = sFile.Split(',');
+            byte[] baNums = new byte[sNums.Length];
+            byte[] baKey = new byte[3];
+            XORTransform xt = new XORTransform(baKey);
+
+            ViewBag.Answer = 0;
         }
+        
         public void ProblemN() {
             ViewBag.Answer = 0;
         }

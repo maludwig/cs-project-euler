@@ -21,7 +21,9 @@ namespace ProjectEuler.Tests.Classes {
                     iActualPrimeCount++;
                 }
                 if (MillerRabin.MillerRabinPass(2, i)) {
-                    iMRPrimeCount++;
+                    if (MillerRabin.MillerRabinPass(7, i)) {
+                        iMRPrimeCount++;
+                    }
                 }
             }
             iActualCompositeCount = iTotalCount - iActualPrimeCount;
