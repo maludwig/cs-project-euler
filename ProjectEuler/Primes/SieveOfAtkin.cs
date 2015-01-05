@@ -8,7 +8,7 @@ using System.Web;
 namespace ProjectEuler.Primes {
     public class SieveOfAtkin : PrimeGenerator {
         public const int INSTANT = 10000000; //All primes up to 10 million
-        public const int FIVE = 100000000; //All primes up to 100 million
+        public const int TEN = 100000000; //All primes up to 100 million
         public const int FORTY = 1000000000; //All primes up to 1 billion
         public SieveOfAtkin()
             : this(SieveOfAtkin.INSTANT) {

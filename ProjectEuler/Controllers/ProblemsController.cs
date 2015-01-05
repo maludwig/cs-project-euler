@@ -15,6 +15,7 @@ using ProjectEuler.Encryption;
 
 namespace ProjectEuler.Controllers {
     public class ProblemsController :Controller {
+        public static PrimeGenerator Atkin = new SieveOfAtkin();
 
         public void Problem1() {
             int sum = 0;
@@ -1114,7 +1115,6 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = iLayer * 2 - 1;
         }
-
         public void Problem59() {
             string sFile = System.IO.File.ReadAllText(Server.MapPath(@"~/App_Data/cipher.txt"));
             string[] saCipher = sFile.Split(',');
@@ -1191,8 +1191,53 @@ namespace ProjectEuler.Controllers {
             }
             return iLetterCount;
         }
+        public void Problem60() {
+            List<Tuple<int, int>> ltii = new List<Tuple<int, int>>();
+            List<Tuple<int, int>> ltiiAdd = new List<Tuple<int, int>>();
+            Dictionary<int, List<int>> dili = new Dictionary<int, List<int>>();
+            StringBuilder sb = new StringBuilder();
+            int iPairCount = 0;
+            //ltii.AddRange(SlicePrime(37));
+            for (int i = 1; Atkin[i] < 1000000; i++) {
+                ltiiAdd = SlicePrime(Atkin[i]);
+                if (ltiiAdd.Count > 0) {
+                    //iPairCount += ltiiAdd.Count;
+                    ltii.AddRange(ltiiAdd);
+                }
+            }
+            foreach (Tuple<int, int> tii in ltii) {
+                if (dili.ContainsKey(tii.Item1)) {
+                    dili[tii.Item1].Add(tii.Item2);
+                } else {
+                    dili.Add(tii.Item1, new List<int> { tii.Item2 });
+                }
+            }
+            foreach (List<int> li in dili.Values) {
+                if (li.Count > 3) iPairCount++;
+            }
 
+            ViewBag.Answer = iPairCount;
+        }
+        private List<Tuple<int, int>> SlicePrime(int iPrime) {
+            int iRight, iLeft, iFlip;
+            int iDigitCount = iPrime.CountDigits();
+            List<Tuple<int, int>> ltii = new List<Tuple<int, int>>();
+            for (int i = 1; i < iDigitCount; i++ ) {
+                iRight = iPrime.GetDigits(i, i);
+                if (Atkin.IsPrime(iRight)) {
+                    iLeft = iPrime.GetDigits(iDigitCount,iDigitCount-i);
+                    if (Atkin.IsPrime(iLeft)) {
+                        iFlip = iRight * 10.Pow(iDigitCount - i) + iLeft;
+                        if (Atkin.IsPrime(iFlip)) {
+                            ltii.Add(new Tuple<int, int>(iRight, iLeft));
+                        }
+                    }
+                }
+            }
+            return ltii;
+        }
         public void ProblemN() {
+
             ViewBag.Answer = 0;
         }
 

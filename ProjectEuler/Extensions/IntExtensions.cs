@@ -95,6 +95,17 @@ namespace ProjectEuler.Extensions {
             }
             return iCount;
         }
+        /// <summary>
+        /// Counts the number of decimal digits in i
+        /// </summary>
+        public static int CountDigits(this int i) {
+            int iCount = 0;
+            while (i > 0) {
+                iCount++;
+                i = i / 10;
+            }
+            return iCount;
+        }
         //Returns true of all of the decimal digits are different (ex. 1234=true, 11=false)
         public static bool AllDigitsDifferent(this int i) {
             bool[] b = new bool[10];

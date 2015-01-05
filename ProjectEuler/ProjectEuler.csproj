@@ -117,6 +117,7 @@
     <Compile Include="CardGames\PokerHand.cs" />
     <Compile Include="CardGames\Suits.cs" />
     <Compile Include="Classes\BigFraction.cs" />
+    <Compile Include="Classes\Graph.cs" />
     <Compile Include="Encryption\XORTransform.cs" />
     <Compile Include="Extensions\BigIntegerExtensions.cs" />
     <Compile Include="Classes\BoolMap.cs" />
@@ -189,6 +190,7 @@
     <Content Include="Views\Problems\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Graph\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
