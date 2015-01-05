@@ -1192,6 +1192,11 @@ namespace ProjectEuler.Controllers {
             return iLetterCount;
         }
 
+        public void Problem60() {
+            ViewBag.Answer = "test";
+            string s = 46L.ToBinaryString();
+        }
+
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
