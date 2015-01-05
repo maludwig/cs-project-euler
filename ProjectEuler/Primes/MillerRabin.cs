@@ -19,7 +19,7 @@ namespace ProjectEuler.Primes {
             if (i % 5 == 0) return false ^ (i == 5);
             if (i % 7 == 0) return false ^ (i == 7);
             if (i % 61 == 0) return false ^ (i == 61);
-            //if (i.IsSquare()) return false;
+            //if (i.IsSquare()) return false;p
             if (!MillerRabinPass(2, i)) return false;
             if (!MillerRabinPass(7, i)) return false;
             if (!MillerRabinPass(61, i)) return false;
