@@ -17,6 +17,10 @@ namespace ProjectEuler.Encryption {
             Key = baKey;
         }
         public void Dispose() {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+        protected virtual void Dispose(bool disposing) {
             Key = null;
         }
         public int TransformBlock(byte[] baInput, int iInputOffset, int iInputCount, byte[] baOutput, int iOutputOffset) {

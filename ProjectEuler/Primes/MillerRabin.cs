@@ -12,14 +12,11 @@ namespace ProjectEuler.Primes {
 
         public bool IsPrime(int i) {
             if (i < 2) return false;
-           // int iRoot = (int)Math.Sqrt(i);
-            //if (iRoot * iRoot == i) return false;
             if (i % 2 == 0) return false ^ (i == 2);
             if (i % 3 == 0) return false ^ (i == 3);
             if (i % 5 == 0) return false ^ (i == 5);
             if (i % 7 == 0) return false ^ (i == 7);
             if (i % 61 == 0) return false ^ (i == 61);
-            //if (i.IsSquare()) return false;p
             if (!MillerRabinPass(2, i)) return false;
             if (!MillerRabinPass(7, i)) return false;
             if (!MillerRabinPass(61, i)) return false;
@@ -28,7 +25,10 @@ namespace ProjectEuler.Primes {
 
         public bool IsPrime(long i) {
             if (i < int.MaxValue) return IsPrime((int)i);
-
+            if (i % 2 == 0) return false;
+            if (i % 3 == 0) return false;
+            if (i % 5 == 0) return false;
+            if (i % 7 == 0) return false;
             foreach (int iElement in iaTestValues) {
                 if (!MillerRabinPass(iElement, i)) return false;
             }
@@ -36,7 +36,10 @@ namespace ProjectEuler.Primes {
         }
         public bool IsPrime(BigInteger b) {
             if (b < long.MaxValue) return IsPrime((long)b);
-
+            if (b % 2 == 0) return false;
+            if (b % 3 == 0) return false;
+            if (b % 5 == 0) return false;
+            if (b % 7 == 0) return false;
             foreach (int iElement in iaTestValues) {
                 if (!MillerRabinPass(iElement, b)) return false;
             }

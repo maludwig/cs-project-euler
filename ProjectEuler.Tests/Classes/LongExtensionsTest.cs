@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectEuler.Classes;
 using ProjectEuler.Extensions;
+using System.Diagnostics;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
@@ -68,6 +69,46 @@ namespace ProjectEuler.Tests.Classes {
             for (long i = 0L; i < 64L; i++) {
                 Assert.AreEqual(i, 2L.Pow(i).CountBinaryTrailingZeros());
             }
+        }
+        [TestMethod]
+        public void TestPowMod() {
+            Assert.AreEqual(2L, 2L.ModPow(1L, 1000L));
+            Assert.AreEqual(8, 2L.ModPow(3, 1000));
+            Assert.AreEqual(2, 2L.ModPow(3, 6));
+            Assert.AreEqual(1, 9L.ModPow(2, 80));
+        }
+        [TestMethod]
+        public void TestFindRoot() {
+            int[] iaTestValues = new int[] { 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 8, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 10 };
+            for (long i = 1; i < 101; i++) {
+                Assert.AreEqual(iaTestValues[i - 1], i.findRoot());
+            }
+        }
+        [TestMethod]
+        public void RootSpeedTest() {
+            Stopwatch stopWatch = new Stopwatch();
+            TimeSpan ts;
+            long lRoot;
+            stopWatch.Start();
+            for (long l = 1; l < 10000; l++) {
+                lRoot = l.findRoot();
+            }
+            ts = stopWatch.Elapsed;
+            Debug.WriteLine(String.Format("{0:00}:{1:00}.{2:00}s", ts.Minutes, ts.Seconds, ts.Milliseconds / 10));
+            stopWatch.Restart();
+            for (long l = 1; l < 10000; l++) {
+                lRoot = (long)Math.Sqrt(l);
+            }
+            stopWatch.Stop();
+            ts = stopWatch.Elapsed;
+            Debug.WriteLine(String.Format("{0:00}:{1:00}.{2:00}s", ts.Minutes, ts.Seconds, ts.Milliseconds / 10));
+        }
+        [TestMethod]
+        public void TestIsSquare() {
+            Assert.IsTrue(100L.IsSquare());
+            Assert.IsFalse(101L.IsSquare());
+            Assert.IsTrue(400L.IsSquare());
+            Assert.IsFalse(1000L.IsSquare());
         }
     }
 }

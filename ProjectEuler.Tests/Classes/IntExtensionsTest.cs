@@ -84,5 +84,13 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual(166, 2090000001.ModPow(106, 221));
             Assert.AreEqual(1248031580, 2090000009.ModPow(2090000007, 2090000001));
         }
+        [TestMethod]
+        public void GCDTest() {
+            Assert.AreEqual(7, 7.GCD(0));
+            Assert.AreEqual(7, 7.GCD(14));
+            Assert.AreEqual(7, 7.GCD(21));
+            Assert.AreEqual(4, 8.GCD(4));
+            Assert.AreEqual(3, 300.GCD(9));
+        }
     }
 }

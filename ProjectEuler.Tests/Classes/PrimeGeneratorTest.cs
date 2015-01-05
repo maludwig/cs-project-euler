@@ -9,15 +9,15 @@ using ProjectEuler.Extensions;
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
     public class PrimeGeneratorTest {
+        PrimeGenerator Atkin = new SieveOfAtkin();
+        PrimeGenerator Eratosthenes = new SieveOfEratosthenes();
         [TestMethod]
-        public void Atkin() {
-            PrimeGenerator pg = new SieveOfAtkin();
-            TestPrimes(pg);
+        public void AtkinTest() {
+            TestPrimes(Atkin);
         }
         [TestMethod]
-        public void Eratosthenes() {
-            PrimeGenerator pg = new SieveOfEratosthenes();
-            TestPrimes(pg);
+        public void EratosthenesTest() {
+            TestPrimes(Eratosthenes);
         }
 
         public void TestPrimes(PrimeGenerator pg) {
@@ -49,84 +49,69 @@ namespace ProjectEuler.Tests.Classes {
                 Assert.Fail();
             } catch (IndexOutOfRangeException) {
             }
-            //pg = new SieveOfEratosthenes(pg.FIVE);
-            //pg = new SieveOfEratosthenes(pg.FORTY);
         }
         [TestMethod]
         public void Factor() {
-            PrimeGenerator pg = new SieveOfAtkin();
             List<int> liFactors;
             liFactors = new List<int>(new int[] { 2, 5 });
-            Assert.IsTrue(liFactors.EachItemEqual(pg.Factors(10)));
+            Assert.IsTrue(liFactors.EachItemEqual(Atkin.Factors(10)));
             liFactors = new List<int>(new int[] { 5 });
-            Assert.IsTrue(liFactors.EachItemEqual(pg.Factors(5)));
+            Assert.IsTrue(liFactors.EachItemEqual(Atkin.Factors(5)));
             liFactors = new List<int>(new int[] { 71, 839, 1471, 6857 });
-            Assert.IsTrue(liFactors.EachItemEqual(pg.Factors(600851475143)));
+            Assert.IsTrue(liFactors.EachItemEqual(Atkin.Factors(600851475143)));
 
         }
         [TestMethod]
         public void Divisors() {
-            PrimeGenerator pg = new SieveOfAtkin();
             List<int> liDivs;
             liDivs = new List<int>(new int[] { 1, 2, 4, 5, 10, 20 });
-            Assert.IsTrue(liDivs.EachItemEqual(pg.divisors(20)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(20)));
             liDivs = new List<int>(new int[] { 1, 2, 4, 5, 8, 10, 20, 40 });
-            Assert.IsTrue(liDivs.EachItemEqual(pg.divisors(40)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(40)));
             liDivs = new List<int>(new int[] { 1, 2, 4, 5, 8, 10, 16, 20, 40, 80 });
-            Assert.IsTrue(liDivs.EachItemEqual(pg.divisors(80)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(80)));
             liDivs = new List<int>(new int[] { 1, 3, 9, 27, 81 });
-            Assert.IsTrue(liDivs.EachItemEqual(pg.divisors(81)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(81)));
             liDivs = new List<int>(new int[] { 1, 3, 9, 27 });
-            Assert.IsTrue(liDivs.EachItemEqual(pg.properDivisors(81)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.properDivisors(81)));
             liDivs = new List<int>(new int[] { 1 });
-            Assert.IsTrue(liDivs.EachItemEqual(pg.divisors(1)));
-            Assert.IsTrue(liDivs.EachItemEqual(pg.properDivisors(6781)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(1)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.properDivisors(6781)));
             liDivs = new List<int>(new int[] { 1, 6781 });
-            Assert.IsTrue(liDivs.EachItemEqual(pg.divisors(6781)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(6781)));
         }
         [TestMethod]
         public void FindPrime() {
-            PrimeGenerator pg = new SieveOfAtkin();
-            Assert.AreEqual(2, pg.findPrime(5));
-            Assert.AreEqual(-1, pg.findPrime(6));
-            Assert.AreEqual(0, pg.findPrime(2));
-            Assert.AreEqual(1, pg.findPrime(3));
-            Assert.AreEqual(999, pg.findPrime(7919));
-            pg = new SieveOfAtkin(20);
-            Assert.AreEqual(1, pg.findClosestPrime(3));
-            Assert.AreEqual(2, pg.findClosestPrime(4));
-            Assert.AreEqual(3, pg.findClosestPrime(8));
-            pg = new SieveOfAtkin();
-            Assert.AreEqual(0, pg.findClosestPrime(0));
-            Assert.AreEqual(999, pg.findClosestPrime(7919));
-            Assert.AreEqual(999, pg.findClosestPrime(7920));
+            Assert.AreEqual(2, Atkin.findPrime(5));
+            Assert.AreEqual(-1, Atkin.findPrime(6));
+            Assert.AreEqual(0, Atkin.findPrime(2));
+            Assert.AreEqual(1, Atkin.findPrime(3));
+            Assert.AreEqual(999, Atkin.findPrime(7919));
+            Atkin = new SieveOfAtkin(20);
+            Assert.AreEqual(1, Atkin.findClosestPrime(3));
+            Assert.AreEqual(2, Atkin.findClosestPrime(4));
+            Assert.AreEqual(3, Atkin.findClosestPrime(8));
+            Atkin = new SieveOfAtkin();
+            Assert.AreEqual(0, Atkin.findClosestPrime(0));
+            Assert.AreEqual(999, Atkin.findClosestPrime(7919));
+            Assert.AreEqual(999, Atkin.findClosestPrime(7920));
         }
         [TestMethod]
         public void CircularPrimes() {
-            PrimeGenerator pg = new SieveOfAtkin();
-            Assert.IsTrue(pg.IsCircularPrime(197));
-            Assert.IsTrue(pg.IsCircularPrime(719));
-            Assert.IsTrue(pg.IsCircularPrime(971));
+            Assert.IsTrue(Atkin.IsCircularPrime(197));
+            Assert.IsTrue(Atkin.IsCircularPrime(719));
+            Assert.IsTrue(Atkin.IsCircularPrime(971));
             List<int> liCircs = new List<int>(new int[] { 2, 3, 5, 7, 11, 13, 17, 31, 37, 71, 73, 79, 97 });
             for (int i = 1; i < 100; i++) {
-                Assert.AreEqual(liCircs.Contains(i), pg.IsCircularPrime(i));
+                Assert.AreEqual(liCircs.Contains(i), Atkin.IsCircularPrime(i));
             }
         }
         [TestMethod]
         public void TruncatablePrimes() {
-            PrimeGenerator pg = new SieveOfAtkin();
-            Assert.IsTrue(pg.IsTruncatablePrime(3797));
-            Assert.IsTrue(pg.IsTruncatablePrime(797));
-            Assert.IsFalse(pg.IsTruncatablePrime(7));
-            Assert.IsFalse(pg.IsTruncatablePrime(5));
-        }
-        [TestMethod]
-        public void GCDTest() {
-            Assert.AreEqual(7, 7.GCD(0));
-            Assert.AreEqual(7, 7.GCD(14));
-            Assert.AreEqual(7, 7.GCD(21));
-            Assert.AreEqual(4, 8.GCD(4));
-            Assert.AreEqual(3, 300.GCD(9));
+            Assert.IsTrue(Atkin.IsTruncatablePrime(3797));
+            Assert.IsTrue(Atkin.IsTruncatablePrime(797));
+            Assert.IsFalse(Atkin.IsTruncatablePrime(7));
+            Assert.IsFalse(Atkin.IsTruncatablePrime(5));
         }
     }
 }
