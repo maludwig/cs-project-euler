@@ -1254,6 +1254,96 @@ namespace ProjectEuler.Controllers {
             }
             return false;
         }
+        int[][] P61iaaPolys = new int[9][];
+        List<int>[] P61liaPolys = new List<int>[9];
+        public void Problem61() {
+            for (int iSides = 3; iSides <= 8; iSides++) {
+                P61iaaPolys[iSides] = PolygonalSieve.GeneratePolysBetween(1000, 10000, iSides).ToArray();
+                P61liaPolys[iSides] = new List<int>(P61iaaPolys[iSides]);
+            }
+            List<Tuple<int, int, int>> ltiiiLeftWing;
+            List<Tuple<int, int, int>> ltiiiRightWing;
+            foreach (int iOctal in P61iaaPolys[8]) {
+                ltiiiLeftWing = P61LeftWing(iOctal);
+                ltiiiRightWing = P61RightWing(iOctal);
+                foreach (Tuple<int, int, int> tiiiLeft in ltiiiLeftWing) {
+                    foreach (Tuple<int, int, int> tiiiRight in ltiiiRightWing) {
+                        if (P61CompareFeathers(tiiiLeft, tiiiRight)) {
+                            ViewBag.Answer = tiiiLeft.Item3 + iOctal + tiiiRight.Item3 + P61MiddleNum(tiiiLeft.Item3 ,iOctal) + P61MiddleNum(iOctal,tiiiRight.Item3) + P61MiddleNum(tiiiRight.Item3,tiiiLeft.Item3);
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+        private int P61MiddleNum(int iLeft, int iRight) {
+            return (iRight / 100) + (iLeft % 100) * 100;
+        }
+        private bool P61CompareFeathers(Tuple<int, int, int> tiiiLeft, Tuple<int, int, int> tiiiRight) {
+            HashSet<int> hi = new HashSet<int> { 3, 4, 5, 6, 7 };
+            int iLastSides;
+            int iLastNum;
+            hi.Remove(tiiiLeft.Item1);
+            hi.Remove(tiiiLeft.Item2);
+            hi.Remove(tiiiRight.Item1);
+            hi.Remove(tiiiRight.Item2);
+            if (hi.Count != 1) return false;
+            iLastSides = hi.First();
+            iLastNum = P61MiddleNum(tiiiRight.Item3,tiiiLeft.Item3);
+            return P61liaPolys[iLastSides].Contains(iLastNum);
+        }
+        private List<Tuple<int, int, int>> P61LeftWing(int iOrigin) {
+            List<Tuple<int, int, int>> ltiiiRet = new List<Tuple<int, int, int>>();
+            for (int iS1 = 3; iS1 < 8; iS1++) {
+                for (int iS2 = 3; iS2 < 8; iS2++) {
+                    if (iS1 != iS2) {
+                        foreach (int iP1 in P61TailMatches(iOrigin, iS1)) {
+                            foreach (int iP2 in P61TailMatches(iP1, iS2)) {
+                                ltiiiRet.Add(new Tuple<int, int, int>(iS1, iS2, iP2));
+                            }
+                        }
+                    }
+                }
+            }
+            return ltiiiRet;
+        }
+        private List<Tuple<int, int, int>> P61RightWing(int iOrigin) {
+            List<Tuple<int, int, int>> ltiiiRet = new List<Tuple<int, int, int>>();
+            for (int iS1 = 3; iS1 < 8; iS1++) {
+                for (int iS2 = 3; iS2 < 8; iS2++) {
+                    if (iS1 != iS2) {
+                        foreach (int iP1 in P61SeedMatches(iOrigin, iS1)) {
+                            foreach (int iP2 in P61SeedMatches(iP1, iS2)) {
+                                ltiiiRet.Add(new Tuple<int, int, int>(iS1, iS2, iP2));
+                            }
+                        }
+                    }
+                }
+            }
+            return ltiiiRet;
+        }
+        private List<int>[,] ll2aSeedMemo = new List<int>[100, 8];
+        private List<int> P61SeedMatches(int iNum, int iSides) {
+            int iSeed = iNum % 100;
+            if (ll2aSeedMemo[iSeed, iSides] != null) return ll2aSeedMemo[iSeed, iSides];
+            if (iSeed < 10) {
+                ll2aSeedMemo[iSeed, iSides] = new List<int>();
+            } else {
+                ll2aSeedMemo[iSeed, iSides] = PolygonalSieve.GeneratePolysBetween(iSeed * 100, (iSeed + 1) * 100, iSides);
+            }
+            return ll2aSeedMemo[iSeed, iSides];
+        }
+
+        private List<int>[,] ll2aTailMemo = new List<int>[100, 8];
+        private List<int> P61TailMatches(int iNum, int iSides) {
+            int iTail = iNum / 100;
+            if (ll2aTailMemo[iTail, iSides] != null) return ll2aTailMemo[iTail, iSides];
+            var q = from int i in P61iaaPolys[iSides]
+                    where i % 100 == iTail
+                    select i;
+            ll2aTailMemo[iTail, iSides] = new List<int>(q);
+            return ll2aTailMemo[iTail, iSides];
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }

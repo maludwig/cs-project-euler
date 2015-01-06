@@ -101,6 +101,7 @@
     <Compile Include="Classes\LongExtensionsTest.cs" />
     <Compile Include="Classes\MillerRabinExperiment.cs" />
     <Compile Include="Classes\GraphTest.cs" />
+    <Compile Include="Classes\PolygonalSieveTest.cs" />
     <Compile Include="Performance\HashSetTest.cs" />
     <Compile Include="Performance\PrimalityPerfTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
