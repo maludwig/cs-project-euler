@@ -5,6 +5,7 @@ using ProjectEuler.Primes;
 using System.Diagnostics;
 using ProjectEuler.Extensions;
 using System.Numerics;
+using ProjectEuler.Classes;
 
 namespace MikesEuler.Tests.NumberTests {
     [TestClass]
@@ -64,10 +65,18 @@ namespace MikesEuler.Tests.NumberTests {
             }
         }
         public void FullBattery(IPrimalityTest p) {
+            Ticker t = new Ticker();
+            Debug.WriteLine("#######");
+            Debug.WriteLine(p.GetType().Name);
+            Debug.WriteLine("-------");
             TestSmallIntegers(p);
+            t.Tick("Small ints");
             ScatteredLongTest(p);
+            t.Tick("Scattered Longs");
             LargeSieveIntegerTest(p);
+            t.Tick("LargeSieve");
             ScatteredBigIntegerTest(p);
+            t.Tick("Scattered Big");
             Assert.IsTrue(p.IsPrime(2147483647));
         }
 
