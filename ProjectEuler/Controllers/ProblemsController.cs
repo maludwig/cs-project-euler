@@ -867,11 +867,11 @@ namespace ProjectEuler.Controllers {
             //See PentaSpeedTest() in NumbersTest for details
             long lXPenta, lYPenta;
             for (int x = 1; true; x++) {
-                lXPenta = Numbers.GetPentagonal(x);
+                lXPenta = PolygonalSieve.GetPentagonal(x);
                 for (int y = 1; y < x; y++) {
-                    lYPenta = Numbers.GetPentagonal(y);
-                    if (Numbers.IsPentagonal(lXPenta + lYPenta)) {
-                        if (Numbers.IsPentagonal(lXPenta + (2 * lYPenta))) {
+                    lYPenta = PolygonalSieve.GetPentagonal(y);
+                    if (PolygonalSieve.IsPentagonal(lXPenta + lYPenta)) {
+                        if (PolygonalSieve.IsPentagonal(lXPenta + (2 * lYPenta))) {
                             ViewBag.Answer = lXPenta;
                             return;
                         }
@@ -882,9 +882,9 @@ namespace ProjectEuler.Controllers {
         public void Problem45() {
             long lHexa;
             for (int h = 145; true; h++) {
-                lHexa = Numbers.GetHexagonal(h);
-                if (Numbers.IsPentagonal(lHexa)) {
-                    if (Numbers.IsTriangle(lHexa)) {
+                lHexa = PolygonalSieve.GetHexagonal(h);
+                if (PolygonalSieve.IsPentagonal(lHexa)) {
+                    if (PolygonalSieve.IsTriangle(lHexa)) {
                         ViewBag.Answer = lHexa;
                         return;
                     }

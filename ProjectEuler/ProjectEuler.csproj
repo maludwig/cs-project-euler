@@ -117,6 +117,7 @@
     <Compile Include="CardGames\PokerHand.cs" />
     <Compile Include="CardGames\Suits.cs" />
     <Compile Include="Classes\BigFraction.cs" />
+    <Compile Include="Classes\PolygonalSieve.cs" />
     <Compile Include="Classes\Ticker.cs" />
     <Compile Include="Graph\IntegerGraph.cs" />
     <Compile Include="Encryption\XORTransform.cs" />

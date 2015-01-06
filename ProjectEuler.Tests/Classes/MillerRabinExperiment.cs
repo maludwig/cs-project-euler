@@ -35,7 +35,7 @@ namespace ProjectEuler.Tests.Classes {
         }
         [TestMethod]
         public void PassTest() {
-            PrimeSieve pgAtkin = new SieveOfAtkin();
+            PrimeSieve pgAtkin = new SieveOfAtkin(100);
             Ticker t = new Ticker();
             foreach (int i in pgAtkin) {
                 MillerRabin.MillerRabinPass(2, i);

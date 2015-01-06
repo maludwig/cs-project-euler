@@ -45,56 +45,56 @@ namespace ProjectEuler.Tests.Classes {
         public void TriTest() {
             long lTri;
             List<long> llTri = new List<long>(2000);
-            Assert.AreEqual(1, Numbers.GetTriangle(1));
-            Assert.AreEqual(3, Numbers.GetTriangle(2));
-            Assert.AreEqual(6, Numbers.GetTriangle(3));
-            Assert.AreEqual(10, Numbers.GetTriangle(4));
-            Assert.AreEqual(15, Numbers.GetTriangle(5));
+            Assert.AreEqual(1, PolygonalSieve.GetTriangle(1));
+            Assert.AreEqual(3, PolygonalSieve.GetTriangle(2));
+            Assert.AreEqual(6, PolygonalSieve.GetTriangle(3));
+            Assert.AreEqual(10, PolygonalSieve.GetTriangle(4));
+            Assert.AreEqual(15, PolygonalSieve.GetTriangle(5));
             for (int i = 1; i < 2000; i++) {
-                lTri = Numbers.GetTriangle(i);
-                Assert.AreEqual(i, Numbers.GetTriangleIndex(lTri));
+                lTri = PolygonalSieve.GetTriangle(i);
+                Assert.AreEqual(i, PolygonalSieve.GetTriangleIndex(lTri));
                 llTri.Add(lTri);
             }
             for (int i = 1; i < 2000; i++) {
-                Assert.AreEqual(llTri.Contains(i), Numbers.IsTriangle(i));
+                Assert.AreEqual(llTri.Contains(i), PolygonalSieve.IsTriangle(i));
             }
         }
         [TestMethod]
         public void PentaTest() {
             long lPenta;
             List<long> llPentas = new List<long>(2000);
-            Assert.AreEqual(1, Numbers.GetPentagonal(1));
-            Assert.AreEqual(5, Numbers.GetPentagonal(2));
-            Assert.AreEqual(12, Numbers.GetPentagonal(3));
-            Assert.AreEqual(22, Numbers.GetPentagonal(4));
-            Assert.AreEqual(35, Numbers.GetPentagonal(5));
-            Assert.AreEqual(51, Numbers.GetPentagonal(6));
-            Assert.AreEqual(70, Numbers.GetPentagonal(7));
+            Assert.AreEqual(1, PolygonalSieve.GetPentagonal(1));
+            Assert.AreEqual(5, PolygonalSieve.GetPentagonal(2));
+            Assert.AreEqual(12, PolygonalSieve.GetPentagonal(3));
+            Assert.AreEqual(22, PolygonalSieve.GetPentagonal(4));
+            Assert.AreEqual(35, PolygonalSieve.GetPentagonal(5));
+            Assert.AreEqual(51, PolygonalSieve.GetPentagonal(6));
+            Assert.AreEqual(70, PolygonalSieve.GetPentagonal(7));
             for (int i = 1; i < 2000; i++) {
-                lPenta = Numbers.GetPentagonal(i);
-                Assert.AreEqual(i, Numbers.GetPentagonalIndex(lPenta));
+                lPenta = PolygonalSieve.GetPentagonal(i);
+                Assert.AreEqual(i, PolygonalSieve.GetPentagonalIndex(lPenta));
                 llPentas.Add(lPenta);
             }
             for (int i = 1; i < 2000; i++) {
-                Assert.AreEqual(llPentas.Contains(i), Numbers.IsPentagonal(i));
+                Assert.AreEqual(llPentas.Contains(i), PolygonalSieve.IsPentagonal(i));
             }
         }
         [TestMethod]
         public void HexaTest() {
             long lHexa;
             List<long> llHexas = new List<long>(2000);
-            Assert.AreEqual(1, Numbers.GetHexagonal(1));
-            Assert.AreEqual(6, Numbers.GetHexagonal(2));
-            Assert.AreEqual(15, Numbers.GetHexagonal(3));
-            Assert.AreEqual(28, Numbers.GetHexagonal(4));
-            Assert.AreEqual(45, Numbers.GetHexagonal(5));
+            Assert.AreEqual(1, PolygonalSieve.GetHexagonal(1));
+            Assert.AreEqual(6, PolygonalSieve.GetHexagonal(2));
+            Assert.AreEqual(15, PolygonalSieve.GetHexagonal(3));
+            Assert.AreEqual(28, PolygonalSieve.GetHexagonal(4));
+            Assert.AreEqual(45, PolygonalSieve.GetHexagonal(5));
             for (int i = 1; i < 2000; i++) {
-                lHexa = Numbers.GetHexagonal(i);
-                Assert.AreEqual(i, Numbers.GetHexagonalIndex(lHexa));
+                lHexa = PolygonalSieve.GetHexagonal(i);
+                Assert.AreEqual(i, PolygonalSieve.GetHexagonalIndex(lHexa));
                 llHexas.Add(lHexa);
             }
             for (int i = 1; i < 2000; i++) {
-                Assert.AreEqual(llHexas.Contains(i), Numbers.IsHexagonal(i));
+                Assert.AreEqual(llHexas.Contains(i), PolygonalSieve.IsHexagonal(i));
             }
         }
         [TestMethod]
@@ -131,7 +131,7 @@ namespace ProjectEuler.Tests.Classes {
             stopWatch.Start();
 
             for (int i = 1; i < 30000; i++) {
-                lPenta = Numbers.GetPentagonal(i);
+                lPenta = PolygonalSieve.GetPentagonal(i);
                 ll.Add(lPenta);
             }
             ts = stopWatch.Elapsed;
@@ -139,7 +139,7 @@ namespace ProjectEuler.Tests.Classes {
             stopWatch.Restart();
 
             for (int i = 1; i < 30000; i++) {
-                lPenta = Numbers.GetPentagonal(i);
+                lPenta = PolygonalSieve.GetPentagonal(i);
                 hl.Add(lPenta);
             }
             ts = stopWatch.Elapsed;
@@ -148,7 +148,7 @@ namespace ProjectEuler.Tests.Classes {
 
             //Test Correctness
             for (long i = 1; i < 3000; i++) {
-                b = Numbers.IsPentagonal(i);
+                b = PolygonalSieve.IsPentagonal(i);
                 Assert.AreEqual(b, ll.Contains(i));
                 Assert.AreEqual(b, ll.BinarySearch(i) >= 0);
                 Assert.AreEqual(b, hl.Contains(i));
@@ -158,7 +158,7 @@ namespace ProjectEuler.Tests.Classes {
             stopWatch.Restart();
 
             for (long i = 1; i < lTestTo; i++) {
-                b = Numbers.IsPentagonal(i);
+                b = PolygonalSieve.IsPentagonal(i);
             }
             ts = stopWatch.Elapsed;
             System.Diagnostics.Debug.WriteLine("Static Numbers: " + String.Format("{0:00}:{1:00}.{2:00}s", ts.Minutes, ts.Seconds, ts.Milliseconds / 10));
