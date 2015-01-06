@@ -12,10 +12,14 @@ using ProjectEuler.Primes;
 using ProjectEuler.CardGames;
 using ProjectEuler.Extensions;
 using ProjectEuler.Encryption;
+using ProjectEuler.Graph;
 
 namespace ProjectEuler.Controllers {
     public class ProblemsController :Controller {
-        public static PrimeGenerator Atkin = new SieveOfAtkin();
+        public static PrimeSieve Atkin = new SieveOfAtkin();
+        public static MillerRabin MR = new MillerRabin();
+        public static BailliePSW Baillie = new BailliePSW();
+        public static SieveOrTest AtkinOrMR = new SieveOrTest(Atkin, MR);
 
         public void Problem1() {
             int sum = 0;
@@ -36,7 +40,7 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = sum;
         }
         public void Problem3() {
-            PrimeGenerator pg = new SieveOfEratosthenes(1000);
+            PrimeSieve pg = new SieveOfEratosthenes(1000);
 
             ViewBag.Answer = pg.Factors(600851475143).Last();
         }
@@ -53,7 +57,7 @@ namespace ProjectEuler.Controllers {
 
         }
         public void Problem5() {
-            PrimeGenerator pg = new SieveOfEratosthenes(1000);
+            PrimeSieve pg = new SieveOfEratosthenes(1000);
             int[] iaFactors = new int[21];
             List<int> liFactors;
             int iNum = 1;
@@ -80,7 +84,7 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = squareOfSum - sumOfSquares;
         }
         public void Problem7() {
-            PrimeGenerator pg = new SieveOfEratosthenes(10001);
+            PrimeSieve pg = new SieveOfEratosthenes(10001);
             ViewBag.Answer = pg.getPrime(10000);
         }
         public void Problem8() {
@@ -110,7 +114,7 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = 0;
         }
         public void Problem10() {
-            PrimeGenerator pg = new SieveOfAtkin(2000000);
+            PrimeSieve pg = new SieveOfAtkin(2000000);
             long lSum = 0;
             for (int i = 0; i < pg.Count(); i++) lSum += pg.getPrime(i);
             ViewBag.Answer = lSum;
@@ -166,7 +170,7 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = iMax;
         }
         public void Problem12() {
-            PrimeGenerator pg = new SieveOfAtkin();
+            PrimeSieve pg = new SieveOfAtkin();
             long lTri = 1;
             List<int> liFactors;
             int iLastFactor = 0;
@@ -402,7 +406,7 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = Sums.sumDigits(b);
         }
         public void Problem21() {
-            PrimeGenerator pg = new SieveOfAtkin();
+            PrimeSieve pg = new SieveOfAtkin();
             int iDivSum = 0;
             int iAmicableSum = 0;
             for (int i = 2; i < 10000; i++) {
@@ -432,7 +436,7 @@ namespace ProjectEuler.Controllers {
         }
         public void Problem23() {
             List<int> liAbundants = new List<int>();
-            PrimeGenerator pg = new SieveOfAtkin();
+            PrimeSieve pg = new SieveOfAtkin();
             bool bCanBeSumOfTwo;
             int iSum = 0;
             for (int i = 0; i < 28123; i++) {
@@ -499,7 +503,7 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = iMaxNum;
         }
         public void Problem27() {
-            PrimeGenerator pg = new SieveOfAtkin(1000000);
+            PrimeSieve pg = new SieveOfAtkin(1000000);
             int[] iaPrimes = pg.getPrimesTo(1000).ToArray();
             //b must be positive and prime, in order for n^2+an+b to produce a prime when n=0
             int b, n;
@@ -661,7 +665,7 @@ namespace ProjectEuler.Controllers {
         }
         public void Problem35() {
             int iCount = 0;
-            PrimeGenerator pg = new SieveOfAtkin();
+            PrimeSieve pg = new SieveOfAtkin();
             for (int i = 0; pg.getPrime(i) < 1000000; i++) {
                 if (pg.IsCircularPrime(pg.getPrime(i))) {
                     iCount++;
@@ -682,7 +686,7 @@ namespace ProjectEuler.Controllers {
         }
         public void Problem37() {
             int iSum = 0;
-            PrimeGenerator pg = new SieveOfAtkin();
+            PrimeSieve pg = new SieveOfAtkin();
             for (int i = 5; pg.getPrime(i) < 1000000; i++) {
                 if (pg.IsTruncatablePrime(pg.getPrime(i))) {
                     iSum += pg.getPrime(i);
@@ -794,7 +798,7 @@ namespace ProjectEuler.Controllers {
             //    ex. 813 = 3(33*8)+8 + 3(3*1)+1 + 3 = 3(33*8 + 3*1) + 8 + 1 + 3 = 3(277) + 8+1+3 = 3(277) + 3(4)
 
             //Therefore, since 1+2+3+4+5+6+7+8+9 is divisible by 3, and 1+2+3+4+5+6+7+8 is divisible by 3, all permutations of them will be divisible by 3.
-            PrimeGenerator pg = new SieveOfAtkin(10000000);
+            PrimeSieve pg = new SieveOfAtkin(10000000);
             int iPrime = 0;
 
             for (int i = pg.Count() - 1; i > 0; i--) {
@@ -889,7 +893,7 @@ namespace ProjectEuler.Controllers {
         }
         public void Problem46() {
             bool bWritable;
-            PrimeGenerator pg = new SieveOfAtkin();
+            PrimeSieve pg = new SieveOfAtkin();
             for (int i = 9; true; i += 2) {
                 if (!pg.IsPrime(i)) {
                     bWritable = false;
@@ -907,7 +911,7 @@ namespace ProjectEuler.Controllers {
             }
         }
         public void Problem47() {
-            PrimeGenerator pg = new SieveOfAtkin(600000);
+            PrimeSieve pg = new SieveOfAtkin(600000);
             int i;
             for (i = 1; true; i++) {
                 if ((i % 2 == 0) || (i % 3 == 0)) {
@@ -936,7 +940,7 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = sAns.Substring(sAns.Length - 10);
         }
         public void Problem49() {
-            PrimeGenerator pg = new SieveOfAtkin();
+            PrimeSieve pg = new SieveOfAtkin();
             int iDiff;
             int iTopPrime;
             int iIPrime;
@@ -962,7 +966,7 @@ namespace ProjectEuler.Controllers {
             int iMaxPrime = 0;
             int iMaxIndex = 0;
             int iCurrSum = 0;
-            PrimeGenerator pg = new SieveOfAtkin();
+            PrimeSieve pg = new SieveOfAtkin();
             for (int i = 0; pg[i] < 1000000; i++) {
                 iCurrSum = pg[i];
                 for (int k = 1; k <= iMinCount; k++) {
@@ -983,7 +987,7 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = iMaxPrime;
         }
         public void Problem51() {
-            PrimeGenerator pg = new SieveOfAtkin(1000000);
+            PrimeSieve pg = new SieveOfAtkin(1000000);
             Dictionary<string, int> dsiModdedPrimes = new Dictionary<string, int>();
             List<string> lsPerms;
             List<int> iaFamily = new List<int>(new int[] { 56003, 56113, 56333, 56443, 56663, 56773, 56993 });
@@ -1191,55 +1195,69 @@ namespace ProjectEuler.Controllers {
             }
             return iLetterCount;
         }
+        static bool[,] baaP60 = new bool[500, 500];
         public void Problem60() {
-            List<Tuple<int, int>> ltii = new List<Tuple<int, int>>();
-            List<Tuple<int, int>> ltiiAdd = new List<Tuple<int, int>>();
-            Dictionary<int, List<int>> dili = new Dictionary<int, List<int>>();
-            StringBuilder sb = new StringBuilder();
-            int iPairCount = 0;
-            //ltii.AddRange(SlicePrime(37));
-            for (int i = 1; Atkin[i] < 1000000; i++) {
-                ltiiAdd = SlicePrime(Atkin[i]);
-                if (ltiiAdd.Count > 0) {
-                    //iPairCount += ltiiAdd.Count;
-                    ltii.AddRange(ltiiAdd);
+            int i1 = 5;
+            for (int iP1 = 1; iP1 < 500; iP1++) {
+                for (int iP2 = 1; iP2 < iP1; iP2++) {
+                    baaP60[iP1, iP2] = P60IsPrimePair(Atkin[iP1], Atkin[iP2]);
                 }
             }
-            foreach (Tuple<int, int> tii in ltii) {
-                if (dili.ContainsKey(tii.Item1)) {
-                    dili[tii.Item1].Add(tii.Item2);
-                } else {
-                    dili.Add(tii.Item1, new List<int> { tii.Item2 });
-                }
-            }
-            foreach (List<int> li in dili.Values) {
-                if (li.Count > 3) iPairCount++;
-            }
-
-            ViewBag.Answer = iPairCount;
-        }
-        private List<Tuple<int, int>> SlicePrime(int iPrime) {
-            int iRight, iLeft, iFlip;
-            int iDigitCount = iPrime.CountDigits();
-            List<Tuple<int, int>> ltii = new List<Tuple<int, int>>();
-            for (int i = 1; i < iDigitCount; i++ ) {
-                iRight = iPrime.GetDigits(i, i);
-                if (Atkin.IsPrime(iRight)) {
-                    iLeft = iPrime.GetDigits(iDigitCount,iDigitCount-i);
-                    if (Atkin.IsPrime(iLeft)) {
-                        iFlip = iRight * 10.Pow(iDigitCount - i) + iLeft;
-                        if (Atkin.IsPrime(iFlip)) {
-                            ltii.Add(new Tuple<int, int>(iRight, iLeft));
+            while (true) {
+                try {
+                    for (; true; i1++) {
+                        for (int i2 = 0; i2 < i1; i2++) {
+                            if (baaP60[i1, i2]) {
+                                for (int i3 = 0; i3 < i2; i3++) {
+                                    if (baaP60[i1, i3] && baaP60[i2, i3]) {
+                                        for (int i4 = 0; i4 < i3; i4++) {
+                                            if (baaP60[i1, i4] && baaP60[i2, i4] && baaP60[i3, i4]) {
+                                                for (int i5 = 0; i5 < i4; i5++) {
+                                                    if (baaP60[i1, i5] && baaP60[i2, i5] && baaP60[i3, i5] && baaP60[i4, i5]) {
+                                                        ViewBag.Answer = Atkin[i1] + Atkin[i2] + Atkin[i3] + Atkin[i4] + Atkin[i5];
+                                                        return;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+                } catch (IndexOutOfRangeException e) {
+                    P60IncreaseCache();
                 }
             }
-            return ltii;
+        }
+        private void P60IncreaseCache() {
+            int iLen = baaP60.GetLength(0);
+            int iNewLen = iLen + 200;
+            bool[,] baaNewP60 = new bool[iNewLen, iNewLen];
+            for (int x = 0; x < iLen; x++) {
+                for (int y = 0; y < iLen; y++) {
+                    baaNewP60[x, y] = baaP60[x, y];
+                }
+            }
+            for (int iP1 = iLen; iP1 < iNewLen; iP1++) {
+                for (int iP2 = 1; iP2 < iP1; iP2++) {
+                    baaNewP60[iP1, iP2] = P60IsPrimePair(Atkin[iP1], Atkin[iP2]);
+                }
+            }
+            baaP60 = baaNewP60;
+        }
+        private bool P60IsPrimePair(int iP1, int iP2) {
+            if (AtkinOrMR.IsPrime(iP1 * 10.Pow(iP2.CountDigits()) + iP2)) {
+                if (AtkinOrMR.IsPrime(iP2 * 10.Pow(iP1.CountDigits()) + iP1)) {
+                    return true;
+                }
+            }
+            return false;
         }
         public void ProblemN() {
-
             ViewBag.Answer = 0;
         }
+
 
         // GET: Problems
         public ActionResult Index(int id) {

@@ -9,8 +9,8 @@ using ProjectEuler.Extensions;
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
     public class PrimeGeneratorTest {
-        PrimeGenerator Atkin = new SieveOfAtkin();
-        PrimeGenerator Eratosthenes = new SieveOfEratosthenes();
+        PrimeSieve Atkin = new SieveOfAtkin();
+        PrimeSieve Eratosthenes = new SieveOfEratosthenes();
         [TestMethod]
         public void AtkinTest() {
             TestPrimes(Atkin);
@@ -20,7 +20,7 @@ namespace ProjectEuler.Tests.Classes {
             TestPrimes(Eratosthenes);
         }
 
-        public void TestPrimes(PrimeGenerator pg) {
+        public void TestPrimes(PrimeSieve pg) {
             Assert.AreEqual(2, pg.getPrime(0));
             Assert.AreEqual(3, pg.getPrime(1));
             Assert.AreEqual(5, pg.getPrime(2));

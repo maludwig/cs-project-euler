@@ -6,7 +6,7 @@ using System.Linq;
 using System.Web;
 
 namespace ProjectEuler.Primes {
-    public class SieveOfEratosthenes : PrimeGenerator {
+    public class SieveOfEratosthenes : PrimeSieve {
         public const int INSTANT = 100000;
         public const int FIVE = 1200000;
         public const int FORTY = 5000000;

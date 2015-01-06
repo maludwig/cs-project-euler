@@ -11,7 +11,7 @@ namespace ProjectEuler.Tests.Performance {
         /*
          * MAKE THIS VALUE TRUE TO RUN THE TEST
          */
-        bool bTestPerf = true;
+        bool bTestPerf = false;
         
         [TestMethod]
         public void PrimalityPerformance() {

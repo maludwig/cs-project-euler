@@ -2,11 +2,12 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectEuler.Primes;
 using System.Diagnostics;
+using ProjectEuler.Classes;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
     public class MillerRabinExperiment {
-        PrimeGenerator pg = new SieveOfAtkin(1000);
+        PrimeSieve pg = new SieveOfAtkin(1000);
         MillerRabin p = new MillerRabin();
         [TestMethod]
         public void StrongPseudoPrimes() {
@@ -31,6 +32,27 @@ namespace ProjectEuler.Tests.Classes {
             Debug.WriteLine("Total Count: " + iTotalCount);
             Debug.WriteLine("Actual - C: " + iActualCompositeCount + ", P: " + iActualPrimeCount);
             Debug.WriteLine("Miller Rabin - C: " + iMRCompositeCount + ", P: " + iMRPrimeCount);
+        }
+        [TestMethod]
+        public void PassTest() {
+            PrimeSieve pgAtkin = new SieveOfAtkin();
+            Ticker t = new Ticker();
+            foreach (int i in pgAtkin) {
+                MillerRabin.MillerRabinPass(2, i);
+            }
+            t.Tick("2Pass");
+            foreach (int i in pgAtkin) {
+                MillerRabin.MillerRabinPass(3, i);
+            }
+            t.Tick("3Pass");
+            foreach (int i in pgAtkin) {
+                MillerRabin.MillerRabinPass(7, i);
+            }
+            t.Tick("7Pass");
+            foreach (int i in pgAtkin) {
+                MillerRabin.MillerRabinPass(61, i);
+            }
+            t.Tick("61Pass");
         }
     }
 }

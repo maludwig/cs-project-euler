@@ -26,7 +26,7 @@ namespace MikesEuler.Tests.NumberTests {
         };
 
 
-        PrimeGenerator pg = new SieveOfAtkin(10000);
+        PrimeSieve pg = new SieveOfAtkin(10000);
 
         public void TestSmallIntegers(IPrimalityTest p) {
             for (int i = 0; i <= liPrimes[liPrimes.Count - 1]; i++) {

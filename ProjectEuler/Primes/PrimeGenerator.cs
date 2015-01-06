@@ -9,10 +9,10 @@ using ProjectEuler.Extensions;
 
 namespace ProjectEuler.Primes {
     public enum PerfectionLevel { DEFICIENT = -1, PERFECT, ABUNDANT };
-    public class PrimeGenerator : IEnumerable<int> {
+    public class PrimeSieve : IEnumerable<int> {
         protected int[] _iaPrimes;
         protected BoolMap _bmIsPrime;
-        public PrimeGenerator() {
+        public PrimeSieve() {
 
         }
         public int this[int iIndex] {
