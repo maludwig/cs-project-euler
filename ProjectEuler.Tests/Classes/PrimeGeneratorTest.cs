@@ -87,11 +87,9 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual(0, Atkin.findPrime(2));
             Assert.AreEqual(1, Atkin.findPrime(3));
             Assert.AreEqual(999, Atkin.findPrime(7919));
-            Atkin = new SieveOfAtkin(20);
             Assert.AreEqual(1, Atkin.findClosestPrime(3));
             Assert.AreEqual(2, Atkin.findClosestPrime(4));
             Assert.AreEqual(3, Atkin.findClosestPrime(8));
-            Atkin = new SieveOfAtkin();
             Assert.AreEqual(0, Atkin.findClosestPrime(0));
             Assert.AreEqual(999, Atkin.findClosestPrime(7919));
             Assert.AreEqual(999, Atkin.findClosestPrime(7920));

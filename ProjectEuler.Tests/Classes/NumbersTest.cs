@@ -149,7 +149,7 @@ namespace ProjectEuler.Tests.Classes {
             //Test Correctness
             for (long i = 1; i < 3000; i++) {
                 b = PolygonalSieve.IsPentagonal(i);
-                Assert.AreEqual(b, ll.Contains(i));
+                //Assert.AreEqual(b, ll.Contains(i));
                 Assert.AreEqual(b, ll.BinarySearch(i) >= 0);
                 Assert.AreEqual(b, hl.Contains(i));
             }
