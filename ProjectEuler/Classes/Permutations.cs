@@ -11,6 +11,12 @@ namespace ProjectEuler.Classes {
         public Permutations(string sSeed) {
             _sSeed = sSeed;
         }
+        public Permutations(int iSeed) {
+            _sSeed = iSeed.ToString();
+        }
+        public Permutations(long lSeed) {
+            _sSeed = lSeed.ToString();
+        }
         public string this[int iIndex] {
             get {
                 string sRemainingDigits = _sSeed;

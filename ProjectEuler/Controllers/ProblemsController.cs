@@ -1344,6 +1344,50 @@ namespace ProjectEuler.Controllers {
             ll2aTailMemo[iTail, iSides] = new List<int>(q);
             return ll2aTailMemo[iTail, iSides];
         }
+        public void Problem62() {
+            long lCube;
+            string sCube;
+            long lSorted;
+            int iCurrDigitCount = 0;
+            Dictionary<long, int> dliPermCount = new Dictionary<long, int>();
+            Dictionary<long, long> dliFirstCube = new Dictionary<long, long>();
+            for (long lRoot = 10; true; lRoot++) {
+                lCube = lRoot * lRoot * lRoot;
+                sCube = lCube.ToString();
+                lSorted = long.Parse(String.Concat(sCube.ToCharArray().OrderBy(c => c)));
+                if (sCube.Length > iCurrDigitCount) {
+                    foreach (KeyValuePair<long, int> kvp in dliPermCount) {
+                        if (kvp.Value == 5) {
+                            ViewBag.Answer = dliFirstCube[kvp.Key];
+                            return;
+                        }
+                    }
+                    iCurrDigitCount = sCube.Length;
+                    dliPermCount = new Dictionary<long, int>();
+                    dliFirstCube = new Dictionary<long, long>();
+                }
+                if (dliPermCount.ContainsKey(lSorted)) {
+                    dliPermCount[lSorted]++;
+                } else {
+                    dliPermCount.Add(lSorted, 1);
+                    dliFirstCube.Add(lSorted, lCube);
+                }
+            }
+        }
+        public void Problem63() {
+            BigInteger b;
+            int iPow;
+            int iCount = 0;
+            for (int i = 1; i <= 9; i++) {
+                b = i;
+                for (iPow = 1; b.ToString().Length == iPow; iPow++) {
+                    b *= i;
+                }
+                iCount += iPow - 1;
+            }
+            ViewBag.Answer = iCount;
+        }
+
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
