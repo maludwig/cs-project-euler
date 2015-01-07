@@ -26,7 +26,6 @@ namespace ProjectEuler.Classes {
             }
         }
 
-
         //Returns true of all of the decimal digits are different (ex. 1234=true, 11=false)
         public static bool AllDigitsDifferent(int i) {
             bool[] b = new bool[10];
@@ -155,6 +154,22 @@ namespace ProjectEuler.Classes {
             }
             return !b[0];
         }
-
+        public static List<int> SqrtContinuedFraction(int i) {
+            int iSqrt = (int)Math.Sqrt(i);
+            List<int> liRet = new List<int> { iSqrt };
+            int m = 0;
+            int d = 1;
+            int a = iSqrt;
+            if (iSqrt * iSqrt == i) return liRet;
+            while (true) {
+                m = (d * a) - m;
+                d = (i - (m * m)) / d;
+                a = (iSqrt + m) / d;
+                liRet.Add(a);
+                if (a == iSqrt * 2) {
+                    return liRet;
+                }
+            }
+        }
     }
 }

@@ -1387,7 +1387,15 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = iCount;
         }
-
+        public void Problem64() {
+            List<int> liContFrac;
+            int iCount = 0;
+            for (int i = 1; i < 10000; i++) {
+                liContFrac = Numbers.SqrtContinuedFraction(i);
+                if (liContFrac.Count % 2 == 0) iCount++;
+            }
+            ViewBag.Answer = iCount;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
