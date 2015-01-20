@@ -166,9 +166,13 @@ namespace ProjectEuler.Extensions {
             sRet = sb.ToString().StrReverse();
             return sRet;
         }
-        public static bool IsSquare(this int possiblePrime) {
-            int possibleRoot = (int)Math.Sqrt(possiblePrime);
-            return possibleRoot * possibleRoot == possiblePrime;
+
+        public static int Sqrt(this int iNum) {
+            return (int)Math.Sqrt(iNum);
+        }
+        public static bool IsSquare(this int iNum) {
+            int possibleRoot = (int)Math.Sqrt(iNum);
+            return possibleRoot * possibleRoot == iNum;
         }
 
     }

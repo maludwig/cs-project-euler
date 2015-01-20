@@ -35,5 +35,13 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual(f + bf3, bf2 + bf3);
             Assert.AreEqual(f + bf1, bf2 + bf2);
         }
+        [TestMethod]
+        public void SqrtConvergentTest() {
+            Assert.AreEqual(new BigFraction(1, 1), BigFraction.SqrtConvergent(2, 1));
+            Assert.AreEqual(new BigFraction(3, 2), BigFraction.SqrtConvergent(2, 2));
+            Assert.AreEqual(new BigFraction(7, 5), BigFraction.SqrtConvergent(2, 3));
+            Assert.AreEqual(new BigFraction(17, 12), BigFraction.SqrtConvergent(2, 4));
+            Assert.AreEqual(new BigFraction(21, 29), BigFraction.SqrtConvergent(2, 5));
+        }
     }
 }

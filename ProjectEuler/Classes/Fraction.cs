@@ -45,7 +45,10 @@ namespace ProjectEuler.Classes {
             return Add(left, right);
         }
         public static Fraction operator /(int left, Fraction right) {
-            return new Fraction(left * right.Denominator,right.Numerator);
+            return new Fraction(left * right.Denominator, right.Numerator);
+        }
+        public static Fraction operator /(Fraction left, int right) {
+            return new Fraction(left.Numerator, left.Denominator * right);
         }
         public static bool operator ==(Fraction left, Fraction right) {
             return left.Equals(right);
