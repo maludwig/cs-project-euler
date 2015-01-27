@@ -1411,19 +1411,43 @@ namespace ProjectEuler.Controllers {
         public void Problem66() {
             BigInteger bMax = 0;
             int iMaxD = 0;
-            BigInteger bCurr;
-            //return;
+            BigInteger bX;
 
             for (int iD = 3; iD <= 1000; iD++) {
                 if (iD.IsSquare()) continue;
-                bCurr = Numbers.SolvePellEquation(iD).Item1;
-                Debug.WriteLine(iD + ": " + bCurr);
-                if (bCurr > bMax) {
-                    bMax = bCurr;
+                bX = Numbers.SolvePellEquation(iD).Item1;
+                if (bX > bMax) {
+                    bMax = bX;
                     iMaxD = iD;
                 }
             }
             ViewBag.Answer = iMaxD;
+        }
+        public void Problem67() {
+            List<string> lsLines = new List<string>(System.IO.File.ReadAllLines(Server.MapPath(@"~/App_Data/triangle.txt")));
+            int[][] src = new int[100][];
+            string[] saLineNumbers;
+            for (int i = 0; i < 100; i++) {
+                saLineNumbers = lsLines[i].Split(' ');
+                src[i] = new int[saLineNumbers.Length];
+                for (int x = 0; x < saLineNumbers.Length; x++) {
+                    src[i][x] = int.Parse(saLineNumbers[x]);
+                }
+            }
+            int[,] solve = new int[src.Length, src.Length];
+            int end = 0;
+            int iMax = 0;
+            solve[0, 0] = src[0][0];
+            for (int y = 1; y < src.Length; y++) {
+                solve[y, 0] = src[y][0] + solve[y - 1, 0];
+                end = src[y].Length - 1;
+                solve[y, end] = src[y][end] + solve[y - 1, end - 1];
+                for (int x = 1; x < src[y].Length - 1; x++) {
+                    solve[y, x] = Math.Max(solve[y - 1, x], solve[y - 1, x - 1]) + src[y][x];
+                }
+            }
+            for (int x = 0; x < src.Length; x++) iMax = Math.Max(solve[src.Length - 1, x], iMax);
+            ViewBag.Answer = iMax;
         }
         public void ProblemN() {
             ViewBag.Answer = 0;
