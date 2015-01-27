@@ -1449,6 +1449,22 @@ namespace ProjectEuler.Controllers {
             for (int x = 0; x < src.Length; x++) iMax = Math.Max(solve[src.Length - 1, x], iMax);
             ViewBag.Answer = iMax;
         }
+        public void Problem68() {
+            //If it is a 16-digit string, that means that the "10" must be on the outside. 
+            //Further, in order to maximize the first number, we should put all of the biggest numbers on the outside (6,7,8,9,10). Making the first number, "6".
+            //Then, we should put the biggest numbers along the outside in clockwise fashion, to maximize the string. (6,10,9,8,7).
+            //This gives "6ab10bc9cd8de7ea" as our string.
+            //From there, we need to find values for a,b,c,d,e such that it forms a magic ring.
+            //The 10 is going to need to be paired with the 1, and the 6 is going to need to be paired with the 5, since:
+            //10+b+c = 6+a+b, therefore 10+c = 6+a, and the only satisfying numbers are a=5, c=1.
+            //Similarly, 9+c+d = 8+d+e, and since c=1, 10 = 8+e, so e=2.
+            //Now, given that 7+e+a = 7+2+5 = 14, we can calculate b=3 and d=4. Giving:
+
+            ViewBag.Answer = "6531031914842725";
+        }
+        public void Problem69() {
+            ViewBag.Answer = 0;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
