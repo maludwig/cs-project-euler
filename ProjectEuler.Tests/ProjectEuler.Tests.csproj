@@ -86,7 +86,7 @@
     <Compile Include="Cards\PokerTest.cs" />
     <Compile Include="Classes\BoolMapTest.cs" />
     <Compile Include="Classes\PrimalityTestsTest.cs" />
-    <Compile Include="Classes\PrimeGeneratorTest.cs" />
+    <Compile Include="Primes\PrimeGeneratorTest.cs" />
     <Compile Include="Classes\CollatzTest.cs" />
     <Compile Include="Classes\SumsTest.cs" />
     <Compile Include="Classes\ExtensionsTest.cs" />
@@ -104,6 +104,7 @@
     <Compile Include="Classes\PolygonalSieveTest.cs" />
     <Compile Include="Performance\HashSetTest.cs" />
     <Compile Include="Performance\PrimalityPerfTest.cs" />
+    <Compile Include="Primes\TotientTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Controllers\HomeControllerTest.cs" />
   </ItemGroup>

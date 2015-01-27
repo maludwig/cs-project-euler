@@ -16,7 +16,8 @@ using ProjectEuler.Graph;
 
 namespace ProjectEuler.Controllers {
     public class ProblemsController :Controller {
-        public static PrimeSieve Atkin = new SieveOfAtkin();
+        public static PrimeSieve Atkin = new SieveOfAtkin(10000020);
+        public static Totient Tot = new Totient(Atkin, 10000000);
         public static MillerRabin MR = new MillerRabin();
         public static BailliePSW Baillie = new BailliePSW();
         public static SieveOrTest AtkinOrMR = new SieveOrTest(Atkin, MR);
@@ -1463,7 +1464,29 @@ namespace ProjectEuler.Controllers {
             ViewBag.Answer = "6531031914842725";
         }
         public void Problem69() {
-            ViewBag.Answer = 0;
+            //The product of the first n primes is co-prime only to 1 and any primes between that product and the greatest component of that product.
+            //The largest such product under 1,000,000 is 2*3*5*7*11*13*17 = 510510
+            ViewBag.Answer = 510510;
+        }
+        public void Problem70() {
+            //Since we are trying to find a minimum ratio of n/phi(n), and we are given that 87109/79180 (~1.1001) is one such ratio,
+            //we can assume that no multiple of 2,3,5,7, or 11 will beat that ratio.
+            double dMin = 2;
+            double dN, dTot, dFrac;
+            Permutations p;
+            for (int iN = 3; iN < 10000000; iN+=2) {
+                if (iN % 3 == 0 || iN % 5 == 0 || iN % 7 == 0 || iN % 11 == 0) continue;
+                dN = iN;
+                dTot = Tot.Best(iN);
+                dFrac = dN / dTot;
+                if (dMin > dFrac) {
+                    if (iN.IsPermutationOf(Tot.Best(iN))) {
+                        dMin = dFrac;
+                        //Debug.WriteLine(iN + "/" + dTot);
+                        ViewBag.Answer = iN;
+                    }
+                }
+            }
         }
         public void ProblemN() {
             ViewBag.Answer = 0;

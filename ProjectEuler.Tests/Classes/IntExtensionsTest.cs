@@ -92,5 +92,18 @@ namespace ProjectEuler.Tests.Classes {
             Assert.AreEqual(4, 8.GCD(4));
             Assert.AreEqual(3, 300.GCD(9));
         }
+        [TestMethod]
+        public void PermTest() {
+            Assert.IsTrue(73.IsPermutationOf(37));
+            Assert.IsTrue(173.IsPermutationOf(317));
+            Assert.IsTrue(9.IsPermutationOf(9));
+            Assert.IsTrue(1.IsPermutationOf(1));
+            Assert.IsTrue(1763.IsPermutationOf(3617));
+            Assert.IsFalse(173.IsPermutationOf(3617));
+            Assert.IsFalse(13.IsPermutationOf(3617));
+            Assert.IsFalse(1.IsPermutationOf(3));
+            Assert.IsFalse(67.IsPermutationOf(17));
+            Assert.IsFalse(1.IsPermutationOf(3617));
+        }
     }
 }

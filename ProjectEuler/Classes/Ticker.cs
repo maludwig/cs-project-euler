@@ -18,5 +18,8 @@ namespace ProjectEuler.Classes {
             Debug.WriteLine(sMsg + ": " + String.Format("{0:00}:{1:00}.{2:00}s", _ts.Minutes, _ts.Seconds, _ts.Milliseconds / 10));
             _stopWatch.Restart();
         }
+        public bool SecondsElapsed(int iSecs) {
+            return _stopWatch.Elapsed.Seconds >= iSecs;
+        }
     }
 }

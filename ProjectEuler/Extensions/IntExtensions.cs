@@ -63,8 +63,25 @@ namespace ProjectEuler.Extensions {
         /// Returns true if iNum is a lexicographic permutation of iOther
         /// </summary>
         public static bool IsPermutationOf(this int iNum, int iOther) {
-            Permutations p = new Permutations(iNum.ToString());
-            return p.IsPermutationOf(iOther.ToString());
+            int[] iaCounts = new int[10];
+            int iDigit;
+            if (iNum == iOther) return true;
+            while (iNum > 0) {
+                iDigit = iNum % 10;
+                iaCounts[iDigit]++;
+                iNum = iNum / 10;
+            }
+            while (iOther > 0) {
+                iDigit = iOther % 10;
+                iaCounts[iDigit]--;
+                iOther = iOther / 10;
+            }
+            foreach (int iDigitCount in iaCounts) {
+                if (iDigitCount != 0) return false;
+            }
+            return true;
+            //Permutations p = new Permutations(iNum.ToString());
+            //return p.IsPermutationOf(iOther.ToString());
         }
         /// <summary>
         /// Returns true if i contains the specified digit at least once
