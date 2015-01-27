@@ -1409,35 +1409,21 @@ namespace ProjectEuler.Controllers {
             return 1;
         }
         public void Problem66() {
-            BigInteger iMax = 0;
+            BigInteger bMax = 0;
             int iMaxD = 0;
-            BigInteger iCurr;
-            return;
+            BigInteger bCurr;
+            //return;
 
             for (int iD = 3; iD <= 1000; iD++) {
-                iCurr = P66FindMinX(iD);
-                Debug.WriteLine(iD + ": " + iCurr);
-                if (iCurr > iMax) {
-                    iMax = iCurr;
+                if (iD.IsSquare()) continue;
+                bCurr = Numbers.SolvePellEquation(iD).Item1;
+                Debug.WriteLine(iD + ": " + bCurr);
+                if (bCurr > bMax) {
+                    bMax = bCurr;
                     iMaxD = iD;
                 }
             }
             ViewBag.Answer = iMaxD;
-        }
-        private BigInteger P66FindMinX(int iD) {
-            BigInteger iXm1 = iD - 2;
-            BigInteger iXp1 = iD + 2;
-            if (iD.IsSquare()) return 0;
-            for (int i = 1; true; i++) {
-                if ((iXm1 * i).IsSquare()) {
-                    return iXm1 + 1;
-                } else if ((iXp1 * i).IsSquare()) {
-                    return iXp1 - 1;
-                } else {
-                    iXm1 += iD;
-                    iXp1 += iD;
-                }
-            }
         }
         public void ProblemN() {
             ViewBag.Answer = 0;

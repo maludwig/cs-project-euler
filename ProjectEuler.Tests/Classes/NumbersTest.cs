@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectEuler.Classes;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Numerics;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
@@ -41,5 +42,25 @@ namespace ProjectEuler.Tests.Classes {
             Assert.IsTrue(Numbers.Pandigital1To9(319, 86, 7254));
             Assert.IsFalse(Numbers.Pandigital1To9(0, 39186, 7254));
         }
+        [TestMethod]
+        public void PellTest() {
+            Tuple<BigInteger, BigInteger> tbb;
+            tbb = Numbers.SolvePellEquation(2);
+            Assert.AreEqual(3, tbb.Item1);
+            Assert.AreEqual(2, tbb.Item2);
+            tbb = Numbers.SolvePellEquation(3);
+            Assert.AreEqual(2, tbb.Item1);
+            Assert.AreEqual(1, tbb.Item2);
+            tbb = Numbers.SolvePellEquation(5);
+            Assert.AreEqual(9, tbb.Item1);
+            Assert.AreEqual(4, tbb.Item2);
+            tbb = Numbers.SolvePellEquation(6);
+            Assert.AreEqual(5, tbb.Item1);
+            Assert.AreEqual(2, tbb.Item2);
+            tbb = Numbers.SolvePellEquation(7);
+            Assert.AreEqual(8, tbb.Item1);
+            Assert.AreEqual(3, tbb.Item2);
+        }
+
     }
 }

@@ -108,12 +108,13 @@ namespace ProjectEuler.Classes {
         //Fancy methods
 
         public static BigFraction SqrtConvergent(int iNum, int iConvergent) {
-            if (iNum.IsSquare() || iConvergent == 1) return new BigFraction(iNum.Sqrt(), 1);
+            if (iNum.IsSquare() || iConvergent == 0) return new BigFraction(iNum.Sqrt(), 1);
 
             List<int> liContFrac= Numbers.SqrtContinuedFraction(iNum);
             int iPeriod = liContFrac.Count - 1;
+            iConvergent--;
             BigFraction f = new BigFraction(liContFrac[(iConvergent % iPeriod) + 1], 1);
-            for (int i = iConvergent - 1; i > 1; i--) {
+            for (int i = iConvergent - 1; i >= 0; i--) {
                 f = liContFrac[(i % iPeriod) + 1] + (1 / f);
             }
             f = liContFrac[0] + (1 / f);

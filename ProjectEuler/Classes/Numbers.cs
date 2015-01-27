@@ -171,5 +171,21 @@ namespace ProjectEuler.Classes {
                 }
             }
         }
+        //Returns Tuple(x,y) for x^2 - Dy^2 = 1;
+        public static Tuple<BigInteger, BigInteger> SolvePellEquation(int D) {
+            BigInteger x, y;
+            List<int> liSCF = Numbers.SqrtContinuedFraction(D);
+            int r = Math.Max(liSCF.Count - 2,1);
+            BigFraction bf;
+            if (r % 2 == 0) {
+                bf = BigFraction.SqrtConvergent(D, 2*r + 1);
+            } else {
+                bf = BigFraction.SqrtConvergent(D, r);
+            }
+            bf.Reduce();
+            x = bf.Numerator;
+            y = bf.Denominator;
+            return new Tuple<BigInteger, BigInteger>(x, y);
+        }
     }
 }

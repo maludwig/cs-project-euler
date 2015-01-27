@@ -37,11 +37,15 @@ namespace ProjectEuler.Tests.Classes {
         }
         [TestMethod]
         public void SqrtConvergentTest() {
-            //Assert.AreEqual(new BigFraction(1, 1), BigFraction.SqrtConvergent(2, 1));
-            Assert.AreEqual(new BigFraction(3, 2), BigFraction.SqrtConvergent(2, 2));
-            Assert.AreEqual(new BigFraction(7, 5), BigFraction.SqrtConvergent(2, 3));
-            Assert.AreEqual(new BigFraction(17, 12), BigFraction.SqrtConvergent(2, 4));
-            Assert.AreEqual(new BigFraction(41, 29), BigFraction.SqrtConvergent(2, 5));
+            Assert.AreEqual(new BigFraction(1, 1), BigFraction.SqrtConvergent(2, 0));
+            Assert.AreEqual(new BigFraction(3, 2), BigFraction.SqrtConvergent(2, 1));
+            Assert.AreEqual(new BigFraction(7, 5), BigFraction.SqrtConvergent(2, 2));
+            Assert.AreEqual(new BigFraction(17, 12), BigFraction.SqrtConvergent(2, 3));
+            Assert.AreEqual(new BigFraction(41, 29), BigFraction.SqrtConvergent(2, 4));
+            Assert.AreEqual(new BigFraction(1, 1), BigFraction.SqrtConvergent(3, 0));
+            Assert.AreEqual(new BigFraction(2, 1), BigFraction.SqrtConvergent(3, 1));
+            Assert.AreEqual(new BigFraction(5, 3), BigFraction.SqrtConvergent(3, 2));
+            Assert.AreEqual(new BigFraction(7, 4), BigFraction.SqrtConvergent(3, 3));
         }
     }
 }
