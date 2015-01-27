@@ -137,7 +137,7 @@
     <Compile Include="Primes\BasicPrimes.cs" />
     <Compile Include="Primes\IPrimalityTest.cs" />
     <Compile Include="Primes\MillerRabin.cs" />
-    <Compile Include="Primes\PrimeGenerator.cs" />
+    <Compile Include="Primes\PrimeSieve.cs" />
     <Compile Include="Primes\SieveOfAtkin.cs" />
     <Compile Include="Primes\SieveOfEratosthenes.cs" />
     <Compile Include="Classes\Sums.cs" />

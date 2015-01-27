@@ -1412,6 +1412,7 @@ namespace ProjectEuler.Controllers {
             BigInteger iMax = 0;
             int iMaxD = 0;
             BigInteger iCurr;
+            return;
 
             for (int iD = 3; iD <= 1000; iD++) {
                 iCurr = P66FindMinX(iD);
