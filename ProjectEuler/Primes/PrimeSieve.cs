@@ -19,37 +19,8 @@ namespace ProjectEuler.Primes {
         }
         protected void CalculateFirstDivisors() {
             Ticker t = new Ticker();
-            //FindFirstDivisors();
-            //t.Tick("Finding:");
             SieveFirstDivisors();
             t.Tick("Precalculated lowest prime divisors");
-        }
-        //DEPRECATED, will remove after I commit it, just for reference.
-        public void FindLPDs() {
-            int iPrimeIndex;
-            LeastPrimeDivisor = new int[_iLimit];
-            LeastPrimeDivisor[1] = 1;
-            for (int iNum = 2; iNum < _iLimit; iNum += 2) {
-                LeastPrimeDivisor[iNum] = 2;
-            }
-            for (int iNum = 3; iNum < _iLimit; iNum += 6) {
-                LeastPrimeDivisor[iNum] = 3;
-            }
-            for (int iNum = 5; iNum < _iLimit; iNum += 30) {
-                LeastPrimeDivisor[iNum] = 5;
-                LeastPrimeDivisor[iNum + 20] = 5;
-            }
-            for (int iNum = 3; iNum < _iLimit; iNum+=2) {
-                if (LeastPrimeDivisor[iNum] == 0) {
-                    if (IsPrime(iNum)) {
-                        LeastPrimeDivisor[iNum] = iNum;
-                    } else {
-                        iPrimeIndex = 3;
-                        while (iNum % _iaPrimes[iPrimeIndex] != 0) iPrimeIndex++;
-                        LeastPrimeDivisor[iNum] = _iaPrimes[iPrimeIndex];
-                    }
-                }
-            }
         }
         public void SieveFirstDivisors() {
             int iNum, iPrime, i6Prime, iLPD;
@@ -228,7 +199,13 @@ namespace ProjectEuler.Primes {
             return PerfectionLevel.ABUNDANT;
         }
         public bool areCoprime(int iNum1, int iNum2) {
-            return iNum1.GCD(iNum2) == 1;
+            int iLPD1 = LeastPrimeDivisor[iNum1];
+            if (iLPD1 == 1) return true;
+            if (iNum2 % iLPD1 == 0) {
+                return false;
+            } else {
+                return areCoprime(iNum1 / iLPD1, iNum2);
+            }
         }
         public bool IsPrime(int iNum) {
             return _bmIsPrime[iNum];

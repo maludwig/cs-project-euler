@@ -86,6 +86,7 @@
     <Compile Include="Cards\PokerTest.cs" />
     <Compile Include="Classes\BoolMapTest.cs" />
     <Compile Include="Classes\PrimalityTestsTest.cs" />
+    <Compile Include="Performance\CoprimeTest.cs" />
     <Compile Include="Primes\PrimeGeneratorTest.cs" />
     <Compile Include="Classes\CollatzTest.cs" />
     <Compile Include="Classes\SumsTest.cs" />

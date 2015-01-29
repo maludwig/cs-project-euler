@@ -1514,8 +1514,8 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = lSum;
         }
-        public void Problem73() {
-            //We know that the fraction will be less than 3/7, and greater than 2/5
+        public void BaldySolveProblem73() {
+            //We know that the fraction will be less than 1/2, and greater than 1/3
             double dNume, dDeno;
             double dMax = 0.5; // 1 / 2
             double dMin = 0.33333333333333333333; // 1 / 3
@@ -1528,19 +1528,36 @@ namespace ProjectEuler.Controllers {
                 iNume = (int)(dNume);
                 dCurr = dNume / dDeno;
                 while (dCurr < dMax) {
-                    if (iNume.GCD(iDeno) == 1) {
+                    if (Atkin.areCoprime(iNume,iDeno)) {
                         iCount++;
                     }
                     dNume++;
+                    iNume++;
                     dCurr = dNume / dDeno;
                 }
             }
             ViewBag.Answer = iCount;
         }
+        public void Problem73() {
+            BoolMap b = new BoolMap(12001);
+            List<int> liDivs;
+            int iSum = 0;
+            int iMinNume, iMaxNume;
+            for (int iDeno = 12000; iDeno > 6000; iDeno--) {
+                if (b[iDeno]) continue;
+                liDivs = Atkin.properDivisors(iDeno);
+                foreach (int iDiv in liDivs) {
+                    b[iDiv] = true;
+                }
+                iMinNume = (iDeno / 3) + 1;
+                iMaxNume = (iDeno / 2);
+                iSum += iMaxNume - iMinNume;
+            }
+            ViewBag.Answer = iSum;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
-
 
         // GET: Problems
         public ActionResult Index(int id) {

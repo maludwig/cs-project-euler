@@ -45,47 +45,6 @@ namespace ProjectEuler.Primes {
             }
             t.Tick("Precalculated totients");
         }
-        private void PrecalculateBadly() {
-            int lCurrPrime;
-            int lCurrTot;
-            long lPow;
-            Ticker t = new Ticker();
-            _iaPreCalc = new int[Limit];
-            _iaPreCalc[1] = 1;
-            for (int i = 0; _p[i] < Limit; i++) {
-                lCurrPrime = _p[i];
-                lCurrTot = lCurrPrime - 1;
-                lPow = lCurrPrime;
-                lPow *= lCurrPrime;
-                _iaPreCalc[lCurrPrime] = lCurrTot;
-                while (lPow < Limit) {
-                    lCurrTot *= lCurrPrime;
-                    _iaPreCalc[lPow] = lCurrTot;
-                    lPow *= lCurrPrime;
-                }
-            }
-            t.Tick("Seeding prime powers");
-            for (int i = 0; _p[i] < Limit; i++) {
-                Precalculate(1, 1, i);
-            }
-            t.Tick("Totient Precalculations - " + _iPreCalcCalls);
-        }
-        private static int _iPreCalcCalls = 0;
-        private void Precalculate(long lNum, int iTot, int iPrimeIndex) {
-            _iPreCalcCalls++;
-            int lCurrPrime = _p[iPrimeIndex];
-            int lCurrTot = iTot * _iaPreCalc[lCurrPrime];
-            long lNext = lNum;
-            lNext *= lCurrPrime;
-            while (lNext < Limit) {
-                _iaPreCalc[lNext] = lCurrTot;
-                for (int i = iPrimeIndex + 1; lNext * _p[i] < Limit; i++) {
-                    Precalculate(lNext, lCurrTot, i);
-                }
-                lNext *= lCurrPrime;
-                lCurrTot *= lCurrPrime;
-            }
-        }
         public int Best(int iNum) {
             if (iNum < Limit) return _iaPreCalc[iNum];
             return OK(iNum);
