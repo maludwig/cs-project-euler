@@ -14,7 +14,11 @@ namespace ProjectEuler.Primes {
             : this(SieveOfAtkin.INSTANT) {
         }
         public SieveOfAtkin(int iLimit) {
+            Ticker t = new Ticker();
+            _iLimit = iLimit;
             _iaPrimes = generatePrimes(iLimit);
+            t.Tick("Primes precalculated");
+            CalculateFirstDivisors();
         }
         private int[] generatePrimes(int iLimit) {
 

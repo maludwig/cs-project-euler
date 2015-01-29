@@ -15,6 +15,8 @@ namespace ProjectEuler.Primes {
         }
         public SieveOfEratosthenes(int iCount) {
             _iaPrimes = generatePrimes(iCount);
+            _iLimit = _iaPrimes[iCount - 1];
+            CalculateFirstDivisors();
         }
         private int[] generatePrimes(int iCount) {
             int lNum = 0, lRoot = 0, k = 0;

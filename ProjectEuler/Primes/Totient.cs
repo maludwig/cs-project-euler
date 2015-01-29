@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using ProjectEuler.Extensions;
+using ProjectEuler.Classes;
 
 namespace ProjectEuler.Primes {
     public class Totient {
@@ -24,9 +25,31 @@ namespace ProjectEuler.Primes {
             Precalculate();
         }
         private void Precalculate() {
+            Ticker t = new Ticker();
+            int iDiv1, iDiv2;
+            _iaPreCalc = new int[Limit];
+            _iaPreCalc[1] = 1;
+            for (int i = 2; i < Limit; i++) {
+                if (_p.IsPrime(i)) {
+                    _iaPreCalc[i] = i - 1;
+                } else {
+                    iDiv1 = _p.LeastPrimePowerDivisor[i];
+                    if (iDiv1 == i) {
+                        iDiv2 = _p.LeastPrimeDivisor[i];
+                        _iaPreCalc[i] = _iaPreCalc[i / iDiv2] * iDiv2;
+                    } else {
+                        iDiv2 = i / iDiv1;
+                        _iaPreCalc[i] = _iaPreCalc[iDiv1] * _iaPreCalc[iDiv2];
+                    }
+                }
+            }
+            t.Tick("Precalculated totients");
+        }
+        private void PrecalculateBadly() {
             int lCurrPrime;
             int lCurrTot;
             long lPow;
+            Ticker t = new Ticker();
             _iaPreCalc = new int[Limit];
             _iaPreCalc[1] = 1;
             for (int i = 0; _p[i] < Limit; i++) {
@@ -41,13 +64,15 @@ namespace ProjectEuler.Primes {
                     lPow *= lCurrPrime;
                 }
             }
+            t.Tick("Seeding prime powers");
             for (int i = 0; _p[i] < Limit; i++) {
                 Precalculate(1, 1, i);
             }
-            System.Diagnostics.Debug.WriteLine("woo");
-
+            t.Tick("Totient Precalculations - " + _iPreCalcCalls);
         }
+        private static int _iPreCalcCalls = 0;
         private void Precalculate(long lNum, int iTot, int iPrimeIndex) {
+            _iPreCalcCalls++;
             int lCurrPrime = _p[iPrimeIndex];
             int lCurrTot = iTot * _iaPreCalc[lCurrPrime];
             long lNext = lNum;

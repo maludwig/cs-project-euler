@@ -11,9 +11,77 @@ namespace ProjectEuler.Primes {
     public enum PerfectionLevel { DEFICIENT = -1, PERFECT, ABUNDANT };
     public class PrimeSieve : IEnumerable<int> {
         protected int[] _iaPrimes;
+        public int[] LeastPrimeDivisor { get; protected set; }      //For a number n = p[a]^x * p[b]^y * ..., holds p[a],   where p[a] is the smallest prime that divides n.
+        public int[] LeastPrimePowerDivisor { get; protected set; } //For a number n = p[a]^x * p[b]^y * ..., holds p[a]^x, where p[a] is the smallest prime that divides n.
         protected BoolMap _bmIsPrime;
+        protected int _iLimit;
         public PrimeSieve() {
-
+        }
+        protected void CalculateFirstDivisors() {
+            Ticker t = new Ticker();
+            //FindFirstDivisors();
+            //t.Tick("Finding:");
+            SieveFirstDivisors();
+            t.Tick("Precalculated lowest prime divisors");
+        }
+        //DEPRECATED, will remove after I commit it, just for reference.
+        public void FindLPDs() {
+            int iPrimeIndex;
+            LeastPrimeDivisor = new int[_iLimit];
+            LeastPrimeDivisor[1] = 1;
+            for (int iNum = 2; iNum < _iLimit; iNum += 2) {
+                LeastPrimeDivisor[iNum] = 2;
+            }
+            for (int iNum = 3; iNum < _iLimit; iNum += 6) {
+                LeastPrimeDivisor[iNum] = 3;
+            }
+            for (int iNum = 5; iNum < _iLimit; iNum += 30) {
+                LeastPrimeDivisor[iNum] = 5;
+                LeastPrimeDivisor[iNum + 20] = 5;
+            }
+            for (int iNum = 3; iNum < _iLimit; iNum+=2) {
+                if (LeastPrimeDivisor[iNum] == 0) {
+                    if (IsPrime(iNum)) {
+                        LeastPrimeDivisor[iNum] = iNum;
+                    } else {
+                        iPrimeIndex = 3;
+                        while (iNum % _iaPrimes[iPrimeIndex] != 0) iPrimeIndex++;
+                        LeastPrimeDivisor[iNum] = _iaPrimes[iPrimeIndex];
+                    }
+                }
+            }
+        }
+        public void SieveFirstDivisors() {
+            int iNum, iPrime, i6Prime, iLPD;
+            LeastPrimeDivisor = new int[_iLimit];
+            LeastPrimePowerDivisor = new int[_iLimit];
+            LeastPrimeDivisor[1] = 1;
+            //Start at the largest primes, then work down. This way, we never need to check if the
+            // lowest prime multiple is already found, we just overwrite it
+            //Also, skip any multiples of 2 or 3, because setting those is a waste of time
+            for (int iPrimeIndex = _iaPrimes.Length - 1; iPrimeIndex >= 1; iPrimeIndex--) {
+                iPrime = _iaPrimes[iPrimeIndex];
+                i6Prime = iPrime * 6;
+                for (iNum = iPrime; iNum < _iLimit; iNum += i6Prime) {
+                    LeastPrimeDivisor[iNum] = iPrime;
+                }
+                for (iNum = iPrime * 5; iNum < _iLimit; iNum += i6Prime) {
+                    LeastPrimeDivisor[iNum] = iPrime;
+                }
+            }
+            //Then record all multiples of 2 or 3
+            for (iNum = 3; iNum < _iLimit; iNum += 6) {
+                LeastPrimeDivisor[iNum] = 3;
+            }
+            for (iNum = 2; iNum < _iLimit; iNum += 2) {
+                LeastPrimeDivisor[iNum] = 2;
+            }
+            for (int i = 2; i < _iLimit; i++) {
+                iNum = i;
+                iLPD = LeastPrimeDivisor[i];
+                while (iNum % iLPD == 0) iNum /= iLPD;
+                LeastPrimePowerDivisor[i] = i / iNum;
+            }
         }
         public int this[int iIndex] {
             get {
@@ -76,60 +144,48 @@ namespace ProjectEuler.Primes {
                 else return findClosestPrime(iNum, iStart, iMid);
             }
         }
-        public List<int> Factors(int iNum) {
-            if (IsPrime(iNum)) {
-                List<int> li = new List<int>();
-                li.Add(iNum);
-                return li;
+
+        //Only call this if you know that iNum < _iLimit
+        public List<int> QuickFactors(int iNum) {
+            List<int> liFactors = new List<int>();
+            while (iNum != 1) {
+                liFactors.Add(LeastPrimeDivisor[iNum]);
+                iNum /= LeastPrimeDivisor[iNum];
             }
+            return liFactors;
+        }
+        public List<int> Factors(int iNum) {
+            if (iNum < _iLimit) return QuickFactors(iNum);
             return Factors((long)iNum);
         }
         public List<int> Factors(long lNum) {
-            List<int> liFactors = new List<int>();
+            List<int> liFactors;
+            if (lNum < _iLimit) return QuickFactors((int)lNum);
+            liFactors = new List<int>();
             for (int i = 0; _iaPrimes[i] <= lNum; i++) {
                 if (lNum % _iaPrimes[i] == 0) {
                     lNum /= _iaPrimes[i];
                     liFactors.Add(_iaPrimes[i]);
+                    if (lNum < _iLimit) {
+                        liFactors.AddRange(QuickFactors((int)lNum));
+                        lNum = 0;
+                    }
                     i--;
                 }
             }
             return liFactors;
         }
         public List<int> DistinctFactors(int iNum) {
-            if (IsPrime(iNum)) {
-                List<int> li = new List<int>();
-                li.Add(iNum);
-                return li;
-            }
-            return DistinctFactors((long)iNum);
+            return (List<int>)(Factors(iNum).Distinct());
         }
         public List<int> DistinctFactors(long lNum) {
-            List<int> liFactors = new List<int>();
-            for (int i = 0; _iaPrimes[i] <= lNum; i++) {
-                if (lNum % _iaPrimes[i] == 0) {
-                    lNum /= _iaPrimes[i];
-                    while (lNum % _iaPrimes[i] == 0) lNum /= _iaPrimes[i];
-                    liFactors.Add(_iaPrimes[i]);
-                }
-            }
-            return liFactors;
+            return (List<int>)(Factors(lNum).Distinct());
         }
         public int DistinctFactorCount(int iNum) {
-            if (IsPrime(iNum)) {
-                return 1;
-            }
-            return DistinctFactorCount((long)iNum);
+            return DistinctFactors(iNum).Count;
         }
         public int DistinctFactorCount(long lNum) {
-            int iCount = 0;
-            for (int i = 0; _iaPrimes[i] <= lNum; i++) {
-                if (lNum % _iaPrimes[i] == 0) {
-                    lNum /= _iaPrimes[i];
-                    while (lNum % _iaPrimes[i] == 0) lNum /= _iaPrimes[i];
-                    iCount++;
-                }
-            }
-            return iCount;
+            return DistinctFactors(lNum).Count;
         }
         public List<int> divisors(int iNum) {
             return divisors((long)iNum);
@@ -172,13 +228,7 @@ namespace ProjectEuler.Primes {
             return PerfectionLevel.ABUNDANT;
         }
         public bool areCoprime(int iNum1, int iNum2) {
-            return false;
-        }
-        public void genTotients(int iMax) {
-            return;
-        }
-        public int totient(int iNum) {
-            return 0;
+            return iNum1.GCD(iNum2) == 1;
         }
         public bool IsPrime(int iNum) {
             return _bmIsPrime[iNum];

@@ -1488,6 +1488,25 @@ namespace ProjectEuler.Controllers {
                 }
             }
         }
+        public void Problem71() {
+            //We know that the fraction will be less than 3/7, and greater than 2/5
+            double dNume, dDeno;
+            double dMax = 0.42857142857142857142857142857143; // 3 / 7
+            double dMin = 0.4; // 2 / 5
+            double dCurr;
+            for (dDeno = 2; dDeno <= 1000000; dDeno++) {
+                dNume = (int)(dDeno * dMin);
+                dCurr = dNume / dDeno;
+                while (dCurr < dMax) {
+                    if (dMin < dCurr) {
+                        dMin = dCurr;
+                        ViewBag.Answer = (int)dNume;
+                    }
+                    dNume++;
+                    dCurr = dNume / dDeno;
+                }
+            }
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
