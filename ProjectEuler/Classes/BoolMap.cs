@@ -8,11 +8,14 @@ namespace ProjectEuler.Classes {
     public class BoolMap {
         private byte[] _baMap;
         private int _iBitCount;
-
+        private int _iWidth;
         public BoolMap(int iBits) {
             int iByteCount = ((iBits - 1) / 8) + 1;
             _baMap = new byte[iByteCount];
             _iBitCount = iBits;
+        }
+        public BoolMap(int iWidth, int iHeight) : this(iWidth * iHeight) {
+            _iWidth = iWidth;
         }
         public int Length() {
             return _iBitCount;
@@ -28,6 +31,14 @@ namespace ProjectEuler.Classes {
                 Set(iIndex, value);
             }
         }
+        public bool this[int iX, int iY] {
+            get {
+                return Get(iY * _iWidth + iX);
+            }
+            set {
+                Set(iY * _iWidth + iX, value);
+            }
+        }
         public bool Get(int iIndex) {
             return ((_baMap[iIndex / 8] << (iIndex % 8)) & 128) == 128;
         }
@@ -38,11 +49,20 @@ namespace ProjectEuler.Classes {
         public void Enable(int iIndex) {
             _baMap[iIndex / 8] |= (byte)(128 >> (iIndex % 8));
         }
+        public void Enable(int iX, int iY) {
+            Enable(iY * _iWidth + iX);
+        }
         public void Disable(int iIndex) {
             _baMap[iIndex / 8] &= (byte)((128 >> (iIndex % 8)) ^ 255);
         }
+        public void Disable(int iX, int iY) {
+            Disable(iY * _iWidth + iX);
+        }
         public void Flip(int iIndex) {
             _baMap[iIndex / 8] ^= (byte)(128 >> (iIndex % 8));
+        }
+        public void Flip(int iX, int iY) {
+            Flip(iY * _iWidth + iX);
         }
         public override string ToString() {
             StringBuilder sbOut = new StringBuilder("0x");

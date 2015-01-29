@@ -181,7 +181,7 @@ namespace ProjectEuler.Primes {
             liDivs.Sort();
             return liDivs;
         }
-        public List<int> properDivisors(int iNum) {
+        public List<int> ProperDivisors(int iNum) {
             return properDivisors((long)iNum);
         }
         public List<int> properDivisors(long lNum) {

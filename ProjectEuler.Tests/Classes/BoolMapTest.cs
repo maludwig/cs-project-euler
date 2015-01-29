@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProjectEuler.Classes;
+using System.Collections.Generic;
 
 namespace ProjectEuler.Tests.Classes {
     [TestClass]
@@ -62,6 +63,34 @@ namespace ProjectEuler.Tests.Classes {
                 ba[i] = false;
                 for (int k = 0; k < 1000; k++) {
                     Assert.IsFalse(ba[i]);
+                }
+            }
+        }
+        [TestMethod]
+        public void TwoDArray() {
+            Stack<int> siX = new Stack<int>();
+            Stack<int> siY = new Stack<int>();
+            int iX, iY;
+            Random r = new Random();
+            BoolMap b = new BoolMap(100, 100);
+            for (int i = 0; i < 1000; i++) {
+                iX = r.Next(0, 100);
+                iY = r.Next(0, 100);
+                b[iX, iY] = true;
+                Assert.IsTrue(b[iX, iY]);
+                siX.Push(iX);
+                siY.Push(iY);
+            }
+            while (siX.Count > 0) {
+                iX = siX.Pop();
+                iY = siY.Pop();
+                //Assert.IsTrue(b[iX, iY]);
+                b[iX, iY] = false;
+                Assert.IsFalse(b[iX, iY]);
+            }
+            for (iX = 0; iX < 100; iX++) {
+                for (iY = 0; iY < 100; iY++) {
+                    Assert.IsFalse(b[iX, iY]);
                 }
             }
         }

@@ -411,9 +411,9 @@ namespace ProjectEuler.Controllers {
             int iDivSum = 0;
             int iAmicableSum = 0;
             for (int i = 2; i < 10000; i++) {
-                iDivSum = pg.properDivisors(i).Sum();
+                iDivSum = pg.ProperDivisors(i).Sum();
                 if (iDivSum != i) {
-                    if (pg.properDivisors(iDivSum).Sum() == i) {
+                    if (pg.ProperDivisors(iDivSum).Sum() == i) {
                         iAmicableSum += i;
                     }
                 }
@@ -1514,46 +1514,77 @@ namespace ProjectEuler.Controllers {
             }
             ViewBag.Answer = lSum;
         }
-        public void BaldySolveProblem73() {
-            //We know that the fraction will be less than 1/2, and greater than 1/3
+        public void Problem73() {
+            double dMin = 0.33333333333333333333;
+            double dMax = 0.5;
+            int iLimit = 12000;
+            BoolMap b = new BoolMap((iLimit / 2) + 1, iLimit + 1);
+
             double dNume, dDeno;
-            double dMax = 0.5; // 1 / 2
-            double dMin = 0.33333333333333333333; // 1 / 3
-            double dCurr;
             int iNume, iDeno;
+            double dCurr;
+            int i;
             int iCount = 0;
-            for (dDeno = 2; dDeno <= 12000; dDeno++) {
+            for (dDeno = 2; dDeno <= iLimit; dDeno++) {
                 iDeno = (int)(dDeno);
                 dNume = (int)(dDeno * dMin) + 1;
                 iNume = (int)(dNume);
                 dCurr = dNume / dDeno;
                 while (dCurr < dMax) {
-                    if (Atkin.areCoprime(iNume,iDeno)) {
+                    if (!b[iNume, iDeno]) {
+                        for (i = 1; i * dDeno <= iLimit; i++) {
+                            b[iNume * i, iDeno * i] = true;
+                        }
                         iCount++;
                     }
                     dNume++;
-                    iNume++;
+                    iNume = (int)(dNume);
                     dCurr = dNume / dDeno;
                 }
             }
             ViewBag.Answer = iCount;
         }
-        public void Problem73() {
-            BoolMap b = new BoolMap(12001);
-            List<int> liDivs;
+        private int P74Step(int iNum) {
             int iSum = 0;
-            int iMinNume, iMaxNume;
-            for (int iDeno = 12000; iDeno > 6000; iDeno--) {
-                if (b[iDeno]) continue;
-                liDivs = Atkin.properDivisors(iDeno);
-                foreach (int iDiv in liDivs) {
-                    b[iDiv] = true;
-                }
-                iMinNume = (iDeno / 3) + 1;
-                iMaxNume = (iDeno / 2);
-                iSum += iMaxNume - iMinNume;
+            int iDigit;
+            while (iNum > 0) {
+                iDigit = iNum % 10;
+                iSum += iDigit.Factorial();
+                iNum /= 10;
             }
-            ViewBag.Answer = iSum;
+            return iSum;
+        }
+        private int FindChainLen(int iNum, int[] iaChainLens) {
+            List<int> li = new List<int>();
+            FindChainLen(iNum, iaChainLens, li);
+            return iaChainLens[iNum];
+        }
+        private void FindChainLen(int iNum, int[] iaChainLens, List<int> li) {
+            if (iaChainLens[iNum] != 0) return;
+            int iLen;
+            int iNext;
+            int iPos = li.IndexOf(iNum);
+            if (iPos >= 0) {
+                iLen = li.Count - iPos;
+                for(int i = iPos; i < li.Count; i++){
+                    iaChainLens[li[i]] = iLen;
+                }
+            } else {
+                iNext = P74Step(iNum);
+                li.Add(iNum);
+                FindChainLen(iNext,iaChainLens,li);
+                if (iaChainLens[iNum] == 0) iaChainLens[iNum] = iaChainLens[iNext] + 1;
+            }
+        }
+        public void Problem74() {
+            int iCount = 0;
+            int[] iaChainLens = new int[10000000];
+            for (int i = 1; i < 1000000; i++) {
+                if (FindChainLen(i, iaChainLens) == 60) {
+                    iCount++;
+                }
+            }
+            ViewBag.Answer = iCount;
         }
         public void ProblemN() {
             ViewBag.Answer = 0;

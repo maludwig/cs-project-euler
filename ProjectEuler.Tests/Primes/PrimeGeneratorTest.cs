@@ -73,10 +73,10 @@ namespace ProjectEuler.Tests.Classes {
             liDivs = new List<int>(new int[] { 1, 3, 9, 27, 81 });
             Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(81)));
             liDivs = new List<int>(new int[] { 1, 3, 9, 27 });
-            Assert.IsTrue(liDivs.EachItemEqual(Atkin.properDivisors(81)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.ProperDivisors(81)));
             liDivs = new List<int>(new int[] { 1 });
             Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(1)));
-            Assert.IsTrue(liDivs.EachItemEqual(Atkin.properDivisors(6781)));
+            Assert.IsTrue(liDivs.EachItemEqual(Atkin.ProperDivisors(6781)));
             liDivs = new List<int>(new int[] { 1, 6781 });
             Assert.IsTrue(liDivs.EachItemEqual(Atkin.divisors(6781)));
         }

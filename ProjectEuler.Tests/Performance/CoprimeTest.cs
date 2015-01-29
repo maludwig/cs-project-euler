@@ -8,6 +8,9 @@ namespace ProjectEuler.Tests.Performance {
     [TestClass]
     public class CoprimeTest {
         PrimeSieve p = new SieveOfAtkin();
+        //ENABLE EXPENSIVE TESTS
+        bool bExpensive = false;
+
         [TestMethod]
         public void CoprimeCorrectness() {
             for (int i = 2; i < 1000; i++) {
@@ -18,6 +21,7 @@ namespace ProjectEuler.Tests.Performance {
         }
         [TestMethod]
         public void CoprimePerf() {
+            if (!bExpensive) return;
             Ticker t = new Ticker();
             int iCount = 0;
             while (!t.SecondsElapsed(5)) {
