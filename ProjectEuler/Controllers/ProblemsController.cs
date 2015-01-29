@@ -1507,6 +1507,36 @@ namespace ProjectEuler.Controllers {
                 }
             }
         }
+        public void Problem72() {
+            long lSum = 0;
+            for (int i = 2; i < 1000000; i++) {
+                lSum += Tot.Best(i);
+            }
+            ViewBag.Answer = lSum;
+        }
+        public void Problem73() {
+            //We know that the fraction will be less than 3/7, and greater than 2/5
+            double dNume, dDeno;
+            double dMax = 0.5; // 1 / 2
+            double dMin = 0.33333333333333333333; // 1 / 3
+            double dCurr;
+            int iNume, iDeno;
+            int iCount = 0;
+            for (dDeno = 2; dDeno <= 12000; dDeno++) {
+                iDeno = (int)(dDeno);
+                dNume = (int)(dDeno * dMin) + 1;
+                iNume = (int)(dNume);
+                dCurr = dNume / dDeno;
+                while (dCurr < dMax) {
+                    if (iNume.GCD(iDeno) == 1) {
+                        iCount++;
+                    }
+                    dNume++;
+                    dCurr = dNume / dDeno;
+                }
+            }
+            ViewBag.Answer = iCount;
+        }
         public void ProblemN() {
             ViewBag.Answer = 0;
         }
